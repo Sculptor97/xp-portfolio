@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.next
+.nuxt
+coverage
+.nyc_output
+*.log
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
