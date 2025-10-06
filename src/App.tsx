@@ -1,8 +1,14 @@
+import GridOverlay from './components/GridOverlay';
 
+import { RouterProvider } from 'react-router-dom';
+import router from '../router';
 function App() {
   return (
-    <div className='text-3xl font-bold underline'>App</div>
-  )
+    <>
+      <RouterProvider router={router} />
+      <GridOverlay />
+    </>
+  );
 }
 
-export default App
+export default App;
