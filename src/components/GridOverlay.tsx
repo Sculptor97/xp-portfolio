@@ -1,33 +1,25 @@
 // src/components/GridOverlay.tsx
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function GridOverlay() {
+  const [pathname, setPathname] = useState(window.location.pathname);
+
   useEffect(() => {
-    const overlay = document.getElementById('xp-grid-overlay');
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      if (overlay) {
-        overlay.style.backgroundPosition = `${x}px ${y}px`;
-      }
+    const handlePopState = () => {
+      setPathname(window.location.pathname);
     };
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY * 0.2;
-      if (overlay) {
-        overlay.style.backgroundPositionY = `${scrollY}px`;
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, []);
+
+  // Return null if on root route
+  if (pathname === '/') {
+    return null;
+  }
 
   return <div id="xp-grid-overlay"></div>;
 }
