@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLogoText } from '@/services';
-import 'xp.css/dist/98.css';
 
 const Welcome: React.FC = () => {
   const navigate = useNavigate();

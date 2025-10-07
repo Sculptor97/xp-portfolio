@@ -4,7 +4,6 @@ import { useIntroData, useLogoText } from '@/services';
 import logo from '@/assets/logo.svg';
 import restartIcon from '@/assets/restart.svg';
 import profileGif from '@/assets/profile.gif';
-import 'xp.css/dist/98.css';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();

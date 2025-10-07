@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { usePortfolio } from '@/services';
 import logo from '@/assets/logo.svg';
 import bootWordmark from '@/assets/boot-wordmark.webp';
-import 'xp.css/dist/98.css';
 
 const Boot: React.FC = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);

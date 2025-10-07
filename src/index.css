@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'xp.css/dist/XP.css';
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant hover (&:is(.hover *));
@@ -160,4 +161,21 @@
   #xp-grid-overlay {
     animation: glowPulse 8s ease-in-out infinite;
   }
+
+  .xp-window .title-bar {
+    min-height: 30px;
+  }
+
+  .xp-window.is-active {
+    z-index: 5 !important;
+  }
+  .xp-window.is-minimized {
+    display: none !important;
+  }
+
+  .xp-window {
+    position: fixed;
+    top: 50px;
+    left: 50px;
+}
 }
