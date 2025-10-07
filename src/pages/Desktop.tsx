@@ -1,11 +1,15 @@
 import Desktop from '@/components/desktop/Desktop';
 import XPTaskBar from '../components/taskbar/XPTaskbar';
+import SystemTrayButtons from '../components/SystemTrayButtons';
 
 function DesktopPage() {
   return (
     <div className="h-screen w-screen relative overflow-hidden">
-      {/* Desktop with shortcuts */}
-      <Desktop />
+      {/* Desktop viewport - this is where windows will be rendered */}
+      <div className="desktop-viewport fixed top-0 left-0 right-0 bottom-[40px] md:bottom-[35px] z-[1]">
+        {/* Desktop with shortcuts */}
+        <Desktop />
+      </div>
 
       {/* Taskbar at the bottom */}
       <XPTaskBar className="fixed bottom-0 left-0 right-0 z-50">
@@ -27,7 +31,7 @@ function DesktopPage() {
         </XPTaskBar.StartMenu>
 
         <XPTaskBar.SystemTray>
-          <div>System Tray Items</div>
+          <SystemTrayButtons />
         </XPTaskBar.SystemTray>
       </XPTaskBar>
     </div>

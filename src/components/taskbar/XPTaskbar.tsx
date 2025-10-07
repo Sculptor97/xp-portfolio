@@ -5,6 +5,7 @@ import cn from 'classnames';
 import type { ModalWindow } from '../../react95/components/Modal/types/modal';
 import { ModalEvents } from '../../react95/components/Modal/types/modal';
 import './XPTaskbar.css';
+import XPIcon from '../XPIcon';
 
 // --- Internal, Presentational Components ---
 
@@ -18,11 +19,11 @@ const StartButton = ({
 }) => (
   <button
     className={cn('start-button', { 'is-active': active })}
+    style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
     onClick={onClick}
   >
-    {/* You can replace this with an icon component */}
-    <span style={{ marginRight: '4px' }}>🏁</span>
-    Start
+    <XPIcon src="/src/assets/favicon.svg" alt="Start" className="w-5 h-5" />
+    <span className="text-base">Start</span>
   </button>
 );
 
@@ -31,15 +32,20 @@ const WindowTab = ({
   icon,
   title,
   active,
+  minimized,
   onClick,
 }: {
   icon: React.ReactNode;
   title: string;
   active: boolean;
+  minimized?: boolean;
   onClick: () => void;
 }) => (
   <button
-    className={cn('window-tab', { 'is-active': active })}
+    className={cn('window-tab', {
+      'is-active': active,
+      'is-minimized': minimized && !active,
+    })}
     onClick={onClick}
   >
     {icon && <span className="icon">{icon}</span>}
@@ -74,8 +80,18 @@ const XPStartMenu = ({
   onClose: () => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  // Close the menu if the user clicks outside of it
-  useOnClickOutside(ref as React.RefObject<HTMLElement>, onClose);
+
+  // Close the menu if the user clicks outside of it, but exclude the start button
+  useOnClickOutside(ref as React.RefObject<HTMLElement>, event => {
+    // Check if the click is on the start button or its children
+    const target = event.target as HTMLElement;
+    const isStartButton = target.closest('.start-button');
+
+    // Only close if the click is not on the start button
+    if (!isStartButton) {
+      onClose();
+    }
+  });
 
   return (
     <div ref={ref} className="start-menu-container">
@@ -88,7 +104,7 @@ const XPStartMenu = ({
 const XPSystemTray = ({ children }: { children: React.ReactNode }) => (
   <div className="system-tray">
     {/* Render custom children first */}
-    <div className="system-tray-custom-children">{children}</div>
+    <div className="system-tray-custom-children mr-2">{children}</div>
     {/* Default clock is always displayed */}
     <Clock />
   </div>
@@ -181,7 +197,7 @@ const XPTaskBar = forwardRef<HTMLDivElement, XPTaskBarProps>(
         <div className="taskbar-section start-section">
           <StartButton
             active={isStartMenuOpen}
-            onClick={() => setStartMenuOpen(o => !o)}
+            onClick={() => setStartMenuOpen(prev => !prev)}
           />
           {isStartMenuOpen &&
             startMenu &&
@@ -201,6 +217,9 @@ const XPTaskBar = forwardRef<HTMLDivElement, XPTaskBarProps>(
                   icon={icon}
                   title={title}
                   active={id === activeWindowId}
+                  minimized={
+                    id !== activeWindowId && modalWindows.some(w => w.id === id)
+                  }
                   onClick={() => {
                     if (id === activeWindowId) {
                       minimize(id);

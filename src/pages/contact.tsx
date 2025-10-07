@@ -1,6 +1,6 @@
 import XPWindow from '@/components/window/XPWindow';
 const ContactContent = () => (
-  <XPWindow.Body className="p-4" props={{}}>
+  <XPWindow.Body className="p-4">
     <h2 className="text-xl font-bold mb-4">Contact Me</h2>
     <div className="space-y-3">
       <div>

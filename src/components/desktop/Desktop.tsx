@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { apps, type App } from '../../apps';
 import Shortcut from '@/components/desktop/Shortcut';
 import XPWindow from '@/components/window/XPWindow';
+import XPIcon from '../XPIcon';
 
 const Desktop: React.FC = () => {
   const [openWindows, setOpenWindows] = useState<App[]>([]);
@@ -13,27 +14,12 @@ const Desktop: React.FC = () => {
     }
   };
 
- 
   return (
     <>
       <div
-        className="desktop"
+        className="desktop absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-700 bg-cover bg-center flex flex-col gap-4 p-6 overflow-hidden"
         style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: '28px', // Leave space for taskbar
-          background: 'linear-gradient(135deg, #0078d4 0%, #106ebe 100%)',
           backgroundImage: 'url(/src/assets/bliss_wallpaper.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
-          gridAutoRows: 'minmax(80px, auto)',
-          gap: '10px',
-          padding: '20px',
-          overflow: 'hidden',
         }}
       >
         {apps.map(app => (
@@ -54,7 +40,7 @@ const Desktop: React.FC = () => {
             key={app.id}
             title={app.title}
             width={app.width || 500}
-            icon={<span>{app.icon}</span>}
+            icon={<XPIcon src={app.icon} alt={app.title} />}
             id={app.id}
           >
             <AppComponent />

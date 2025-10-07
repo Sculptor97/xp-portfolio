@@ -14,11 +14,7 @@ const XPWindowBody = ({
 }: {
   className: string;
   children: React.ReactNode;
-}) => (
-  <div className={cn('window-body', className)}>
-    {children}
-  </div>
-);
+}) => <div className={cn('window-body', className)}>{children}</div>;
 
 // XPWindow.StatusBar: A simple wrapper for the status bar.
 const XPWindowStatusBar = ({
@@ -27,11 +23,7 @@ const XPWindowStatusBar = ({
 }: {
   className: string;
   children: React.ReactNode;
-}) => (
-  <div className={cn('status-bar', className)}>
-    {children}
-  </div>
-);
+}) => <div className={cn('status-bar', className)}>{children}</div>;
 
 // --- Main XPWindow Component ---
 
@@ -111,8 +103,6 @@ const XPWindow = ({
     };
   }, [id, subscribe]);
 
-
-
   // --- INTERNAL EVENT HANDLERS ---
   const handleClose = () => {
     remove(id);
@@ -127,7 +117,7 @@ const XPWindow = ({
 
   // --- DYNAMIC STYLING ---
   const windowStyles = isMaximized
-    ? { width: '90%', height: '100%', top: 0, left: 0 }
+    ? { width: '100%', height: '100%', top: 0, left: 0 }
     : { width: `${width}px` };
 
   if (isMinimized) {
@@ -137,7 +127,10 @@ const XPWindow = ({
   return (
     <div
       ref={draggableRef}
-      className={cn('window xp-window', { 'is-active': isActive, 'is-minimized': isMinimized })} // Add is-active for potential styling
+      className={cn('window xp-window', {
+        'is-active': isActive,
+        'is-minimized': isMinimized,
+      })} // Add is-active for potential styling
       style={windowStyles}
       onMouseDown={() => focus(id)}
       role="dialog"
