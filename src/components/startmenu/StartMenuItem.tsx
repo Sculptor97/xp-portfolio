@@ -47,7 +47,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
           submenu.style.left = '0px';
           submenu.style.right = 'auto';
         } else {
-          // On desktop, position relative to the right column (50% of StartMenu width)
+          // On desktop, position relative to the right column (100% of StartMenu width)
           submenu.style.left = '100%';
           submenu.style.right = 'auto';
         }
@@ -128,7 +128,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
             <XPIcon
               src={icon}
               alt={iconAlt || title}
-              className={isInSubmenu ? 'w-3 h-3' : 'w-4 h-4'}
+              className={isInSubmenu ? 'w-5 h-5' : 'w-8 h-8'}
             />
           </div>
         )}

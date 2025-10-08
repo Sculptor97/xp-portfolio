@@ -4,6 +4,8 @@ import UserProfile from './UserProfile';
 import StartMenuList from './StartMenuList';
 import StartMenuItem from './StartMenuItem';
 import StartMenuFooter from './StartMenuFooter';
+import ConfirmationDialog from '../ConfirmationDialog';
+import { useConfirmationDialog } from '../../hooks/useConfirmationDialog';
 import './StartMenu.css';
 
 export interface StartMenuProps {
@@ -27,6 +29,9 @@ const StartMenu: React.FC<StartMenuProps> = ({
   onShutDown,
   onNavigate,
 }) => {
+  const { dialogState, showLinkConfirmation, hideDialog } =
+    useConfirmationDialog();
+
   const handleNavigation = (path: string) => {
     if (onNavigate) {
       onNavigate(path);
@@ -34,6 +39,12 @@ const StartMenu: React.FC<StartMenuProps> = ({
     if (onClose) {
       onClose();
     }
+  };
+
+  const handleSocialLink = (url: string, platform: string) => {
+    showLinkConfirmation(url, platform, () => {
+      window.open(url, '_blank');
+    });
   };
 
   const handleLogOff = () => {
@@ -107,19 +118,19 @@ const StartMenu: React.FC<StartMenuProps> = ({
       icon: '/assets/instagram.webp',
       iconAlt: 'Instagram',
       title: 'Instagram',
-      onClick: () => window.open('https://instagram.com', '_blank'),
+      onClick: () => handleSocialLink('https://instagram.com', 'Instagram'),
     },
     {
       icon: '/assets/github.webp',
       iconAlt: 'Github',
       title: 'Github',
-      onClick: () => window.open('https://github.com', '_blank'),
+      onClick: () => handleSocialLink('https://github.com', 'Github'),
     },
     {
       icon: '/assets/linkedin.webp',
       iconAlt: 'LinkedIn',
       title: 'LinkedIn',
-      onClick: () => window.open('https://linkedin.com', '_blank'),
+      onClick: () => handleSocialLink('https://linkedin.com', 'LinkedIn'),
     },
     {
       icon: '/assets/cmd.webp',
@@ -288,6 +299,20 @@ const StartMenu: React.FC<StartMenuProps> = ({
       <div className="start-menu__footer">
         <StartMenuFooter onLogOff={handleLogOff} onShutDown={handleShutDown} />
       </div>
+
+      {/* Confirmation Dialog */}
+      <ConfirmationDialog
+        isOpen={dialogState.isOpen}
+        onClose={hideDialog}
+        onConfirm={dialogState.onConfirm || (() => {})}
+        onCancel={dialogState.onCancel}
+        title={dialogState.title}
+        message={dialogState.message}
+        confirmText={dialogState.confirmText}
+        cancelText={dialogState.cancelText}
+        icon={dialogState.icon}
+        iconAlt={dialogState.iconAlt}
+      />
     </div>
   );
 };

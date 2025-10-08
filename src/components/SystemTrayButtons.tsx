@@ -57,7 +57,7 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
           <XPIcon
             src="/assets/Information.png"
             alt="Information"
-            className="h-2 w-2"
+            className="h-5 w-5"
           />
         </div>
       </CustomTooltip>
@@ -71,9 +71,9 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
           className={`system-tray-button ${isGridVisible ? 'active' : ''}`}
         >
           {isGridVisible ? (
-            <XPIcon src="/assets/s_ok.png" alt="Grid" className="h-2 w-2" />
+            <XPIcon src="/assets/s_ok.png" alt="Grid" className="h-5 w-5" />
           ) : (
-            <XPIcon src="/assets/s_err.png" alt="Grid" className="h-2 w-2" />
+            <XPIcon src="/assets/s_err.png" alt="Grid" className="h-5 w-5" />
           )}
           {/* <XPIcon src="/src/assets/grid.png" alt="Grid" className="h-2 w-2" /> */}
         </div>
@@ -90,7 +90,7 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
           <XPIcon
             src="/assets/sysInfo.png"
             alt="Fullscreen"
-            className="h-2 w-2"
+            className="h-5 w-5"
           />
         </div>
       </CustomTooltip>

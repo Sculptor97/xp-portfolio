@@ -17,9 +17,9 @@ const XPIcon: React.FC<XPIconProps> = ({
 }) => {
   return (
     <div
-      className={`w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-blue-600/40 hover:border-2 hover:border-dotted hover:border-white/50 transition-all duration-100 ${
+      className={`flex items-center justify-center cursor-pointer hover:bg-blue-600/40 hover:border-2 hover:border-dotted hover:border-white/50 transition-all duration-100 ${
         isDisabled ? 'opacity-50 cursor-not-allowed' : ''
-      } ${className}`}
+      } ${className || 'w-8 h-8'}`}
       onClick={!isDisabled ? onClick : undefined}
     >
       <img src={src} alt={alt} className="w-full h-full object-contain" />

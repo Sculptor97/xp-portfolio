@@ -47,7 +47,7 @@ function DesktopPage() {
           <StartMenu
             user={{
               name: 'Legha-gha',
-              avatar: '/src/assets/profile.gif',
+              avatar: '/assets/profile.gif',
               avatarAlt: 'Legha-gha',
             }}
             onNavigate={path => navigate(path)}
