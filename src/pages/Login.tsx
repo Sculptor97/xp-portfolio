@@ -31,7 +31,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 w-screen h-screen bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900 flex flex-col font-sans overflow-hidden min-h-screen">
+    <div className="fixed inset-0 w-screen h-full bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900 flex flex-col font-sans overflow-hidden min-h-screen">
       {/* Top dark blue bar */}
       <div className="h-12 sm:h-16 md:h-28 bg-brand-primary relative flex-shrink-0">
         {/* White gradient line at bottom of top bar */}
@@ -56,7 +56,7 @@ const Login: React.FC = () => {
                 <img
                   src={logo}
                   alt="Portfolio Logo"
-                  className="h-24 sm:h-32 md:h-48 lg:h-56 drop-shadow-lg"
+                  className="h-48 w-48 md:w-48 md:h-48 lg:h-56 drop-shadow-lg"
                 />
               </div>
               <p className="text-xs sm:text-sm hidden md:block text-white drop-shadow-sm m-0">
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
           {/* Right side - User profile */}
           <div className="flex-1 flex justify-center">
             <div
-              className="flex flex-col md:flex-row items-center cursor-pointer p-3 sm:p-4 md:p-6 rounded-lg transition-all duration-300"
+              className="flex flex-col md:flex-row items-center cursor-pointer mt-5 p-4 md:p-6 rounded-lg transition-all duration-300"
               style={{
                 background: 'transparent',
                 border: 'none',
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
               onClick={handleUserClick}
             >
               {/* User avatar with profile gif */}
-              <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-30 md:h-30 rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center border-2 border-white shadow-lg p-1 sm:p-2">
+              <div className="h-24 w-24 md:w-30 md:h-30 rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center border-2 border-white shadow-lg p-1 sm:p-2">
                 <img
                   src={profileGif}
                   alt="User Avatar"
@@ -107,7 +107,7 @@ const Login: React.FC = () => {
       </div>
 
       {/* Bottom section with orange gradient line and restart button */}
-      <div className="h-12 sm:h-16 md:h-28 bg-brand-primary flex items-center justify-between px-2 sm:px-3 md:px-5 relative flex-shrink-0">
+      <div className="h-16 md:h-28 bg-brand-primary flex items-center justify-between px-2 sm:px-3 md:px-5 relative flex-shrink-0">
         {/* Orange gradient line above the bar */}
         <div className="absolute top-0 left-0 w-2/3 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
         {/* Left side - Restart button */}

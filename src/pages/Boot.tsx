@@ -65,7 +65,7 @@ const Boot: React.FC = () => {
   // Show error state if API calls fail
   if (portfolioError) {
     return (
-      <div className="fixed inset-0 w-screen h-screen bg-black flex flex-col justify-center items-center text-white font-sans z-[9999] min-h-screen p-4">
+      <div className="fixed inset-0 w-screen h-full bg-black flex flex-col justify-center items-center text-white font-sans z-[9999] min-h-screen p-4">
         <div className="text-center max-w-md w-full">
           <h1 className="text-red-500 mb-3 sm:mb-4 md:mb-5 text-lg sm:text-xl md:text-2xl font-bold">
             Error Loading Portfolio
@@ -85,7 +85,7 @@ const Boot: React.FC = () => {
   }
 
   return (
-    <div className="fixed inset-0 w-screen h-screen bg-black flex flex-col justify-center items-center text-white font-sans z-[9999] min-h-screen">
+    <div className="fixed inset-0 w-screen h-full bg-black flex flex-col justify-center items-center text-white font-sans z-[9999] min-h-screen">
       {/* Main content */}
       <div className="text-center px-4 flex-1 flex flex-col justify-center items-center">
         {/* Custom logo with name and title included - Large and prominent */}
