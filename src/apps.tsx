@@ -26,7 +26,7 @@ export const apps: App[] = [
   {
     id: 'my-resume',
     title: 'My Resume',
-    icon: '/src/assets/pdf.svg',
+    icon: '/assets/pdf.svg',
     component: AboutMeContent, // You can create a separate resume component
     defaultPosition: { x: 200, y: 100 },
     width: 500,

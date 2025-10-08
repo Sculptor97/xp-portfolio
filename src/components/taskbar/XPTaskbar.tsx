@@ -22,7 +22,7 @@ const StartButton = ({
     style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
     onClick={onClick}
   >
-    <XPIcon src="/src/assets/favicon.svg" alt="Start" className="w-5 h-5" />
+    <XPIcon src="/assets/favicon.svg" alt="Start" className="w-5 h-5" />
     <span className="text-base">Start</span>
   </button>
 );

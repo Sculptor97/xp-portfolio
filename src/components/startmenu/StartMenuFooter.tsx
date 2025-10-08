@@ -19,11 +19,7 @@ const StartMenuFooter: React.FC<StartMenuFooterProps> = ({
         className="start-menu-footer__button start-menu-footer__button--logoff"
         onClick={onLogOff}
       >
-        <XPIcon
-          src="/assets/Logout.png"
-          alt="Log Off"
-          className="w-5 h-5"
-        />
+        <XPIcon src="/assets/Logout.png" alt="Log Off" className="w-5 h-5" />
         <span>Log Off</span>
       </div>
 
@@ -31,11 +27,7 @@ const StartMenuFooter: React.FC<StartMenuFooterProps> = ({
         className="start-menu-footer__button start-menu-footer__button--shutdown"
         onClick={onShutDown}
       >
-        <XPIcon
-          src="/assets/Power.png"
-          alt="Shut Down"
-          className="w-5 h-5"
-        />
+        <XPIcon src="/assets/Power.png" alt="Shut Down" className="w-5 h-5" />
         <span>Shut Down</span>
       </div>
     </div>

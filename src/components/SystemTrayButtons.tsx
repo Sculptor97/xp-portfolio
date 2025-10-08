@@ -73,11 +73,7 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
           {isGridVisible ? (
             <XPIcon src="/assets/s_ok.png" alt="Grid" className="h-2 w-2" />
           ) : (
-            <XPIcon
-              src="/assets/s_err.png"
-              alt="Grid"
-              className="h-2 w-2"
-            />
+            <XPIcon src="/assets/s_err.png" alt="Grid" className="h-2 w-2" />
           )}
           {/* <XPIcon src="/src/assets/grid.png" alt="Grid" className="h-2 w-2" /> */}
         </div>
