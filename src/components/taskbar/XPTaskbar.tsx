@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef, forwardRef } from 'react';
-import { useModal } from '../../react95/components/Modal/hooks/useModal';
 import { useOnClickOutside } from 'usehooks-ts';
 import cn from 'classnames';
-import type { ModalWindow } from '../../react95/components/Modal/types/modal';
-import { ModalEvents } from '../../react95/components/Modal/types/modal';
+import { type ModalWindow, ModalEvents, useModal } from '../core/events';
 import './XPTaskbar.css';
 import XPIcon from '../XPIcon';
 

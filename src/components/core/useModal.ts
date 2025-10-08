@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { ModalEvents, type ModalWindow } from '../types/modal';
-import { modals } from '../modalController';
+import { modals } from './modalController';
+import { ModalEvents, type ModalWindow } from './modal-types';
 
 /**
  * Hook for controlling and listening to modal events

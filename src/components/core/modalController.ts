@@ -1,5 +1,5 @@
-import { Emitter } from './shared/emitter';
-import { ModalEvents, type ModalWindow } from './types/modal';
+import { Emitter } from './emitter';
+import { ModalEvents, type ModalWindow } from './modal-types';
 
 export const modals = new Emitter<ModalEvents, ModalWindow>();
 

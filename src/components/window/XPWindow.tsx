@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useModal } from '../../react95/components/Modal/hooks/useModal';
-import { ModalEvents } from '../../react95/components/Modal/types/modal';
+import { useModal, ModalEvents } from '../core/events';
 import { useDraggable } from '@neodrag/react';
 import { nanoid } from 'nanoid';
 import cn from 'classnames';
