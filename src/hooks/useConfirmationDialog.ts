@@ -36,7 +36,7 @@ export const useConfirmationDialog = () => {
   }, []);
 
   const showLinkConfirmation = useCallback(
-    (url: string, platform: string, onConfirm: () => void) => {
+    (_url: string, platform: string, onConfirm: () => void) => {
       showDialog({
         title: 'Open Link',
         message: `Are you sure you want to open '${platform}'?`,
