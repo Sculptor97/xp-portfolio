@@ -6,25 +6,72 @@ import bootWordmark from '@/assets/boot-wordmark.webp';
 
 const Boot: React.FC = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const navigate = useNavigate();
 
-  // Fetch portfolio data
+  // ---- API loading ----
   const {
     data: portfolio,
     error: portfolioError,
     isLoading: portfolioLoading,
   } = usePortfolio();
 
+  // ---- Image preloading ----
   useEffect(() => {
-    // Start loading progress when data starts loading
+    const imagesToPreload = [
+      '/assets/logo.svg',
+      '/assets/boot-wordmark.webp',
+      '/assets/profile.gif',
+      '/assets/pdf.svg',
+      '/assets/IE.png',
+      '/assets/outlook_expresss.png',
+      '/assets/picture_viewer.png',
+      '/assets/WMP.png',
+      '/assets/Paint.png',
+      '/assets/mp3_player.png',
+      '/assets/Tour_XP.png',
+      '/assets/s_ok.png',
+      '/assets/s_err.png',
+      '/assets/sysInfo.png',
+      '/assets/Information.png',
+      '/assets/bliss_wallpaper.png',
+    ];
+
+    let loadedCount = 0;
+
+    imagesToPreload.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      img.onload = img.onerror = () => {
+        loadedCount++;
+        const percent = (loadedCount / imagesToPreload.length) * 100;
+
+        // Mix image progress into the global progress bar
+        setLoadingProgress(prev => {
+          const mixed = Math.min(
+            100,
+            prev + percent / 2 // half-weight to avoid sudden jumps
+          );
+          return mixed;
+        });
+
+        if (loadedCount === imagesToPreload.length) {
+          setImagesLoaded(true);
+        }
+      };
+    });
+  }, []);
+
+  // ---- Progress during API loading ----
+  useEffect(() => {
     if (portfolioLoading) {
       const interval = setInterval(() => {
         setLoadingProgress(prev => {
           if (prev >= 90) {
             clearInterval(interval);
-            return 90; // Stop at 90% until data is loaded
+            return 90;
           }
-          return prev + Math.random() * 10;
+          return prev + Math.random() * 8;
         });
       }, 200);
 
@@ -32,15 +79,15 @@ const Boot: React.FC = () => {
     }
   }, [portfolioLoading]);
 
+  // ---- Complete when both data & images are ready ----
   useEffect(() => {
-    // Complete loading when data is loaded
-    if (!portfolioLoading && portfolio) {
+    if (!portfolioLoading && portfolio && imagesLoaded) {
       setLoadingProgress(100);
-      // Navigate to login after boot is complete
       setTimeout(() => navigate('/login', { replace: true }), 1000);
     }
-  }, [portfolioLoading, portfolio, navigate]);
+  }, [portfolioLoading, portfolio, imagesLoaded, navigate]);
 
+  // ---- Full screen toggle (unchanged) ----
   const handleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
@@ -49,7 +96,6 @@ const Boot: React.FC = () => {
     }
   };
 
-  // Listen for F11 key press to toggle full screen
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'F11') {
@@ -57,12 +103,11 @@ const Boot: React.FC = () => {
         handleFullScreen();
       }
     };
-
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, []);
 
-  // Show error state if API calls fail
+  // ---- Error state (unchanged) ----
   if (portfolioError) {
     return (
       <div className="fixed inset-0 w-screen h-full bg-black flex flex-col justify-center items-center text-white font-sans z-[9999] min-h-screen p-4">
@@ -84,20 +129,17 @@ const Boot: React.FC = () => {
     );
   }
 
+  // ---- Boot screen (unchanged visuals) ----
   return (
-    <div className="fixed inset-0 w-screen h-full bg-black flex flex-col justify-center items-center text-white font-sans z-[9999] min-h-screen">
-      {/* Main content */}
-      <div className="text-center px-4 flex-1 flex flex-col justify-center items-center">
-        {/* Custom logo with name and title included - Large and prominent */}
-        <div className="mb-4 sm:mb-6 md:mb-8">
-          <img
-            src={logo}
-            alt="Portfolio Logo"
-            className="h-32 w-auto mx-auto drop-shadow-2xl sm:h-48 md:h-80"
-          />
-        </div>
+    <div className="fixed inset-0 flex flex-col justify-between items-center bg-black text-white font-sans z-[9999] min-h-screen overflow-y-auto">
+      {/* Top section */}
+      <div className="flex flex-col justify-center items-center flex-shrink-0 flex-grow text-center pt-16 md:pt-32 px-4">
+        <img
+          src={logo}
+          alt="Portfolio Logo"
+          className="h-32 md:h-48 w-auto mb-6 md:mb-8 object-contain"
+        />
 
-        {/* Progress bar with percentage inside */}
         <div className="w-48 h-4 sm:w-64 sm:h-5 md:w-80 md:h-6 border-2 border-white rounded-full mx-auto mb-4 bg-white/10 overflow-hidden relative">
           <div
             className="h-full bg-blue-600 transition-all duration-300 ease-in-out rounded-full"
@@ -111,15 +153,12 @@ const Boot: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom section - Ensure it's always visible */}
       <div className="w-full px-4 py-4 sm:py-6 md:py-8 flex justify-between items-end min-h-[80px] sm:min-h-[100px]">
-        {/* Left side - Full screen instruction - Hidden on mobile */}
         <div className="hidden md:block text-white text-lg">
           <p className="m-0 mb-2 font-semibold">For the best experience</p>
           <p className="m-0 text-base">Enter Full Screen (F11)</p>
         </div>
 
-        {/* Right side - Portfolio branding - Responsive size */}
         <div className="flex items-center justify-end w-full md:w-auto">
           <img
             src={bootWordmark}

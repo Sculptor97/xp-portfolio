@@ -71,7 +71,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleNavigation('/contact'),
     },
     {
-      icon: '/src/assets/profile.gif',
+      icon: '/assets/profile.gif',
       iconAlt: 'About Me',
       title: 'About Me',
       onClick: () => handleNavigation('/about'),
@@ -132,7 +132,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       disabled: true,
     },
     {
-      icon: '/src/assets/pdf.svg',
+      icon: '/assets/pdf.svg',
       iconAlt: 'My Resume',
       title: 'My Resume',
       onClick: () => handleNavigation('/resume'),
