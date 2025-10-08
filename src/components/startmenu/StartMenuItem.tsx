@@ -26,7 +26,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
   submenuItems = [],
   className,
   disabled = false,
-  isInSubmenu = false
+  isInSubmenu = false,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
@@ -38,7 +38,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
     if (showSubmenu && submenuRef.current && itemRef.current) {
       const itemRect = itemRef.current.getBoundingClientRect();
       const submenu = submenuRef.current;
-      
+
       // Special positioning for Recently Used - align with left edge of right column on desktop, left edge on mobile
       if (className?.includes('recently-used')) {
         // Check if we're on mobile (viewport width <= 768px)
@@ -57,7 +57,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
         // Default positioning for All Programs and other items
         submenu.style.left = `${itemRect.width}px`;
         submenu.style.right = 'auto';
-        
+
         if (className?.includes('all-programs')) {
           submenu.style.top = 'auto';
           submenu.style.bottom = '0px';
@@ -83,7 +83,10 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
       setIsHovered(false);
       // Delay hiding submenu to allow mouse to move to it
       setTimeout(() => {
-        if (!submenuRef.current?.matches(':hover') && !itemRef.current?.matches(':hover')) {
+        if (
+          !submenuRef.current?.matches(':hover') &&
+          !itemRef.current?.matches(':hover')
+        ) {
           setShowSubmenu(false);
         }
       }, 100);
@@ -112,7 +115,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
           {
             'start-menu-item--hovered': isHovered && !disabled,
             'start-menu-item--disabled': disabled,
-            'start-menu-item--has-submenu': hasSubmenu
+            'start-menu-item--has-submenu': hasSubmenu,
           },
           className
         )}
@@ -125,11 +128,11 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
             <XPIcon
               src={icon}
               alt={iconAlt || title}
-              className={isInSubmenu ? "w-3 h-3" : "w-4 h-4"}
+              className={isInSubmenu ? 'w-3 h-3' : 'w-4 h-4'}
             />
           </div>
         )}
-        
+
         <div className="start-menu-item__content">
           <div className="start-menu-item__title">{title}</div>
           {subtitle && (
@@ -140,7 +143,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
         {hasSubmenu && (
           <div className="start-menu-item__arrow">
             {className?.includes('all-programs') ? (
-              <Play size={16} className='text-green-600'/>
+              <Play size={16} className="text-green-600" />
             ) : className?.includes('recently-used') ? (
               <Play size={12} />
             ) : (

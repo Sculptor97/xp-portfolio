@@ -9,9 +9,9 @@ interface SystemTrayButtonsProps {
   onWelcomeShown?: () => void;
 }
 
-const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({ 
-  shouldShowWelcome = false, 
-  onWelcomeShown 
+const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
+  shouldShowWelcome = false,
+  onWelcomeShown,
 }) => {
   const [isGridVisible, setIsGridVisible] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);

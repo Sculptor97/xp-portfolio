@@ -11,7 +11,7 @@ export interface StartMenuFooterProps {
 const StartMenuFooter: React.FC<StartMenuFooterProps> = ({
   onLogOff,
   onShutDown,
-  className
+  className,
 }) => {
   return (
     <div className={cn('start-menu-footer', className)}>
@@ -26,7 +26,7 @@ const StartMenuFooter: React.FC<StartMenuFooterProps> = ({
         />
         <span>Log Off</span>
       </div>
-      
+
       <div
         className="start-menu-footer__button start-menu-footer__button--shutdown"
         onClick={onShutDown}

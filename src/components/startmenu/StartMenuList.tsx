@@ -10,7 +10,7 @@ export interface StartMenuListProps {
 const StartMenuList: React.FC<StartMenuListProps> = ({
   children,
   className,
-  orientation = 'vertical'
+  orientation = 'vertical',
 }) => {
   return (
     <div
@@ -18,7 +18,7 @@ const StartMenuList: React.FC<StartMenuListProps> = ({
         'start-menu-list',
         {
           'start-menu-list--vertical': orientation === 'vertical',
-          'start-menu-list--horizontal': orientation === 'horizontal'
+          'start-menu-list--horizontal': orientation === 'horizontal',
         },
         className
       )}

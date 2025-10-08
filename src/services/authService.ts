@@ -19,7 +19,7 @@ export const authService = {
       timestamp: Date.now(),
       isAuthenticated: true,
     };
-    
+
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
     return session;
   },
@@ -47,16 +47,16 @@ export const authService = {
     try {
       const sessionData = localStorage.getItem(SESSION_KEY);
       if (!sessionData) return null;
-      
+
       const session = JSON.parse(sessionData) as AuthSession;
-      
+
       // Check if session is still valid (24 hours)
       const isExpired = Date.now() - session.timestamp > 24 * 60 * 60 * 1000;
       if (isExpired) {
         localStorage.removeItem(SESSION_KEY);
         return null;
       }
-      
+
       return session;
     } catch (error) {
       console.error('Error getting session:', error);
@@ -82,5 +82,5 @@ export const authService = {
       session.timestamp = Date.now();
       localStorage.setItem(SESSION_KEY, JSON.stringify(session));
     }
-  }
+  },
 };

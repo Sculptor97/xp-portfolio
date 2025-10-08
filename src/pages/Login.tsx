@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     // Generate session ID and store in localStorage
     const session = login();
     console.log('Login successful, session ID:', session.sessionId);
-    
+
     // Simulate login process
     setTimeout(() => {
       navigate('/welcome', { replace: true });

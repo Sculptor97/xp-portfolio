@@ -15,7 +15,7 @@ function DesktopPage() {
   // Handle startup sequence
   useEffect(() => {
     const state = location.state as any;
-    
+
     // Only trigger on fresh navigation from Welcome page, not on refresh
     if (state?.startup && state?.welcomeComplete && !startupComplete) {
       // Add small delay before playing startup sound
@@ -25,10 +25,10 @@ function DesktopPage() {
           setStartupComplete(true);
         });
       }, 1000);
-      
+
       // Clear the navigation state to prevent refresh issues
       window.history.replaceState({}, document.title, window.location.pathname);
-      
+
       return () => clearTimeout(soundDelay);
     }
   }, [location.state, startupComplete]);
@@ -48,9 +48,9 @@ function DesktopPage() {
             user={{
               name: 'Legha-gha',
               avatar: '/src/assets/profile.gif',
-              avatarAlt: 'Legha-gha'
+              avatarAlt: 'Legha-gha',
             }}
-            onNavigate={(path) => navigate(path)}
+            onNavigate={path => navigate(path)}
             onLogOff={() => {
               // Handle log off logic
               console.log('Log off clicked');
@@ -63,7 +63,7 @@ function DesktopPage() {
         </XPTaskBar.StartMenu>
 
         <XPTaskBar.SystemTray>
-          <SystemTrayButtons 
+          <SystemTrayButtons
             shouldShowWelcome={shouldShowWelcome}
             onWelcomeShown={() => setShouldShowWelcome(false)}
           />
