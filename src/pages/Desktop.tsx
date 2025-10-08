@@ -36,7 +36,7 @@ function DesktopPage() {
   return (
     <div className="h-screen w-screen bg-black relative overflow-hidden">
       {/* Desktop viewport - this is where windows will be rendered */}
-      <div className="desktop-viewport fixed top-0 left-0 right-0 bottom-[30px] md:bottom-[35px] z-[1]">
+      <div className="desktop-viewport fixed top-0 left-0 right-0 bottom-[28px] md:bottom-[35px] z-[1]">
         {/* Desktop with shortcuts */}
         <Desktop />
       </div>
