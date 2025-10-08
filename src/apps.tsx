@@ -18,7 +18,7 @@ export const apps: App[] = [
   {
     id: 'about-me',
     title: 'About Me',
-    icon: '/src/assets/Tour_XP.png',
+    icon: '/assets/Tour_XP.png',
     component: AboutMeContent,
     defaultPosition: { x: 100, y: 100 },
     width: 500,
@@ -34,7 +34,7 @@ export const apps: App[] = [
   {
     id: 'my-projects',
     title: 'My Projects',
-    icon: '/src/assets/IE.png',
+    icon: '/assets/IE.png',
     component: MyProjectsContent,
     defaultPosition: { x: 300, y: 100 },
     width: 600,
@@ -42,7 +42,7 @@ export const apps: App[] = [
   {
     id: 'contact',
     title: 'Contact Me',
-    icon: '/src/assets/outlook_expresss.png',
+    icon: '/assets/outlook_expresss.png',
     component: ContactContent,
     defaultPosition: { x: 400, y: 100 },
     width: 400,

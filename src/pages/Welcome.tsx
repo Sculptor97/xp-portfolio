@@ -25,12 +25,12 @@ const Welcome: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="fixed inset-0 w-screen h-screen bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900 flex flex-col font-sans overflow-hidden">
+    <div className="fixed inset-0 w-screen h-screen bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900 flex flex-col font-sans overflow-hidden min-h-screen">
       {/* Top dark blue bar */}
-      <div className="h-28 bg-brand-primary border-b" />
+      <div className="h-12 sm:h-16 md:h-28 bg-brand-primary border-b flex-shrink-0" />
 
       {/* Main content area */}
-      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-400 relative">
+      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-400 relative min-h-0">
         {/* Grid pattern overlay */}
         <div
           className="absolute inset-0 opacity-30"
@@ -44,12 +44,12 @@ const Welcome: React.FC = () => {
         />
 
         {/* Welcome text */}
-        <div className="text-center z-10 animate-fade-in">
-          <h1 className="text-7xl font-bold m-0 text-white drop-shadow-2xl italic tracking-wider">
+        <div className="text-center z-10 animate-fade-in px-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold m-0 text-white drop-shadow-2xl italic tracking-wider">
             welcome
           </h1>
           {logoText && (
-            <p className="text-2xl text-white drop-shadow-lg mt-5 m-0 italic">
+            <p className="text-lg sm:text-xl md:text-2xl text-white drop-shadow-lg mt-3 sm:mt-4 md:mt-5 m-0 italic">
               {logoText}
             </p>
           )}
@@ -57,7 +57,7 @@ const Welcome: React.FC = () => {
       </div>
 
       {/* Bottom dark blue bar */}
-      <div className="h-28 bg-brand-primary border-t border-brand-accent" />
+      <div className="h-12 sm:h-16 md:h-28 bg-brand-primary border-t border-brand-accent flex-shrink-0" />
 
       {/* CSS Animation */}
       <style>{`

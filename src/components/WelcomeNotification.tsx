@@ -47,12 +47,12 @@ const WelcomeNotification: React.FC<WelcomeNotificationProps> = ({
           <div className="bg-blue-500 text-white px-3 py-2 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center gap-2">
               <XPIcon
-                src="/src/assets/information.png"
+                src="/assets/Information.png"
                 alt="Information"
                 className="h-2 w-2"
               />
               <span className="font-semibold text-sm">
-                Welcome to MitchIvin XP
+                Welcome to Legha-gha XP
               </span>
             </div>
             <div

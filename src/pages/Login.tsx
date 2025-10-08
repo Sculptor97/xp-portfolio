@@ -31,15 +31,15 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 w-screen h-screen bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900 flex flex-col font-sans overflow-hidden">
+    <div className="fixed inset-0 w-screen h-screen bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900 flex flex-col font-sans overflow-hidden min-h-screen">
       {/* Top dark blue bar */}
-      <div className="h-16 md:h-28 bg-brand-primary relative">
+      <div className="h-12 sm:h-16 md:h-28 bg-brand-primary relative flex-shrink-0">
         {/* White gradient line at bottom of top bar */}
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/80 to-transparent" />
       </div>
 
       {/* Main content area */}
-      <div className="flex-1 flex items-center justify-center p-4 md:p-10 bg-[#5A86F7] relative">
+      <div className="flex-1 flex items-center justify-center p-3 sm:p-4 md:p-10 bg-[#5A86F7] relative min-h-0">
         <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl z-10 relative">
           {/* Horizontal divider on mobile, vertical on desktop */}
           <div
@@ -49,17 +49,17 @@ const Login: React.FC = () => {
           <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-white/80 to-transparent transform -translate-x-1/2" />
 
           {/* Left side - Windows XP Logo and instructions */}
-          <div className="flex-1 text-center">
+          <div className="flex-1 text-center mb-4 md:mb-0">
             {/* Custom logo with name and title included */}
-            <div className="mb-4 md:mb-8">
-              <div className="flex justify-center items-center mb-3 md:mb-5">
+            <div className="mb-3 sm:mb-4 md:mb-8">
+              <div className="flex justify-center items-center mb-2 sm:mb-3 md:mb-5">
                 <img
                   src={logo}
                   alt="Portfolio Logo"
-                  className="h-32 md:h-48 lg:h-56 drop-shadow-lg"
+                  className="h-24 sm:h-32 md:h-48 lg:h-56 drop-shadow-lg"
                 />
               </div>
-              <p className="text-sm hidden md:block text-white drop-shadow-sm m-0">
+              <p className="text-xs sm:text-sm hidden md:block text-white drop-shadow-sm m-0">
                 To begin, click on {logoText || 'Legha-gha'} to log in
               </p>
             </div>
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
           {/* Right side - User profile */}
           <div className="flex-1 flex justify-center">
             <div
-              className="flex flex-col  md:flex-row items-center cursor-pointer p-4 md:p-6 rounded-lg transition-all duration-300"
+              className="flex flex-col md:flex-row items-center cursor-pointer p-3 sm:p-4 md:p-6 rounded-lg transition-all duration-300"
               style={{
                 background: 'transparent',
                 border: 'none',
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
               onClick={handleUserClick}
             >
               {/* User avatar with profile gif */}
-              <div className="w-16 h-16 md:w-30 md:h-30 rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center border-2 border-white shadow-lg p-2">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-30 md:h-30 rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center border-2 border-white shadow-lg p-1 sm:p-2">
                 <img
                   src={profileGif}
                   alt="User Avatar"
@@ -94,10 +94,10 @@ const Login: React.FC = () => {
 
               {/* User info from API data */}
               <div className="text-center md:text-left">
-                <h2 className="text-xs md:text-2xl text-white m-0 mb-1 md:mb-2 drop-shadow-lg capitalize">
+                <h2 className="text-sm sm:text-base md:text-2xl text-white m-0 mb-1 md:mb-2 drop-shadow-lg capitalize">
                   {logoText || 'Loading...'}
                 </h2>
-                <p className="text-sm md:text-base text-white m-0 drop-shadow-sm capitalize">
+                <p className="text-xs sm:text-sm md:text-base text-white m-0 drop-shadow-sm capitalize">
                   {introData?.title || 'Loading...'}
                 </p>
               </div>
@@ -107,7 +107,7 @@ const Login: React.FC = () => {
       </div>
 
       {/* Bottom section with orange gradient line and restart button */}
-      <div className="h-16 md:h-28 bg-brand-primary flex items-center justify-between px-3 md:px-5 relative">
+      <div className="h-12 sm:h-16 md:h-28 bg-brand-primary flex items-center justify-between px-2 sm:px-3 md:px-5 relative flex-shrink-0">
         {/* Orange gradient line above the bar */}
         <div className="absolute top-0 left-0 w-2/3 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
         {/* Left side - Restart button */}
@@ -127,14 +127,14 @@ const Login: React.FC = () => {
         </div>
 
         {/* Right side - Messages */}
-        <div className="text-white text-base text-right w-full">
+        <div className="text-white text-sm sm:text-base text-right w-full">
           <p className="m-0 mb-1 hidden md:block">
             After you log on, the system's yours to explore.
           </p>
           <p className="m-0 hidden md:block">
             Every detail has been designed with a purpose.
           </p>
-          <p className="m-0 md:hidden text-center text-base">
+          <p className="m-0 md:hidden text-center text-xs sm:text-sm">
             Tap the user icon to begin
           </p>
         </div>

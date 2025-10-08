@@ -2,7 +2,7 @@
 
 export const playStartupSound = () => {
   try {
-    const audio = new Audio('/src/assets/audio/windows-xp-startup.mp3');
+    const audio = new Audio('/assets/audio/windows-xp-startup.mp3');
     audio.volume = 0.7;
     audio.play().catch(console.error);
   } catch (error) {
@@ -12,7 +12,7 @@ export const playStartupSound = () => {
 
 export const playStartupSoundWithCallback = (callback: () => void) => {
   try {
-    const audio = new Audio('/src/assets/audio/windows-xp-startup.mp3');
+    const audio = new Audio('/assets/audio/windows-xp-startup.mp3');
     audio.volume = 0.7;
 
     // Set up event listeners
@@ -37,7 +37,7 @@ export const playStartupSoundWithCallback = (callback: () => void) => {
 
 export const playBalloonSound = () => {
   try {
-    const audio = new Audio('/src/assets/audio/windows-xp-balloon.wav');
+    const audio = new Audio('/assets/audio/windows-xp-balloon.wav');
     audio.volume = 0.5;
     audio.play().catch(console.error);
   } catch (error) {
@@ -47,7 +47,7 @@ export const playBalloonSound = () => {
 
 export const playLogoffSound = () => {
   try {
-    const audio = new Audio('/src/assets/audio/windows-xp-logoff.wav');
+    const audio = new Audio('/assets/audio/windows-xp-logoff.wav');
     audio.volume = 0.6;
     audio.play().catch(console.error);
   } catch (error) {

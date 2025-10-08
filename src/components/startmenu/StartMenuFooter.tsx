@@ -20,7 +20,7 @@ const StartMenuFooter: React.FC<StartMenuFooterProps> = ({
         onClick={onLogOff}
       >
         <XPIcon
-          src="/src/assets/Logout.png"
+          src="/assets/Logout.png"
           alt="Log Off"
           className="w-5 h-5"
         />
@@ -32,7 +32,7 @@ const StartMenuFooter: React.FC<StartMenuFooterProps> = ({
         onClick={onShutDown}
       >
         <XPIcon
-          src="/src/assets/Power.png"
+          src="/assets/Power.png"
           alt="Shut Down"
           className="w-5 h-5"
         />
