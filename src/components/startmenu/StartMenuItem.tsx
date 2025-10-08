@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import XPIcon from '../XPIcon';
 import { Play } from 'lucide-react';
+import { Spinner } from '../ui/spinner';
 
 export interface StartMenuItemProps {
   icon?: string;
@@ -14,6 +15,7 @@ export interface StartMenuItemProps {
   className?: string;
   disabled?: boolean;
   isInSubmenu?: boolean;
+  isLoading?: boolean;
 }
 
 const StartMenuItem: React.FC<StartMenuItemProps> = ({
@@ -27,6 +29,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
   className,
   disabled = false,
   isInSubmenu = false,
+  isLoading = false,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
@@ -123,15 +126,17 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
       >
-        {icon && (
-          <div className="start-menu-item__icon">
+        <div className="start-menu-item__icon">
+          {isLoading ? (
+            <Spinner className={isInSubmenu ? 'w-5 h-5' : 'w-8 h-8'} />
+          ) : icon ? (
             <XPIcon
               src={icon}
               alt={iconAlt || title}
               className={isInSubmenu ? 'w-5 h-5' : 'w-8 h-8'}
             />
-          </div>
-        )}
+          ) : null}
+        </div>
 
         <div className="start-menu-item__content">
           <div className="start-menu-item__title">{title}</div>

@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { playLogoffSound } from '@/lib/soundUtils';
 
 const SESSION_KEY = 'xp-portfolio-session';
 
@@ -25,11 +26,17 @@ export const authService = {
   },
 
   /**
-   * Logout - clears session and redirects to login page
+   * Logout - plays logoff sound, clears session and redirects to login page
    */
   logout: (): void => {
-    localStorage.removeItem(SESSION_KEY);
-    window.location.href = '/login';
+    // Play Windows XP logoff sound
+    playLogoffSound();
+
+    // Clear session and redirect after a short delay to allow sound to play
+    setTimeout(() => {
+      localStorage.removeItem(SESSION_KEY);
+      window.location.href = '/login';
+    }, 500);
   },
 
   /**

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import cn from 'classnames';
 import UserProfile from './UserProfile';
 import StartMenuList from './StartMenuList';
@@ -9,6 +9,7 @@ import LogOffDialog from '../LogOffDialog';
 import { useConfirmationDialog } from '../../hooks/useConfirmationDialog';
 import { useLogOffDialog } from '../../hooks/useLogOffDialog';
 import { useAuth } from '../../hooks/useAuth';
+import { useSocialProfiles } from '../../services/portfolioQueries';
 import './StartMenu.css';
 
 export interface StartMenuProps {
@@ -41,6 +42,8 @@ const StartMenu: React.FC<StartMenuProps> = ({
   } = useLogOffDialog();
 
   const { logout, restart } = useAuth();
+  const { data: socialProfiles, isLoading: socialProfilesLoading } =
+    useSocialProfiles();
 
   const handleNavigation = (path: string) => {
     if (onNavigate) {
@@ -51,11 +54,14 @@ const StartMenu: React.FC<StartMenuProps> = ({
     }
   };
 
-  const handleSocialLink = (url: string, platform: string) => {
-    showLinkConfirmation(url, platform, () => {
-      window.open(url, '_blank');
-    });
-  };
+  const handleSocialLink = useCallback(
+    (url: string, platform: string) => {
+      showLinkConfirmation(url, platform, () => {
+        window.open(url, '_blank');
+      });
+    },
+    [showLinkConfirmation]
+  );
 
   const handleLogOff = () => {
     showLogOffDialog(
@@ -143,32 +149,59 @@ const StartMenu: React.FC<StartMenuProps> = ({
     },
   ];
 
-  const rightColumnItems = [
-    {
-      icon: '/assets/instagram.webp',
-      iconAlt: 'Instagram',
-      title: 'Instagram',
-      onClick: () => handleSocialLink('https://instagram.com', 'Instagram'),
-    },
-    {
-      icon: '/assets/github.webp',
-      iconAlt: 'Github',
-      title: 'Github',
-      onClick: () => handleSocialLink('https://github.com', 'Github'),
-    },
-    {
-      icon: '/assets/linkedin.webp',
-      iconAlt: 'LinkedIn',
-      title: 'LinkedIn',
-      onClick: () => handleSocialLink('https://linkedin.com', 'LinkedIn'),
-    },
-    {
-      icon: '/assets/cmd.webp',
-      iconAlt: 'CMD',
-      title: 'CMD',
-      onClick: () => console.log('CMD'),
-    },
-  ];
+  // Create right column items from API data
+  const rightColumnItems = React.useMemo(() => {
+    const items = [];
+
+    // Show loading state while fetching social profiles
+    if (socialProfilesLoading) {
+      items.push({
+        icon: '', // No icon for loading state
+        iconAlt: 'Loading',
+        title: 'Loading...',
+        onClick: () => {}, // No action during loading
+        isLoading: true,
+      });
+    } else if (socialProfiles) {
+      // Map platform names to icons and create items
+      const iconMap: Record<string, string> = {
+        facebook: '/assets/facebook.svg',
+        x: '/assets/x_logo.svg',
+        twitter: '/assets/x_logo.svg',
+        github: '/assets/github.webp',
+        linkedin: '/assets/linkedin.webp',
+        instagram: '/assets/instagram.webp',
+        youtube: '/assets/youtube.webp',
+      };
+
+      // Iterate through social profiles object
+      Object.entries(socialProfiles).forEach(([platform, url]) => {
+        if (url) {
+          // Only add if URL exists
+          const icon = iconMap[platform.toLowerCase()] || '/assets/cmd.webp';
+
+          items.push({
+            icon,
+            iconAlt: platform,
+            title: platform.charAt(0).toUpperCase() + platform.slice(1),
+            onClick: () => handleSocialLink(url, platform),
+          });
+        }
+      });
+    }
+
+    // Add CMD as a fallback/default item (only if not loading)
+    if (!socialProfilesLoading) {
+      items.push({
+        icon: '/assets/cmd.webp',
+        iconAlt: 'CMD',
+        title: 'CMD',
+        onClick: () => console.log('CMD'),
+      });
+    }
+
+    return items;
+  }, [socialProfiles, socialProfilesLoading, handleSocialLink]);
 
   const recentlyUsedItems = [
     {

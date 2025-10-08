@@ -135,7 +135,10 @@ const XPWindow = ({
       role="dialog"
     >
       <div className="title-bar draggable">
-        <div className="title-bar-text">{title}</div>
+        <div className="title-bar-text flex items-center gap-1 text-white">
+          {icon && icon}
+          {title}
+        </div>
         <div className="title-bar-controls">
           <button aria-label="Minimize" onClick={handleMinimize}></button>
           {isMaximized ? (

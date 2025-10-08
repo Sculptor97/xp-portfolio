@@ -40,7 +40,7 @@ const Desktop: React.FC = () => {
             key={app.id}
             title={app.title}
             width={app.width || 500}
-            icon={<XPIcon src={app.icon} alt={app.title} />}
+            icon={<XPIcon src={app.icon} alt={app.title} className="w-5 h-5" />}
             id={app.id}
           >
             <AppComponent />
