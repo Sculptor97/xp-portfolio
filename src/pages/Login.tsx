@@ -1,18 +1,24 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIntroData, useLogoText } from '@/services';
+import { useAuth } from '@/hooks/useAuth';
 import logo from '@/assets/logo.svg';
 import restartIcon from '@/assets/restart.svg';
 import profileGif from '@/assets/profile.gif';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { login, restart } = useAuth();
 
   // Fetch portfolio data
   const { data: introData } = useIntroData();
   const { data: logoText } = useLogoText();
 
   const handleUserClick = () => {
+    // Generate session ID and store in localStorage
+    const session = login();
+    console.log('Login successful, session ID:', session.sessionId);
+    
     // Simulate login process
     setTimeout(() => {
       navigate('/welcome', { replace: true });
@@ -20,7 +26,8 @@ const Login: React.FC = () => {
   };
 
   const handleRestart = () => {
-    navigate('/');
+    // Clear session and redirect to root
+    restart();
   };
 
   return (

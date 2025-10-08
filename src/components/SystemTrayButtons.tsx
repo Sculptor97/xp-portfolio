@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CustomTooltip from './CustomTooltip';
 import XPIcon from './XPIcon';
 import WelcomeNotification from './WelcomeNotification';
+import { playBalloonSound } from '../lib/soundUtils';
 
-const SystemTrayButtons: React.FC = () => {
+interface SystemTrayButtonsProps {
+  shouldShowWelcome?: boolean;
+  onWelcomeShown?: () => void;
+}
+
+const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({ 
+  shouldShowWelcome = false, 
+  onWelcomeShown 
+}) => {
   const [isGridVisible, setIsGridVisible] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
+
+  // Handle startup welcome notification
+  useEffect(() => {
+    if (shouldShowWelcome) {
+      setShowWelcome(true);
+      playBalloonSound();
+      onWelcomeShown?.();
+    }
+  }, [shouldShowWelcome, onWelcomeShown]);
 
   const toggleGrid = () => {
     setIsGridVisible(!isGridVisible);
@@ -28,6 +46,7 @@ const SystemTrayButtons: React.FC = () => {
 
   const showInfo = () => {
     setShowWelcome(true);
+    playBalloonSound();
   };
 
   return (

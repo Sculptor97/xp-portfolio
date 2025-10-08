@@ -11,10 +11,10 @@ import Welcome from './src/pages/Welcome';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<Boot />} />
-      <Route path="/desktop" element={<Desktop />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/welcome" element={<Welcome />} />
+      <Route index element={<Boot />} />
+      <Route path="desktop" element={<Desktop />} />
+      <Route path="login" element={<Login />} />
+      <Route path="welcome" element={<Welcome />} />
     </>
   )
 );

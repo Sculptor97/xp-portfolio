@@ -1,8 +1,36 @@
 import Desktop from '@/components/desktop/Desktop';
 import XPTaskBar from '../components/taskbar/XPTaskbar';
 import SystemTrayButtons from '../components/SystemTrayButtons';
+import { playStartupSoundWithCallback } from '../lib/soundUtils';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function DesktopPage() {
+  const location = useLocation();
+  const [shouldShowWelcome, setShouldShowWelcome] = useState(false);
+  const [startupComplete, setStartupComplete] = useState(false);
+
+  // Handle startup sequence
+  useEffect(() => {
+    const state = location.state as any;
+    
+    // Only trigger on fresh navigation from Welcome page, not on refresh
+    if (state?.startup && state?.welcomeComplete && !startupComplete) {
+      // Add small delay before playing startup sound
+      const soundDelay = setTimeout(() => {
+        playStartupSoundWithCallback(() => {
+          setShouldShowWelcome(true);
+          setStartupComplete(true);
+        });
+      }, 1000);
+      
+      // Clear the navigation state to prevent refresh issues
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
+      return () => clearTimeout(soundDelay);
+    }
+  }, [location.state, startupComplete]);
+
   return (
     <div className="h-screen w-screen relative overflow-hidden">
       {/* Desktop viewport - this is where windows will be rendered */}
@@ -31,7 +59,10 @@ function DesktopPage() {
         </XPTaskBar.StartMenu>
 
         <XPTaskBar.SystemTray>
-          <SystemTrayButtons />
+          <SystemTrayButtons 
+            shouldShowWelcome={shouldShowWelcome}
+            onWelcomeShown={() => setShouldShowWelcome(false)}
+          />
         </XPTaskBar.SystemTray>
       </XPTaskBar>
     </div>
