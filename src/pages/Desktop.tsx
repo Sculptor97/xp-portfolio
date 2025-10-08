@@ -55,10 +55,6 @@ function DesktopPage() {
               // Handle log off logic
               console.log('Log off clicked');
             }}
-            onShutDown={() => {
-              // Handle shut down logic
-              console.log('Shut down clicked');
-            }}
           />
         </XPTaskBar.StartMenu>
 

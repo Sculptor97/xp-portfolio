@@ -5,7 +5,10 @@ import StartMenuList from './StartMenuList';
 import StartMenuItem from './StartMenuItem';
 import StartMenuFooter from './StartMenuFooter';
 import ConfirmationDialog from '../ConfirmationDialog';
+import LogOffDialog from '../LogOffDialog';
 import { useConfirmationDialog } from '../../hooks/useConfirmationDialog';
+import { useLogOffDialog } from '../../hooks/useLogOffDialog';
+import { useAuth } from '../../hooks/useAuth';
 import './StartMenu.css';
 
 export interface StartMenuProps {
@@ -17,7 +20,6 @@ export interface StartMenuProps {
     avatarAlt?: string;
   };
   onLogOff?: () => void;
-  onShutDown?: () => void;
   onNavigate?: (path: string) => void;
 }
 
@@ -26,11 +28,19 @@ const StartMenu: React.FC<StartMenuProps> = ({
   className,
   user = { name: 'Legha-gha' },
   onLogOff,
-  onShutDown,
   onNavigate,
 }) => {
   const { dialogState, showLinkConfirmation, hideDialog } =
     useConfirmationDialog();
+
+  const {
+    dialogState: logOffDialogState,
+    showLogOffDialog,
+    showShutdownDialog,
+    hideDialog: hideLogOffDialog,
+  } = useLogOffDialog();
+
+  const { logout, restart } = useAuth();
 
   const handleNavigation = (path: string) => {
     if (onNavigate) {
@@ -48,21 +58,41 @@ const StartMenu: React.FC<StartMenuProps> = ({
   };
 
   const handleLogOff = () => {
-    if (onLogOff) {
-      onLogOff();
-    }
-    if (onClose) {
-      onClose();
-    }
+    showLogOffDialog(
+      () => {
+        // Use the restart method from useAuth
+        restart();
+        if (onClose) {
+          onClose();
+        }
+      },
+      () => {
+        // Use the logout method from useAuth
+        logout();
+        if (onLogOff) {
+          onLogOff();
+        }
+        if (onClose) {
+          onClose();
+        }
+      }
+    );
   };
 
   const handleShutDown = () => {
-    if (onShutDown) {
-      onShutDown();
-    }
-    if (onClose) {
-      onClose();
-    }
+    showShutdownDialog(
+      () => {
+        // Use the restart method from useAuth
+        restart();
+        if (onClose) {
+          onClose();
+        }
+      },
+      () => {
+        // Shutdown functionality - disabled in our app
+        console.log('Shutdown requested but disabled');
+      }
+    );
   };
 
   // Define menu items based on the images
@@ -312,6 +342,21 @@ const StartMenu: React.FC<StartMenuProps> = ({
         cancelText={dialogState.cancelText}
         icon={dialogState.icon}
         iconAlt={dialogState.iconAlt}
+      />
+
+      {/* Log Off Dialog */}
+      <LogOffDialog
+        isOpen={logOffDialogState.isOpen}
+        onClose={hideLogOffDialog}
+        onRestart={logOffDialogState.onRestart || (() => {})}
+        onLogOff={logOffDialogState.onLogOff || (() => {})}
+        onShutdown={logOffDialogState.onShutdown}
+        type={logOffDialogState.type}
+        title={
+          logOffDialogState.type === 'logoff'
+            ? `Log Off ${user.name} XP`
+            : `Shut Down ${user.name} XP`
+        }
       />
     </div>
   );
