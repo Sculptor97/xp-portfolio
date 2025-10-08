@@ -331,4 +331,21 @@
       }
     }
   }
+
+  /*mobile responsiveness for desktop shortcuts */
+  @media (max-width: 768px) {
+    .desktop-shortcut {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  .desktop-shortcut .shortcut-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .desktop-shortcut .shortcut-label {
+    font-size: 12px;
+  }
 }

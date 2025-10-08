@@ -88,7 +88,7 @@
 
 @media (max-width: 768px) {
   .start-menu-container {
-    bottom: 40px; /* More space on mobile to prevent overlap */
+    bottom: 30px; /* More space on mobile to prevent overlap */
   }
 }
 
@@ -232,7 +232,7 @@
 /* Mobile responsiveness for taskbar */
 @media (max-width: 768px) {
   .xp-taskbar {
-    height: 40px; /* Slightly taller for mobile */
+    height: 30px; /* Slightly taller for mobile */
   }
 
   .start-button {
@@ -267,7 +267,12 @@
     padding: 0 4px; /* Reduced padding on mobile */
     font-size: 10px;
   }
+
+  .system-tray-button.mobile {
+    display: none;
+  }
 }
+
 
 /* System Tray Button Styles */
 .system-tray-button {

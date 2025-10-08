@@ -17,7 +17,7 @@ const Desktop: React.FC = () => {
   return (
     <>
       <div
-        className="desktop absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-700 bg-cover bg-center flex flex-col gap-4 p-6 overflow-hidden"
+        className="desktop absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-700 bg-cover bg-center flex flex-col gap-4 p-4 md:p-6 overflow-hidden"
         style={{
           backgroundImage: 'url(/assets/bliss_wallpaper.png)',
         }}

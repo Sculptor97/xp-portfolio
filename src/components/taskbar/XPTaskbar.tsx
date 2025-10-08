@@ -23,7 +23,7 @@ const StartButton = ({
     onClick={onClick}
   >
     <XPIcon src="/assets/favicon.svg" alt="Start" className="w-5 h-5" />
-    <span className="text-base">Start</span>
+    <span className="text-sm md:text-base">Start</span>
   </button>
 );
 
