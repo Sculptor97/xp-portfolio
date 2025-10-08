@@ -143,9 +143,13 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
         {hasSubmenu && (
           <div className="start-menu-item__arrow">
             {className?.includes('all-programs') ? (
-              <Play size={16} className="text-green-600" />
+              <XPIcon
+                src="/assets/arrow.webp"
+                alt="All Programs"
+                className="w-4 h-4"
+              />
             ) : className?.includes('recently-used') ? (
-              <Play size={12} />
+              <Play size={16} />
             ) : (
               <Play size={16} />
             )}
