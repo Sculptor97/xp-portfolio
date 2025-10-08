@@ -81,15 +81,15 @@
 
 .start-menu-container {
   position: absolute;
-  bottom: 30px;
+  bottom: 35px;
   left: 0;
-  background-color: #f0f0f0;
-  border: 1px solid grey;
-  box-shadow: 2px -2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }
-/* Add your custom start menu styles here */
-.my-custom-start-menu {
-  width: 250px;
+
+@media (max-width: 768px) {
+  .start-menu-container {
+    bottom: 40px; /* More space on mobile to prevent overlap */
+  }
 }
 
 /* --- Window Tabs Section --- */

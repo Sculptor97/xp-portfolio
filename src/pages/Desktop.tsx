@@ -1,12 +1,14 @@
 import Desktop from '@/components/desktop/Desktop';
 import XPTaskBar from '../components/taskbar/XPTaskbar';
 import SystemTrayButtons from '../components/SystemTrayButtons';
+import { StartMenu } from '../components/startmenu';
 import { playStartupSoundWithCallback } from '../lib/soundUtils';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function DesktopPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [shouldShowWelcome, setShouldShowWelcome] = useState(false);
   const [startupComplete, setStartupComplete] = useState(false);
 
@@ -42,20 +44,22 @@ function DesktopPage() {
       {/* Taskbar at the bottom */}
       <XPTaskBar className="fixed bottom-0 left-0 right-0 z-50">
         <XPTaskBar.StartMenu onClose={() => {}}>
-          <div className="start-menu bg-gray-200 border-2 border-gray-300 p-2 min-w-48">
-            <div className="text-sm font-semibold mb-2">Programs</div>
-            <div className="space-y-1">
-              <div className="hover:bg-blue-100 p-1 cursor-pointer">
-                About Me
-              </div>
-              <div className="hover:bg-blue-100 p-1 cursor-pointer">
-                My Projects
-              </div>
-              <div className="hover:bg-blue-100 p-1 cursor-pointer">
-                Contact
-              </div>
-            </div>
-          </div>
+          <StartMenu
+            user={{
+              name: 'Legha-gha',
+              avatar: '/src/assets/profile.gif',
+              avatarAlt: 'Legha-gha'
+            }}
+            onNavigate={(path) => navigate(path)}
+            onLogOff={() => {
+              // Handle log off logic
+              console.log('Log off clicked');
+            }}
+            onShutDown={() => {
+              // Handle shut down logic
+              console.log('Shut down clicked');
+            }}
+          />
         </XPTaskBar.StartMenu>
 
         <XPTaskBar.SystemTray>
