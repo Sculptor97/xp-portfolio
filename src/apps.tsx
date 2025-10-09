@@ -2,6 +2,7 @@ import React from 'react';
 import AboutMeContent from './pages/about';
 import MyProjectsContent from './pages/projects';
 import ContactContent from './pages/contact';
+import ExplorerDemo from './pages/ExplorerDemo';
 
 // Define the app interface
 export interface App {
@@ -46,5 +47,13 @@ export const apps: App[] = [
     component: ContactContent,
     defaultPosition: { x: 400, y: 100 },
     width: 400,
+  },
+  {
+    id: 'explorer-demo',
+    title: 'Explorer Demo',
+    icon: '/assets/arrow.webp',
+    component: ExplorerDemo,
+    defaultPosition: { x: 500, y: 100 },
+    width: 700,
   },
 ];
