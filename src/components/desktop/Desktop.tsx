@@ -43,7 +43,9 @@ const Desktop: React.FC = () => {
             icon={<XPIcon src={app.icon} alt={app.title} className="w-5 h-5" />}
             id={app.id}
           >
-            <AppComponent />
+            <XPWindow.Body>
+              <AppComponent />
+            </XPWindow.Body>
           </XPWindow>
         );
       })}

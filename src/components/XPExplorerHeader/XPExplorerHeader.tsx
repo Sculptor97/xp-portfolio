@@ -58,7 +58,7 @@ const XPExplorerNavItem: React.FC<XPExplorerNavItemProps> = ({
         }
       }}
     >
-      {icon && <XPIcon src={icon} alt={label} className="w-4 h-4" />}
+      {icon && <XPIcon src={icon} alt={label} className="w-5 h-5" />}
       <span className="text-xs font-medium">{label}</span>
       {showDropdown && (
         <div className="w-0 h-0 border-l-2 border-l-transparent border-r-2 border-r-transparent border-t-2 border-t-black ml-1" />
@@ -153,7 +153,7 @@ const XPExplorerMenuBar: React.FC<{
       </div>
 
       <div className="flex-1" />
-      <XPIcon src="/assets/logo.svg" alt="Windows XP" className="w-5 h-5" />
+      <XPIcon src="/assets/favicon.svg" alt="Windows XP" className="w-8 h-8" />
     </div>
   );
 };
@@ -166,44 +166,39 @@ const XPExplorerNavigation: React.FC<{
 }> = ({ children, className }) => {
   const defaultNavItems = [
     {
-      icon: '/assets/arrow.webp',
+      icon: '/assets/back.svg',
       label: 'Back',
       variant: 'primary' as const,
       showDropdown: true,
       priority: 'high' as const,
     },
     {
-      icon: '/assets/arrow.webp',
+      icon: '/assets/forward.svg',
       label: 'Forward',
       disabled: true,
       priority: 'high' as const,
     },
     {
-      icon: '/assets/arrow.webp',
+      icon: '/assets/up.svg',
       label: 'Up',
       variant: 'secondary' as const,
       priority: 'high' as const,
     },
     {
-      icon: '/assets/arrow.webp',
-      label: 'Move To',
+      icon: '/assets/copy.webp',
+      label: 'Copy',
       disabled: true,
       priority: 'low' as const,
     },
     {
-      icon: '/assets/arrow.webp',
-      label: 'Copy To',
+      icon: '/assets/paste.webp',
+      label: 'Paste',
       disabled: true,
       priority: 'low' as const,
     },
     {
-      icon: '/assets/arrow.webp',
-      label: 'Search',
-      priority: 'medium' as const,
-    },
-    {
-      icon: '/assets/arrow.webp',
-      label: 'Folders',
+      icon: '/assets/cut.webp',
+      label: 'Cut',
       priority: 'medium' as const,
     },
   ];
@@ -241,6 +236,41 @@ const XPExplorerAddressBar: React.FC<{
   loading?: boolean;
   className?: string;
 }> = ({ icon, address = 'C:\\', loading = false, className }) => {
+  const [progress, setProgress] = React.useState(0);
+  const progressIntervalRef = React.useRef<number | null>(null);
+
+  // Handle progress animation when loading state changes
+  React.useEffect(() => {
+    if (loading) {
+      // Start progress animation
+      setProgress(0);
+      progressIntervalRef.current = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            return 100;
+          }
+          // Increment progress with some randomness to make it feel more natural
+          const increment = Math.random() * 15 + 5; // 5-20% increments
+          return Math.min(prev + increment, 100);
+        });
+      }, 150); // Update every 150ms
+    } else {
+      // Stop progress animation and reset
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+        progressIntervalRef.current = null;
+      }
+      setProgress(0);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+    };
+  }, [loading]);
+
   return (
     <div
       className={cn(
@@ -251,15 +281,26 @@ const XPExplorerAddressBar: React.FC<{
       <span className="text-sm text-gray-700 font-medium hidden sm:inline">
         Address
       </span>
-      <div className="flex-1 flex items-center xp-explorer-address-input px-2 py-1">
-        {icon && (
-          <XPIcon src={icon} alt="Application" className="w-4 h-4 mr-2" />
-        )}
-        <span className="text-sm text-black flex-1 truncate">{address}</span>
+      <div className="flex-1 relative xp-explorer-address-input px-2 py-1">
+        {/* Progress bar overlay */}
         {loading && (
-          <div className="ml-2 w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin xp-explorer-loading" />
+          <div 
+            className="xp-explorer-progress-bar absolute inset-0 transition-all duration-300 ease-out"
+            style={{ width: `${Math.min(Math.max(progress, 0), 100)}%` }}
+          />
         )}
-        <div className="w-0 h-0 border-l-2 border-l-transparent border-r-2 border-r-transparent border-t-2 border-t-gray-600 ml-2" />
+        
+        {/* Address bar content */}
+        <div className="relative flex items-center z-10">
+          {icon && (
+            <XPIcon src={icon} alt="Application" className="w-4 h-4 mr-2" />
+          )}
+          <span className="text-sm text-black flex-1 truncate">{address}</span>
+          {loading && (
+            <div className="ml-2 w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin xp-explorer-loading" />
+          )}
+          <div className="w-0 h-0 border-l-2 border-l-transparent border-r-2 border-r-transparent border-t-2 border-t-gray-600 ml-2" />
+        </div>
       </div>
       <div
         className="xp-explorer-go-button flex items-center gap-1 px-2 py-1 text-sm font-medium cursor-pointer"

@@ -11,7 +11,7 @@ const XPWindowBody = ({
   className,
   children,
 }: {
-  className: string;
+  className?: string;
   children: React.ReactNode;
 }) => <div className={cn('window-body', className)}>{children}</div>;
 

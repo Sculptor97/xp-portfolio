@@ -11,7 +11,7 @@ const ExplorerDemo: React.FC = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 7000);
   };
 
   const handleNavigate = (path: string) => {
@@ -71,7 +71,7 @@ const ExplorerDemo: React.FC = () => {
 
       {/* Example 3: Image Viewer */}
       <div className="space-y-2">
-        <h2 className="text-lg font-semibold text-white">Image Viewer</h2>
+        <h2 className="text-lg font-semibold text-black">Image Viewer</h2>
         <XPExplorerHeader
           icon="/assets/picture_viewer.png"
           address="C:\\Pictures\\vacation.jpg"
@@ -173,7 +173,7 @@ const ExplorerDemo: React.FC = () => {
         <h2 className="text-lg font-semibold text-white">In XP Window</h2>
         <XPWindow
           title="Explorer Demo"
-          width={300}
+          width={700}
           icon={
             <XPIcon
               src="/assets/arrow.webp"
@@ -183,33 +183,24 @@ const ExplorerDemo: React.FC = () => {
           }
           id="explorer-demo"
         >
-          <XPExplorerHeader icon="/assets/arrow.webp" address="C:\\">
-            <XPExplorerHeader.NavItem
-              icon="/assets/arrow.webp"
-              label="Map Network Drive"
-              onClick={() => console.log('Map network drive')}
-            />
-            <XPExplorerHeader.NavItem
-              icon="/assets/arrow.webp"
-              label="Disconnect Network Drive"
-              onClick={() => console.log('Disconnect network drive')}
-              disabled
-            />
-            <XPExplorerHeader.NavItem
-              icon="/assets/arrow.webp"
-              label="Synchronize"
-              onClick={() => console.log('Synchronize')}
-            />
-          </XPExplorerHeader>
-          <div className="p-4 bg-white">
-            <p className="text-gray-700">
-              This is the content area below the XP Explorer header.
-            </p>
-            <p className="text-gray-600 text-sm mt-2">
-              The header is fully composable and can be used in any application
-              that needs Windows XP Explorer-style navigation.
-            </p>
-          </div>
+          <XPWindow.Body>
+            <XPExplorerHeader icon="/assets/arrow.webp" address="C:\\">
+              <XPExplorerHeader.NavItem
+                icon="/assets/arrow.webp"
+                label="Map Network Drive"
+                onClick={() => console.log('Map network drive')}
+              />
+            </XPExplorerHeader>
+            <div className="p-4 bg-white">
+              <p className="text-gray-700">
+                This is the content area below the XP Explorer header.
+              </p>
+              <p className="text-gray-600 text-sm mt-2">
+                The header is fully composable and can be used in any application
+                that needs Windows XP Explorer-style navigation.
+              </p>
+            </div>
+          </XPWindow.Body>
         </XPWindow>
       </div>
     </div>
