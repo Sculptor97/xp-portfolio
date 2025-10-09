@@ -1,5 +1,20 @@
-/* XP Explorer Header Styles */
-.xp-explorer-header {
+/* XP Window Component Styles */
+
+/* Window Container Styles */
+.window {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Window Body Styles */
+.window-body {
+  flex: 1;
+  overflow: auto;
+  min-height: 0; /* Allows flex child to shrink below content size */
+}
+
+/* Window Header Styles */
+.xp-window-header {
   font-family: 'MS Sans Serif', 'Segoe UI', sans-serif;
   font-size: 11px;
   user-select: none;
@@ -7,7 +22,7 @@
   box-sizing: border-box;
 }
 
-.xp-explorer-menu-bar {
+.xp-window-menu-bar {
   background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
   border-bottom: 1px solid #c0c0c0;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -15,7 +30,7 @@
   box-sizing: border-box;
 }
 
-.xp-explorer-navigation {
+.xp-window-navigation {
   background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
   border-bottom: 1px solid #c0c0c0;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -23,7 +38,7 @@
   box-sizing: border-box;
 }
 
-.xp-explorer-address-bar {
+.xp-window-address-bar {
   background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
   border-bottom: 1px solid #c0c0c0;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -31,56 +46,56 @@
   box-sizing: border-box;
 }
 
-.xp-explorer-nav-item {
+.xp-window-nav-item {
   transition: all 0.1s ease;
   user-select: none;
   color: #333;
 }
 
-.xp-explorer-nav-item:hover:not(.opacity-50) {
+.xp-window-nav-item:hover:not(.opacity-50) {
   background-color: rgba(0, 120, 215, 0.1);
 }
 
-.xp-explorer-nav-item:active:not(.opacity-50) {
+.xp-window-nav-item:active:not(.opacity-50) {
   background-color: rgba(0, 120, 215, 0.2);
 }
 
-.xp-explorer-nav-item:focus {
+.xp-window-nav-item:focus {
   outline: 2px solid #4a9eff;
   outline-offset: 1px;
 }
 
-.xp-explorer-nav-item.primary {
+.xp-window-nav-item.primary {
   color: #0066cc;
 }
 
-.xp-explorer-nav-item.primary:hover:not(.opacity-50) {
+.xp-window-nav-item.primary:hover:not(.opacity-50) {
   background-color: rgba(0, 102, 204, 0.1);
 }
 
-.xp-explorer-nav-item.primary:active:not(.opacity-50) {
+.xp-window-nav-item.primary:active:not(.opacity-50) {
   background-color: rgba(0, 102, 204, 0.2);
 }
 
-.xp-explorer-nav-item.secondary {
+.xp-window-nav-item.secondary {
   color: #cc6600;
 }
 
-.xp-explorer-nav-item.secondary:hover:not(.opacity-50) {
+.xp-window-nav-item.secondary:hover:not(.opacity-50) {
   background-color: rgba(204, 102, 0, 0.1);
 }
 
-.xp-explorer-nav-item.secondary:active:not(.opacity-50) {
+.xp-window-nav-item.secondary:active:not(.opacity-50) {
   background-color: rgba(204, 102, 0, 0.2);
 }
 
-.xp-explorer-nav-item:disabled {
+.xp-window-nav-item:disabled {
   color: #999;
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.xp-explorer-address-input {
+.xp-window-address-input {
   background: white;
   border: 1px solid #c0c0c0;
   border-radius: 2px;
@@ -90,7 +105,7 @@
   overflow: hidden;
 }
 
-.xp-explorer-progress-bar {
+.xp-window-progress-bar {
   background: linear-gradient(90deg, #4a9eff 0%, #2d7dd1 50%, #1a5a9a 100%);
   background-size: 200% 100%;
   height: 100%;
@@ -110,7 +125,7 @@
   }
 }
 
-.xp-explorer-go-button {
+.xp-window-go-button {
   background: linear-gradient(to bottom, #4a9eff, #2d7dd1);
   border: 1px solid #1a5a9a;
   border-radius: 2px;
@@ -121,14 +136,14 @@
     0 1px 0 rgba(0, 0, 0, 0.1);
 }
 
-.xp-explorer-go-button:hover {
+.xp-window-go-button:hover {
   background: linear-gradient(to bottom, #5aaeff, #3d8de1);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
     0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-.xp-explorer-go-button:active {
+.xp-window-go-button:active {
   background: linear-gradient(to bottom, #3a8eef, #1d6dc1);
   box-shadow:
     inset 0 1px 2px rgba(0, 0, 0, 0.2),
@@ -136,26 +151,26 @@
   transform: translateY(1px);
 }
 
-.xp-explorer-go-button:focus {
+.xp-window-go-button:focus {
   outline: 2px solid #4a9eff;
   outline-offset: 1px;
 }
 
-.xp-explorer-separator {
+.xp-window-separator {
   width: 1px;
   height: 20px;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    #c0c0c0 20%,
-    #c0c0c0 80%,
+    gray 20%,
+    black 80%,
     transparent 100%
   );
   margin: 0 4px;
 }
 
 /* Loading animation for address bar */
-.xp-explorer-loading {
+.xp-window-loading {
   animation: xp-pulse 1.5s ease-in-out infinite;
 }
 
@@ -171,23 +186,23 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .xp-explorer-header {
+  .xp-window-header {
     font-size: 10px;
     width: 100%;
   }
 
-  .xp-explorer-menu-bar {
+  .xp-window-menu-bar {
     min-height: 20px;
     padding: 2px 4px;
     width: 100%;
   }
 
-  .xp-explorer-menu-bar > div {
+  .xp-window-menu-bar > div {
     padding: 1px 4px;
     font-size: 10px;
   }
 
-  .xp-explorer-navigation {
+  .xp-window-navigation {
     min-height: 28px;
     padding: 2px 4px;
     flex-wrap: wrap;
@@ -195,36 +210,36 @@
     width: 100%;
   }
 
-  .xp-explorer-nav-item {
+  .xp-window-nav-item {
     padding: 1px 4px;
     font-size: 10px;
     min-width: auto;
     flex-shrink: 0;
   }
 
-  .xp-explorer-nav-item span {
+  .xp-window-nav-item span {
     font-size: 10px;
   }
 
-  .xp-explorer-address-bar {
+  .xp-window-address-bar {
     min-height: 24px;
     padding: 2px 4px;
     flex-wrap: wrap;
     width: 100%;
   }
 
-  .xp-explorer-address-bar span {
+  .xp-window-address-bar span {
     font-size: 10px;
   }
 
-  .xp-explorer-address-input {
+  .xp-window-address-input {
     padding: 1px 4px;
     font-size: 10px;
     min-width: 0;
     flex: 1;
   }
 
-  .xp-explorer-go-button {
+  .xp-window-go-button {
     padding: 1px 4px;
     font-size: 10px;
     flex-shrink: 0;
@@ -232,16 +247,16 @@
 
   /* Hide some default nav items on very small screens */
   @media (max-width: 480px) {
-    .xp-explorer-nav-item.hide-mobile {
+    .xp-window-nav-item.hide-mobile {
       display: none;
     }
 
-    .xp-explorer-navigation {
+    .xp-window-navigation {
       justify-content: flex-start;
       width: 100%;
     }
 
-    .xp-explorer-separator {
+    .xp-window-separator {
       display: none;
     }
   }
@@ -249,11 +264,11 @@
 
 /* Tablet adjustments */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .xp-explorer-header {
+  .xp-window-header {
     font-size: 11px;
   }
 
-  .xp-explorer-navigation {
+  .xp-window-navigation {
     flex-wrap: wrap;
     gap: 2px;
   }

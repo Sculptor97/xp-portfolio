@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { apps, type App } from '../../apps';
 import Shortcut from '@/components/desktop/Shortcut';
-import XPWindow from '@/components/window/XPWindow';
+import { XPWindow, XPWindowBody } from '@/components/window';
 import XPIcon from '../XPIcon';
 
 const Desktop: React.FC = () => {
@@ -40,12 +40,13 @@ const Desktop: React.FC = () => {
             key={app.id}
             title={app.title}
             width={app.width || 500}
+            height={app.height || 500}
             icon={<XPIcon src={app.icon} alt={app.title} className="w-5 h-5" />}
             id={app.id}
           >
-            <XPWindow.Body>
+            <XPWindowBody className="overflow-auto">
               <AppComponent />
-            </XPWindow.Body>
+            </XPWindowBody>
           </XPWindow>
         );
       })}

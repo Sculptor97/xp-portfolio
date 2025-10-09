@@ -1,19 +1,8 @@
-import XPWindow from '@/components/window/XPWindow';
-const ContactContent = () => (
-  <XPWindow.Body className="p-4">
-    <h2 className="text-xl font-bold mb-4">Contact Me</h2>
-    <div className="space-y-3">
-      <div>
-        <strong>Email:</strong> developer@example.com
-      </div>
-      <div>
-        <strong>LinkedIn:</strong> linkedin.com/in/developer
-      </div>
-      <div>
-        <strong>GitHub:</strong> github.com/developer
-      </div>
-    </div>
-  </XPWindow.Body>
-);
+import React from 'react';
+import ContactWindow from '@/components/windows/ContactWindow';
 
-export default ContactContent;
+const Contact: React.FC = () => {
+  return <ContactWindow />;
+};
+
+export default Contact;

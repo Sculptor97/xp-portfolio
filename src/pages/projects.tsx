@@ -1,7 +1,5 @@
-import XPWindow from '@/components/window/XPWindow';
-
 const MyProjectsContent = () => (
-  <XPWindow.Body className="p-4">
+  <div className="p-4">
     <h2 className="text-xl font-bold mb-4">My Projects</h2>
     <div className="space-y-4">
       <div className="border-b pb-2">
@@ -23,7 +21,7 @@ const MyProjectsContent = () => (
         </p>
       </div>
     </div>
-  </XPWindow.Body>
+  </div>
 );
 
 export default MyProjectsContent;

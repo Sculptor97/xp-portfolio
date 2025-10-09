@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useModal, ModalEvents } from '../core/events';
+import { useDraggable } from '@neodrag/react';
+import { nanoid } from 'nanoid';
 import { cn } from '@/lib/utils';
 import XPIcon from '../XPIcon';
-import './XPExplorerHeader.css';
+import './Window.css';
 
 // --- TypeScript Interfaces ---
 
-export interface XPExplorerNavItemProps {
+export interface XPWindowHeaderNavItemProps {
   icon?: string;
   label: string;
   onClick?: () => void;
@@ -15,7 +18,7 @@ export interface XPExplorerNavItemProps {
   className?: string;
 }
 
-export interface XPExplorerHeaderProps {
+export interface XPWindowHeaderProps {
   // Component-specific props
   icon?: string;
   loading?: boolean;
@@ -28,9 +31,19 @@ export interface XPExplorerHeaderProps {
   className?: string;
 }
 
+export interface XPWindowProps {
+  children: React.ReactNode;
+  title?: string;
+  id?: string;
+  width?: number;
+  height?: number;
+  icon?: React.ReactElement;
+  dragOptions?: any;
+}
+
 // --- Navigation Item Component ---
 
-const XPExplorerNavItem: React.FC<XPExplorerNavItemProps> = ({
+const XPWindowHeaderNavItem: React.FC<XPWindowHeaderNavItemProps> = ({
   icon,
   label,
   onClick,
@@ -42,7 +55,7 @@ const XPExplorerNavItem: React.FC<XPExplorerNavItemProps> = ({
   return (
     <div
       className={cn(
-        'xp-explorer-nav-item relative flex items-center gap-1 px-2 py-1 cursor-pointer',
+        'xp-window-nav-item relative flex items-center gap-1 px-2 py-1 cursor-pointer',
         variant === 'primary' && 'primary',
         variant === 'secondary' && 'secondary',
         disabled && 'opacity-50 cursor-not-allowed',
@@ -69,7 +82,7 @@ const XPExplorerNavItem: React.FC<XPExplorerNavItemProps> = ({
 
 // --- Menu Bar Component ---
 
-const XPExplorerMenuBar: React.FC<{
+const XPWindowHeaderMenuBar: React.FC<{
   className?: string;
 }> = ({ className }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -100,7 +113,7 @@ const XPExplorerMenuBar: React.FC<{
   return (
     <div
       className={cn(
-        'xp-explorer-menu-bar w-full flex items-center px-2 py-1 min-h-[24px] bg-gradient-to-b from-gray-200 to-gray-300 border-b border-gray-400 relative',
+        'xp-window-menu-bar w-full flex items-center px-2 py-1 min-h-[24px] bg-gradient-to-b from-gray-200 to-gray-300 border-b border-gray-400 relative',
         className
       )}
     >
@@ -160,7 +173,7 @@ const XPExplorerMenuBar: React.FC<{
 
 // --- Navigation Bar Component ---
 
-const XPExplorerNavigation: React.FC<{
+const XPWindowHeaderNavigation: React.FC<{
   children?: React.ReactNode;
   className?: string;
 }> = ({ children, className }) => {
@@ -206,13 +219,13 @@ const XPExplorerNavigation: React.FC<{
   return (
     <div
       className={cn(
-        'xp-explorer-navigation w-full flex items-center gap-1 px-2 py-1 min-h-[32px]',
+        'xp-window-navigation w-full flex items-center gap-1 px-2 py-1 min-h-[32px]',
         className
       )}
     >
       {/* Default navigation items */}
       {defaultNavItems.map((item, index) => (
-        <XPExplorerNavItem
+        <XPWindowHeaderNavItem
           key={index}
           {...item}
           className={cn(item.priority === 'low' && 'hide-mobile')}
@@ -220,7 +233,7 @@ const XPExplorerNavigation: React.FC<{
       ))}
 
       {/* Separator */}
-      <div className="xp-explorer-separator" />
+      <div className="xp-window-separator" />
 
       {/* Custom navigation items from children */}
       {children}
@@ -230,14 +243,15 @@ const XPExplorerNavigation: React.FC<{
 
 // --- Address Bar Component ---
 
-const XPExplorerAddressBar: React.FC<{
+const XPWindowHeaderAddressBar: React.FC<{
   icon?: string;
   address?: string;
   loading?: boolean;
   className?: string;
-}> = ({ icon, address = 'C:\\', loading = false, className }) => {
+}> = ({ icon, address = 'me', loading = false, className }) => {
   const [progress, setProgress] = React.useState(0);
   const progressIntervalRef = React.useRef<number | null>(null);
+  const addressPrefix = `C:\\\\www.leghagaha.com\\\\${address.toLowerCase()}`;
 
   // Handle progress animation when loading state changes
   React.useEffect(() => {
@@ -274,18 +288,18 @@ const XPExplorerAddressBar: React.FC<{
   return (
     <div
       className={cn(
-        'xp-explorer-address-bar w-full flex items-center gap-2 px-2 py-1 min-h-[28px]',
+        'xp-window-address-bar w-full flex items-center gap-2 px-2 py-1 min-h-[28px]',
         className
       )}
     >
       <span className="text-sm text-gray-700 font-medium hidden sm:inline">
         Address
       </span>
-      <div className="flex-1 relative xp-explorer-address-input px-2 py-1">
+      <div className="flex-1 relative xp-window-address-input px-2 py-1">
         {/* Progress bar overlay */}
         {loading && (
           <div
-            className="xp-explorer-progress-bar absolute inset-0 transition-all duration-300 ease-out"
+            className="xp-window-progress-bar absolute inset-0 transition-all duration-300 ease-out"
             style={{ width: `${Math.min(Math.max(progress, 0), 100)}%` }}
           />
         )}
@@ -295,15 +309,17 @@ const XPExplorerAddressBar: React.FC<{
           {icon && (
             <XPIcon src={icon} alt="Application" className="w-4 h-4 mr-2" />
           )}
-          <span className="text-sm text-black flex-1 truncate">{address}</span>
+          <span className="text-sm text-black flex-1 truncate">
+            {addressPrefix}
+          </span>
           {loading && (
-            <div className="ml-2 w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin xp-explorer-loading" />
+            <div className="ml-2 w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin xp-window-loading" />
           )}
           <div className="w-0 h-0 border-l-2 border-l-transparent border-r-2 border-r-transparent border-t-2 border-t-gray-600 ml-2" />
         </div>
       </div>
       <div
-        className="xp-explorer-go-button flex items-center gap-1 px-2 py-1 text-sm font-medium cursor-pointer"
+        className="xp-window-go-button flex items-center gap-1 px-2 py-1 text-sm font-medium cursor-pointer"
         role="button"
         tabIndex={0}
         onKeyDown={e => {
@@ -321,30 +337,201 @@ const XPExplorerAddressBar: React.FC<{
   );
 };
 
-// --- Main XP Explorer Header Component ---
+// --- Window Header Component ---
 
-const XPExplorerHeader: React.FC<XPExplorerHeaderProps> & {
-  Navigation: typeof XPExplorerNavigation;
-  AddressBar: typeof XPExplorerAddressBar;
-  NavItem: typeof XPExplorerNavItem;
+const XPWindowHeader: React.FC<XPWindowHeaderProps> & {
+  MenuBar: typeof XPWindowHeaderMenuBar;
+  Navigation: typeof XPWindowHeaderNavigation;
+  AddressBar: typeof XPWindowHeaderAddressBar;
+  NavItem: typeof XPWindowHeaderNavItem;
 } = ({ icon, loading = false, address, children, className }) => {
   return (
     <div
       className={cn(
-        'xp-explorer-header w-full bg-white border border-gray-400 shadow-lg',
+        'xp-window-header px-1.5 bg-transparent border-gray-400 shadow-lg',
         className
       )}
     >
-      <XPExplorerMenuBar />
-      <XPExplorerNavigation>{children}</XPExplorerNavigation>
-      <XPExplorerAddressBar icon={icon} address={address} loading={loading} />
+      <XPWindowHeaderMenuBar />
+      <XPWindowHeaderNavigation>{children}</XPWindowHeaderNavigation>
+      <XPWindowHeaderAddressBar
+        icon={icon}
+        address={address}
+        loading={loading}
+      />
+    </div>
+  );
+};
+
+// --- Window Body Component ---
+
+const XPWindowBody: React.FC<{
+  className?: string;
+  children: React.ReactNode;
+}> = ({ className, children }) => (
+  <div className={cn('window-body overflow-auto', className)}>{children}</div>
+);
+
+// --- Window Footer Component ---
+
+const XPWindowFooter: React.FC<{
+  className?: string;
+  children: React.ReactNode;
+}> = ({ className, children }) => (
+  <div className={cn('status-bar', className)}>{children}</div>
+);
+
+// --- Main XPWindow Component ---
+
+const XPWindow: React.FC<XPWindowProps> & {
+  Header: typeof XPWindowHeader;
+  Body: typeof XPWindowBody;
+  Footer: typeof XPWindowFooter;
+} = ({
+  children,
+  title = 'Window',
+  id: windowId,
+  width = 600,
+  height = 600,
+  icon = <XPIcon src="/assets/favicon.svg" alt="Window" className="w-5 h-5" />,
+  dragOptions,
+}) => {
+  // --- STATE MANAGEMENT ---
+  const [id] = useState<string>(windowId || nanoid());
+  const [isActive, setIsActive] = useState(true);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
+
+  // --- HOOKS ---
+  // Core logic from react95's useModal hook
+  const { add, remove, focus, minimize, subscribe } = useModal();
+  // Draggability logic
+  const draggableRef = useRef<HTMLDivElement>(null);
+  useDraggable(draggableRef as React.RefObject<HTMLElement>, {
+    handle: '.draggable', // Only the title bar can be used for dragging
+    disabled: isMaximized, // Disable dragging when maximized
+    ...dragOptions, // Allow custom drag options
+  });
+
+  // --- EFFECTS ---
+  // 1. Registering the window and handling focus
+  useEffect(() => {
+    // Add the window to the global state on mount
+    add({ id, title, icon, hasButton: true });
+
+    // Subscribe to focus changes
+    const unsubFocus = subscribe(
+      ModalEvents.ModalVisibilityChanged,
+      ({ id: activeId }) => {
+        setIsActive(activeId === id);
+      }
+    );
+
+    focus(id); // Focus on creation
+
+    // Cleanup on unmount
+    return () => {
+      remove(id);
+      unsubFocus();
+    };
+  }, [id, title, icon, add, remove, focus, subscribe]);
+
+  // 2. Handling minimize and restore events from the TaskBar
+  useEffect(() => {
+    const unsubMinimize = subscribe(
+      ModalEvents.MinimizeModal,
+      ({ id: activeId }) => {
+        if (activeId === id) setIsMinimized(true);
+      }
+    );
+    const unsubRestore = subscribe(
+      ModalEvents.RestoreModal,
+      ({ id: activeId }) => {
+        if (activeId === id) setIsMinimized(false);
+      }
+    );
+
+    return () => {
+      unsubMinimize();
+      unsubRestore();
+    };
+  }, [id, subscribe]);
+
+  // --- INTERNAL EVENT HANDLERS ---
+  const handleClose = () => {
+    remove(id);
+    minimize(id);
+    focus('no-id');
+  };
+  const handleMinimize = () => {
+    minimize(id);
+    focus('no-id'); // Unfocus the window when minimizing
+  };
+  const handleMaximizeToggle = () => setIsMaximized(prev => !prev);
+
+  // --- DYNAMIC STYLING ---
+  const windowStyles = isMaximized
+    ? { width: '100%', height: '100%', top: 0, left: 0 }
+    : { width: `${width}px`, height: `${height}px` };
+
+  if (isMinimized) {
+    return null; // Don't render anything if minimized (TaskBar handles it)
+  }
+
+  return (
+    <div
+      ref={draggableRef}
+      className={cn('window xp-window', {
+        'is-active': isActive,
+        'is-minimized': isMinimized,
+      })} // Add is-active for potential styling
+      style={windowStyles}
+      onMouseDown={() => focus(id)}
+      role="dialog"
+    >
+      <div className="title-bar draggable">
+        <div className="title-bar-text flex items-center gap-1 text-white">
+          {icon && icon}
+          {title}
+        </div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" onClick={handleMinimize}></button>
+          {isMaximized ? (
+            <button
+              aria-label="Restore"
+              onClick={handleMaximizeToggle}
+            ></button>
+          ) : (
+            <button
+              aria-label="Maximize"
+              onClick={handleMaximizeToggle}
+            ></button>
+          )}
+          <button aria-label="Close" onClick={handleClose}></button>
+        </div>
+      </div>
+      <div className="w-full h-full flex flex-col">{children}</div>
     </div>
   );
 };
 
 // --- Compound Component Assignment ---
-XPExplorerHeader.Navigation = XPExplorerNavigation;
-XPExplorerHeader.AddressBar = XPExplorerAddressBar;
-XPExplorerHeader.NavItem = XPExplorerNavItem;
+XPWindow.Header = XPWindowHeader;
+XPWindow.Body = XPWindowBody;
+XPWindow.Footer = XPWindowFooter;
 
-export default XPExplorerHeader;
+XPWindowHeader.MenuBar = XPWindowHeaderMenuBar;
+XPWindowHeader.Navigation = XPWindowHeaderNavigation;
+XPWindowHeader.AddressBar = XPWindowHeaderAddressBar;
+XPWindowHeader.NavItem = XPWindowHeaderNavItem;
+
+export {
+  XPWindow,
+  XPWindowHeader,
+  XPWindowHeaderMenuBar,
+  XPWindowHeaderNavigation,
+  XPWindowHeaderAddressBar,
+  XPWindowHeaderNavItem,
+  XPWindowBody,
+  XPWindowFooter,
+};
