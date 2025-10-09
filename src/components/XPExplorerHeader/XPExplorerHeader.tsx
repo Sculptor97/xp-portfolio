@@ -284,12 +284,12 @@ const XPExplorerAddressBar: React.FC<{
       <div className="flex-1 relative xp-explorer-address-input px-2 py-1">
         {/* Progress bar overlay */}
         {loading && (
-          <div 
+          <div
             className="xp-explorer-progress-bar absolute inset-0 transition-all duration-300 ease-out"
             style={{ width: `${Math.min(Math.max(progress, 0), 100)}%` }}
           />
         )}
-        
+
         {/* Address bar content */}
         <div className="relative flex items-center z-10">
           {icon && (

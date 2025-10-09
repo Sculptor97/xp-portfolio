@@ -196,8 +196,8 @@ const ExplorerDemo: React.FC = () => {
                 This is the content area below the XP Explorer header.
               </p>
               <p className="text-gray-600 text-sm mt-2">
-                The header is fully composable and can be used in any application
-                that needs Windows XP Explorer-style navigation.
+                The header is fully composable and can be used in any
+                application that needs Windows XP Explorer-style navigation.
               </p>
             </div>
           </XPWindow.Body>

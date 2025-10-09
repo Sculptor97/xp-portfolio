@@ -91,16 +91,11 @@
 }
 
 .xp-explorer-progress-bar {
-  background: linear-gradient(
-    90deg,
-    #4a9eff 0%,
-    #2d7dd1 50%,
-    #1a5a9a 100%
-  );
+  background: linear-gradient(90deg, #4a9eff 0%, #2d7dd1 50%, #1a5a9a 100%);
   background-size: 200% 100%;
   height: 100%;
   border-radius: 1px;
-  box-shadow: 
+  box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
     0 1px 2px rgba(0, 0, 0, 0.1);
   animation: xp-progress-shimmer 2s ease-in-out infinite;
