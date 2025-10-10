@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useModal, ModalEvents } from '../core/events';
+import {
+  useModal,
+  ModalEvents,
+  useSafeEventSubscription,
+  type ModalWindow,
+} from '../core/events';
 import { useDraggable } from '@neodrag/react';
 import { nanoid } from 'nanoid';
 import { cn } from '@/lib/utils';
@@ -418,44 +423,28 @@ const XPWindow: React.FC<XPWindowProps> & {
   useEffect(() => {
     // Add the window to the global state on mount
     add({ id, title, icon, hasButton: true });
-
-    // Subscribe to focus changes
-    const unsubFocus = subscribe(
-      ModalEvents.ModalVisibilityChanged,
-      ({ id: activeId }) => {
-        setIsActive(activeId === id);
-      }
-    );
-
     focus(id); // Focus on creation
-
-    // Cleanup on unmount
-    return () => {
-      //remove(id);
-      unsubFocus();
-    };
   }, [id, title, icon, add, remove, focus, subscribe]);
 
-  // 2. Handling minimize and restore events from the TaskBar
-  useEffect(() => {
-    const unsubMinimize = subscribe(
-      ModalEvents.MinimizeModal,
-      ({ id: activeId }) => {
-        if (activeId === id) setIsMinimized(true);
-      }
-    );
-    const unsubRestore = subscribe(
-      ModalEvents.RestoreModal,
-      ({ id: activeId }) => {
-        if (activeId === id) setIsMinimized(false);
-      }
-    );
+  // --- Safe subscriptions ---
+  useSafeEventSubscription<Partial<ModalWindow>>(
+    cb => subscribe(ModalEvents.ModalVisibilityChanged, cb),
+    data => setIsActive(data.id === id)
+  );
 
-    return () => {
-      unsubMinimize();
-      unsubRestore();
-    };
-  }, [id, subscribe]);
+  useSafeEventSubscription<Partial<ModalWindow>>(
+    cb => subscribe(ModalEvents.MinimizeModal, cb),
+    data => {
+      if (data.id === id) setIsMinimized(true);
+    }
+  );
+
+  useSafeEventSubscription<Partial<ModalWindow>>(
+    cb => subscribe(ModalEvents.RestoreModal, cb),
+    data => {
+      if (data.id === id) setIsMinimized(false);
+    }
+  );
 
   // --- INTERNAL EVENT HANDLERS ---
   const handleClose = () => {

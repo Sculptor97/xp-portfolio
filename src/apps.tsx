@@ -2,7 +2,6 @@ import React from 'react';
 import AboutMeContent from './pages/about';
 import MyProjectsContent from './pages/projects';
 import ContactContent from './pages/contact';
-import ExplorerDemo from './pages/ExplorerDemo';
 
 // Define the app interface
 export interface App {
@@ -44,12 +43,5 @@ export const apps: App[] = [
     icon: '/assets/outlook_expresss.png',
     component: ContactContent,
     width: 800,
-  },
-  {
-    id: 'explorer-demo',
-    title: 'Explorer Demo',
-    icon: '/assets/arrow.webp',
-    component: ExplorerDemo,
-    width: 700,
   },
 ];
