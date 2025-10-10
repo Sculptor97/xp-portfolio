@@ -499,7 +499,7 @@ const XPWindow: React.FC<XPWindowProps> & {
           <button aria-label="Close" onClick={handleClose}></button>
         </div>
       </div>
-      <div className="w-full h-full flex flex-col">{children}</div>
+      {children}
     </div>
   );
 };

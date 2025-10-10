@@ -58,7 +58,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
           ref={tooltipRef}
           className={cn(
             'window-body bg-[#ffffe1]',
-            'fixed z-[9999] px-2 py-1 text-sm text-black',
+            'fixed z-[9999] px-2 py-1 text-xs md:text-sm text-black',
             'border border-gray-400 rounded-b-sm shadow-lg',
             'pointer-events-none whitespace-nowrap'
           )}

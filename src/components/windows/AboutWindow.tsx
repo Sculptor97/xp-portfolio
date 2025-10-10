@@ -15,7 +15,7 @@ const AboutWindow: React.FC<AboutWindowProps> = ({
   title = 'About Me',
   icon = '/assets/Tour_XP.png',
   width = 500,
-  height = 700,
+  height = 600,
 }) => {
   return (
     <XPWindow

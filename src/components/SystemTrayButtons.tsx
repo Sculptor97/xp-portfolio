@@ -64,7 +64,7 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
 
       {/* CRT Grid Toggle Button */}
       <CustomTooltip
-        content={isGridVisible ? 'Hide CRT Grid' : 'Show CRT Grid'}
+        content={isGridVisible ? 'CRT Effects: ON' : 'CRT Effects: OFF'}
       >
         <div
           onClick={toggleGrid}

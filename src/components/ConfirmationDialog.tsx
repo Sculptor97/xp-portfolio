@@ -96,7 +96,9 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
             )}
             <h3 className="text-sm md:text-base md:font-semibold">{title}</h3>
             <p className="mb-6 text-sm leading-relaxed">{message}</p>
-            <div className={`flex ${singleButton ? 'justify-center' : 'justify-between'}`}>
+            <div
+              className={`flex ${singleButton ? 'justify-center' : 'justify-between'}`}
+            >
               {!singleButton && (
                 <button
                   onClick={handleCancel}

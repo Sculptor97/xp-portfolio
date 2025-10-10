@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from 'react';
 import { apps, type App } from '../apps';
 import { ModalEvents, type ModalWindow } from '../components/core/modal-types';
 import { modals } from '../components/core/modalController';
@@ -25,7 +31,11 @@ const AppContext = createContext<UseAppManagerReturn | undefined>(undefined);
 // The actual hook implementation
 const useAppManager = (): UseAppManagerReturn => {
   const [openWindows, setOpenWindows] = useState<App[]>([]);
-  const { dialogState: desktopOnlyDialogState, showDesktopOnlyAlert, hideDialog: hideDesktopOnlyDialog } = useDesktopOnlyAlert();
+  const {
+    dialogState: desktopOnlyDialogState,
+    showDesktopOnlyAlert,
+    hideDialog: hideDesktopOnlyDialog,
+  } = useDesktopOnlyAlert();
 
   // Handle window removal events
   useEffect(() => {
@@ -47,10 +57,9 @@ const useAppManager = (): UseAppManagerReturn => {
 
     // Check if app is already open
     const isAlreadyOpen = openWindows.some(w => w.id === id);
-    
+
     if (isAlreadyOpen) {
       // Focus the existing window
-      console.log('useAppManager: Focusing existing window:', id);
       modals.emit(ModalEvents.ModalVisibilityChanged, { id });
     } else {
       // Add to open windows (window will auto-focus when rendered)
@@ -79,9 +88,15 @@ const useAppManager = (): UseAppManagerReturn => {
 };
 
 // Provider component
-export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AppProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const appManager = useAppManager();
-  return React.createElement(AppContext.Provider, { value: appManager }, children);
+  return React.createElement(
+    AppContext.Provider,
+    { value: appManager },
+    children
+  );
 };
 
 // Hook to use the context

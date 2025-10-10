@@ -5,7 +5,7 @@ import { useAppContext } from '../../hooks/useAppManager';
 
 const Desktop: React.FC = () => {
   const { openWindows, openApp } = useAppContext();
-  
+
   // Filter apps to only show shortcuts
   const shortcutApps = apps.filter(app => app.isShortcut);
 

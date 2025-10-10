@@ -33,7 +33,7 @@ export const apps: App[] = [
     icon: '/assets/Tour_XP.png',
     component: AboutMeContent,
     width: 500,
-    height: 700,
+    height: 600,
     isShortcut: true,
   },
   {

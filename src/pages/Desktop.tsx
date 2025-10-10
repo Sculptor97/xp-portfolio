@@ -1,5 +1,9 @@
 import Desktop from '@/components/desktop/Desktop';
-import XPTaskBar from '../components/taskbar/XPTaskbar';
+import {
+  XPTaskBar,
+  XPTaskBarStartMenu,
+  XPTaskBarSystemTray,
+} from '../components/taskbar/XPTaskbar';
 import SystemTrayButtons from '../components/SystemTrayButtons';
 import { StartMenu } from '../components/startmenu';
 import { playStartupSoundWithCallback } from '../lib/soundUtils';
@@ -36,14 +40,14 @@ function DesktopPage() {
   return (
     <div className="h-screen w-screen bg-black relative overflow-hidden">
       {/* Desktop viewport - this is where windows will be rendered */}
-      <div className="desktop-viewport fixed top-0 left-0 right-0 bottom-[28px] md:bottom-[35px] z-[1]">
+      <div className="desktop-viewport fixed top-[-2px] left-0 right-0 bottom-[28px] md:bottom-[35px] z-[1]">
         {/* Desktop with shortcuts */}
         <Desktop />
       </div>
 
       {/* Taskbar at the bottom */}
       <XPTaskBar className="fixed bottom-0 left-0 right-0 z-50">
-        <XPTaskBar.StartMenu onClose={() => {}}>
+        <XPTaskBarStartMenu>
           <StartMenu
             user={{
               name: 'Legha-gha',
@@ -56,14 +60,14 @@ function DesktopPage() {
               console.log('Log off clicked');
             }}
           />
-        </XPTaskBar.StartMenu>
+        </XPTaskBarStartMenu>
 
-        <XPTaskBar.SystemTray>
+        <XPTaskBarSystemTray>
           <SystemTrayButtons
             shouldShowWelcome={shouldShowWelcome}
             onWelcomeShown={() => setShouldShowWelcome(false)}
           />
-        </XPTaskBar.SystemTray>
+        </XPTaskBarSystemTray>
       </XPTaskBar>
     </div>
   );

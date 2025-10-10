@@ -18,10 +18,13 @@ const isMobileDevice = (): boolean => {
   // Check for touch capability and screen size
   const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const isSmallScreen = window.innerWidth < 768; // Mobile breakpoint
-  
+
   // Additional checks for mobile user agents
-  const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
+  const isMobileUserAgent =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+
   return hasTouch && (isSmallScreen || isMobileUserAgent);
 };
 
@@ -38,11 +41,11 @@ export const useDesktopOnlyAlert = (): UseDesktopOnlyAlertReturn => {
     if (!app) return;
 
     const isMobile = isMobileDevice();
-    
+
     setDialogState({
       isOpen: true,
       title: app.title,
-      message: isMobile 
+      message: isMobile
         ? `${app.title} is only available on desktop devices. Please use a desktop computer to access this application.`
         : `${app.title} is currently not available. This feature is coming soon!`,
       icon: app.icon,

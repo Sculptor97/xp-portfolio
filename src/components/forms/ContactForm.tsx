@@ -49,9 +49,9 @@ const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 relative h-full">
       {configLoading ? (
-        <div className="flex items-center justify-center py-12">
+        <div className=" absolute inset-0 flex items-center justify-center py-12">
           <Spinner className="text-brand-primary h-8 w-8" />
         </div>
       ) : (
@@ -142,7 +142,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 placeholder="Tell me about your project or just say hello..."
               />
             </div>
-
+            {/* 
             <div className="flex justify-end">
               <button
                 type="submit"
@@ -164,12 +164,12 @@ const ContactForm: React.FC<ContactFormProps> = ({
               >
                 {formState.loading ? 'Sending...' : 'Send Message'}
               </button>
-            </div>
+            </div> */}
           </form>
 
           {/* Contact Information */}
           {contactConfig && (
-            <div className="mt-8 pt-6 border-t border-gray-200">
+            <div className="mt-2 pt-6 border-t border-gray-200">
               <h4 className="text-base font-semibold text-gray-800 mb-4">
                 Contact Information
               </h4>

@@ -46,7 +46,12 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const { logout, restart } = useAuth();
   const { data: socialProfiles, isLoading: socialProfilesLoading } =
     useSocialProfiles();
-  const { openApp, showDesktopOnlyAlert, desktopOnlyDialogState, hideDesktopOnlyDialog } = useAppContext();
+  const {
+    openApp,
+    showDesktopOnlyAlert,
+    desktopOnlyDialogState,
+    hideDesktopOnlyDialog,
+  } = useAppContext();
 
   const handleNavigation = (path: string) => {
     if (onNavigate) {
@@ -68,13 +73,9 @@ const StartMenu: React.FC<StartMenuProps> = ({
 
   const handleAppClick = useCallback(
     (appId: string) => {
-      console.log('StartMenu: Opening app:', appId);
       openApp(appId);
       if (onClose) {
-        console.log('StartMenu: Calling onClose');
         onClose();
-      } else {
-        console.log('StartMenu: onClose not provided');
       }
     },
     [openApp, onClose]

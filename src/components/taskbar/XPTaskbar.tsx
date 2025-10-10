@@ -1,11 +1,27 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 import cn from 'classnames';
 import { type ModalWindow, ModalEvents, useModal } from '../core/events';
 import './XPTaskbar.css';
 import XPIcon from '../XPIcon';
 
-// --- Internal, Presentational Components ---
+// --- Internal Presentational Components ---
+
+// The internal clock component for the system tray.
+const Clock = (): React.ReactNode => {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timerId = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timerId);
+  }, []);
+
+  return (
+    <div className="clock">
+      {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+    </div>
+  );
+};
 
 // A dedicated Start Button, decoupled from the window tabs.
 const StartButton = ({
@@ -51,32 +67,129 @@ const WindowTab = ({
   </button>
 );
 
-// The internal clock component for the system tray.
-const Clock = (): React.ReactNode => {
-  const [time, setTime] = useState(new Date());
+// Internal component that manages window tabs
+const WindowTabs = () => {
+  const [modalWindows, setModalWindows] = useState<ModalWindow[]>([]);
+  const [activeWindowId, setActiveWindowId] = useState<string>('');
 
+  // The core business logic from react95
+  const { minimize, restore, focus, subscribe } = useModal();
+
+  // This effect contains the essential logic for syncing with the global modal state
   useEffect(() => {
-    const timerId = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timerId);
-  }, []);
+    const addModal = (data: Partial<ModalWindow>) => {
+      const window = data as ModalWindow;
+      if (!window.id) {
+        console.warn('Modal added without ID');
+        return;
+      }
+      setModalWindows(prevModals => {
+        // Prevent duplicates
+        if (prevModals.some(modal => modal.id === window.id)) {
+          return prevModals;
+        }
+        return [...prevModals, window];
+      });
+    };
+
+    const removeModal = (data: Partial<ModalWindow>) => {
+      if (!data.id) return;
+      setModalWindows(prevModals => {
+        const filteredModals = prevModals.filter(modal => modal.id !== data.id);
+
+        const lastModal = filteredModals.at(-1);
+
+        if (activeWindowId === data.id && lastModal) {
+          focus(lastModal.id);
+        }
+
+        return filteredModals;
+      });
+    };
+
+    const updateVisibleModal = (data: Partial<ModalWindow>) => {
+      if (data.id) {
+        setActiveWindowId(data.id);
+      }
+    };
+
+    const unsubscribeAdd = subscribe(ModalEvents.AddModal, addModal);
+    const unsubscribeRemove = subscribe(ModalEvents.RemoveModal, removeModal);
+    const unsubscribeVisibility = subscribe(
+      ModalEvents.ModalVisibilityChanged,
+      updateVisibleModal
+    );
+
+    return () => {
+      unsubscribeAdd();
+      unsubscribeRemove();
+      unsubscribeVisibility();
+    };
+  }, [activeWindowId, subscribe, focus]);
 
   return (
-    <div className="clock">
-      {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+    <div className="taskbar-section window-tabs-section">
+      {modalWindows.map(
+        ({ id, icon, title, hasButton }) =>
+          hasButton && (
+            <WindowTab
+              key={id}
+              icon={icon}
+              title={title}
+              active={id === activeWindowId}
+              minimized={
+                id !== activeWindowId && modalWindows.some(w => w.id === id)
+              }
+              onClick={() => {
+                if (id === activeWindowId) {
+                  minimize(id);
+                  setActiveWindowId('');
+                } else {
+                  restore(id);
+                  focus(id);
+                }
+              }}
+            />
+          )
+      )}
     </div>
   );
 };
 
-// --- Public, Compound Components ---
+// --- Public Components ---
 
-// A wrapper for the user's custom Start Menu content.
-const XPStartMenu = ({
-  children,
-  onClose,
-}: {
+// Main taskbar container
+const XPTaskBar: React.FC<{
   children: React.ReactNode;
-  onClose: () => void;
-}) => {
+  className?: string;
+}> = ({ children, className }) => {
+  // Find the StartMenu and SystemTray components from children
+  const startMenu = React.Children.toArray(children).find(
+    child => React.isValidElement(child) && child.type === XPTaskBarStartMenu
+  );
+  const systemTray = React.Children.toArray(children).find(
+    child => React.isValidElement(child) && child.type === XPTaskBarSystemTray
+  );
+
+  return (
+    <div className={cn('xp-taskbar', className)}>
+      {/* Start Menu Section */}
+      {startMenu}
+
+      {/* Window Tabs Section (Auto-inserted) */}
+      <WindowTabs />
+
+      {/* System Tray Section */}
+      {systemTray}
+    </div>
+  );
+};
+
+// Start Menu wrapper with built-in button and state management
+const XPTaskBarStartMenu: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   // Close the menu if the user clicks outside of it, but exclude the start button
@@ -87,165 +200,66 @@ const XPStartMenu = ({
 
     // Only close if the click is not on the start button
     if (!isStartButton) {
-      onClose();
+      setIsOpen(false);
     }
   });
 
   return (
-    <div ref={ref} className="start-menu-container">
-      {children}
+    <div className="taskbar-section start-section">
+      <StartButton active={isOpen} onClick={() => setIsOpen(prev => !prev)} />
+      {isOpen && (
+        <div ref={ref} className="start-menu-container">
+          {React.cloneElement(
+            children as React.ReactElement<{ onClose?: () => void }>,
+            { onClose: () => setIsOpen(false) }
+          )}
+        </div>
+      )}
     </div>
   );
 };
 
-// A wrapper for the system tray, which includes the clock and custom children.
-const XPSystemTray = ({ children }: { children: React.ReactNode }) => (
-  <div className="system-tray">
-    {/* Render custom children first */}
-    <div className="system-tray-custom-children mr-2">{children}</div>
-    {/* Default clock is always displayed */}
-    <Clock />
+// System Tray container with built-in clock
+const XPTaskBarSystemTray: React.FC<{
+  children?: React.ReactNode;
+}> = ({ children }) => (
+  <div className="taskbar-section system-tray-section">
+    <div className="system-tray">
+      {/* Render custom children first */}
+      {children && (
+        <div className="system-tray-custom-children mr-2">{children}</div>
+      )}
+      {/* Default clock is always displayed */}
+      <Clock />
+    </div>
   </div>
 );
 
-// --- Main XPTaskBar Component ---
-
-export type XPTaskBarProps = {
-  children?: React.ReactNode;
-  className?: string;
-};
-
-const XPTaskBar = forwardRef<HTMLDivElement, XPTaskBarProps>(
-  ({ children, className }, ref) => {
-    // --- STATE MANAGEMENT ---
-    const [isStartMenuOpen, setStartMenuOpen] = useState(false);
-    const [modalWindows, setModalWindows] = useState<ModalWindow[]>([]);
-    const [activeWindowId, setActiveWindowId] = useState<string>('');
-
-    // --- HOOKS ---
-    // The core business logic from react95
-    const { minimize, restore, focus, subscribe } = useModal();
-
-    // This effect contains the essential logic for syncing with the global modal state
-    useEffect(() => {
-      const addModal = (data: Partial<ModalWindow>) => {
-        const window = data as ModalWindow;
-        if (!window.id) {
-          console.warn('Modal added without ID');
-          return;
-        }
-        setModalWindows(prevModals => {
-          // Prevent duplicates
-          if (prevModals.some(modal => modal.id === window.id)) {
-            return prevModals;
-          }
-          return [...prevModals, window];
-        });
-      };
-
-      const removeModal = (data: Partial<ModalWindow>) => {
-        if (!data.id) return;
-        setModalWindows(prevModals => {
-          const filteredModals = prevModals.filter(
-            modal => modal.id !== data.id
-          );
-
-          const lastModal = filteredModals.at(-1);
-
-          if (activeWindowId === data.id && lastModal) {
-            focus(lastModal.id);
-          }
-
-          return filteredModals;
-        });
-      };
-
-      const updateVisibleModal = (data: Partial<ModalWindow>) => {
-        if (data.id) {
-          setActiveWindowId(data.id);
-        }
-      };
-
-      const unsubscribeAdd = subscribe(ModalEvents.AddModal, addModal);
-      const unsubscribeRemove = subscribe(ModalEvents.RemoveModal, removeModal);
-      const unsubscribeVisibility = subscribe(
-        ModalEvents.ModalVisibilityChanged,
-        updateVisibleModal
-      );
-
-      return () => {
-        unsubscribeAdd();
-        unsubscribeRemove();
-        unsubscribeVisibility();
-      };
-    }, [activeWindowId, subscribe, focus]);
-
-    // --- COMPOUND COMPONENT LOGIC ---
-    // Find the StartMenu and SystemTray components from children
-    const startMenu = React.Children.toArray(children).find(
-      child => React.isValidElement(child) && child.type === XPStartMenu
-    );
-    const systemTray = React.Children.toArray(children).find(
-      child => React.isValidElement(child) && child.type === XPSystemTray
-    );
-
-    return (
-      <div ref={ref} className={cn('xp-taskbar', className)}>
-        {/* 1. Render Start Menu and its button */}
-        <div className="taskbar-section start-section">
-          <StartButton
-            active={isStartMenuOpen}
-            onClick={() => setStartMenuOpen(prev => !prev)}
-          />
-          {isStartMenuOpen &&
-            startMenu &&
-            React.cloneElement(
-              startMenu as React.ReactElement<{ onClose: () => void }>,
-              { onClose: () => setStartMenuOpen(false) }
-            )}
-        </div>
-
-        {/* 2. Render Window Tabs */}
-        <div className="taskbar-section window-tabs-section">
-          {modalWindows.map(
-            ({ id, icon, title, hasButton }) =>
-              hasButton && (
-                <WindowTab
-                  key={id}
-                  icon={icon}
-                  title={title}
-                  active={id === activeWindowId}
-                  minimized={
-                    id !== activeWindowId && modalWindows.some(w => w.id === id)
-                  }
-                  onClick={() => {
-                    if (id === activeWindowId) {
-                      minimize(id);
-                      setActiveWindowId('');
-                    } else {
-                      restore(id);
-                      focus(id);
-                    }
-                  }}
-                />
-              )
-          )}
-        </div>
-
-        {/* 3. Render System Tray */}
-        <div className="taskbar-section system-tray-section">{systemTray}</div>
-      </div>
-    );
-  }
+// System Tray button component
+const XPTaskBarSystemTrayButton: React.FC<{
+  icon: string;
+  onClick?: () => void;
+  tooltip?: string;
+  alt?: string;
+}> = ({ icon, onClick, tooltip, alt }) => (
+  <button
+    className="system-tray-button"
+    onClick={onClick}
+    title={tooltip}
+    aria-label={alt || tooltip}
+  >
+    <XPIcon
+      src={icon}
+      alt={alt || tooltip || 'System tray button'}
+      className="w-4 h-4"
+    />
+  </button>
 );
 
-// --- ASSIGN SUB-COMPONENTS TO THE MAIN EXPORT ---
-const XPTaskBarWithSubComponents = XPTaskBar as typeof XPTaskBar & {
-  StartMenu: typeof XPStartMenu;
-  SystemTray: typeof XPSystemTray;
+// --- Exports ---
+export {
+  XPTaskBar,
+  XPTaskBarStartMenu,
+  XPTaskBarSystemTray,
+  XPTaskBarSystemTrayButton,
 };
-
-XPTaskBarWithSubComponents.StartMenu = XPStartMenu;
-XPTaskBarWithSubComponents.SystemTray = XPSystemTray;
-
-export default XPTaskBarWithSubComponents;
