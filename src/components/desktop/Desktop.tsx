@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { apps, type App } from '../../apps';
 import Shortcut from '@/components/desktop/Shortcut';
 import { XPWindow, XPWindowBody } from '@/components/window';
 import XPIcon from '../XPIcon';
+import { ModalEvents } from '../core/modal-types';
+import { modals } from '../core/modalController';
 
 const Desktop: React.FC = () => {
   const [openWindows, setOpenWindows] = useState<App[]>([]);
@@ -13,6 +15,16 @@ const Desktop: React.FC = () => {
       setOpenWindows(prev => [...prev, app]);
     }
   };
+
+  useEffect(() => {
+    const handleRemove = ({ id }: { id?: string }) => {
+      if (!id) return;
+      setOpenWindows(prev => prev.filter(w => w.id !== id));
+    };
+
+    modals.on(ModalEvents.RemoveModal, handleRemove);
+    return () => modals.off(ModalEvents.RemoveModal, handleRemove);
+  }, []);
 
   return (
     <>

@@ -431,7 +431,7 @@ const XPWindow: React.FC<XPWindowProps> & {
 
     // Cleanup on unmount
     return () => {
-      remove(id);
+      //remove(id);
       unsubFocus();
     };
   }, [id, title, icon, add, remove, focus, subscribe]);
