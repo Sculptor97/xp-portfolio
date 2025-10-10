@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { apps, type App } from '../../apps';
 import Shortcut from '@/components/desktop/Shortcut';
-import { XPWindow, XPWindowBody } from '@/components/window';
-import XPIcon from '../XPIcon';
 import { ModalEvents } from '../core/modal-types';
 import { modals } from '../core/modalController';
 
@@ -47,20 +45,7 @@ const Desktop: React.FC = () => {
       {/* Render open windows */}
       {openWindows.map(app => {
         const AppComponent = app.component;
-        return (
-          <XPWindow
-            key={app.id}
-            title={app.title}
-            width={app.width || 500}
-            height={app.height || 500}
-            icon={<XPIcon src={app.icon} alt={app.title} className="w-5 h-5" />}
-            id={app.id}
-          >
-            <XPWindowBody className="overflow-auto">
-              <AppComponent />
-            </XPWindowBody>
-          </XPWindow>
-        );
+        return <AppComponent key={app.id} {...app} />;
       })}
     </>
   );

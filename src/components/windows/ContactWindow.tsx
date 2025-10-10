@@ -23,7 +23,21 @@ interface FormState {
   show: boolean;
 }
 
-const ContactWindow: React.FC = () => {
+interface ContactWindowProps {
+  id?: string;
+  title?: string;
+  icon?: string;
+  width?: number;
+  height?: number;
+}
+
+const ContactWindow: React.FC<ContactWindowProps> = ({
+  id = 'contact',
+  title = 'Contact Me',
+  icon = '/assets/outlook_expresss.png',
+  width = 800,
+  height = 700,
+}) => {
   const { data: contactConfig, isLoading: configLoading } = useContactConfig();
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -111,23 +125,13 @@ const ContactWindow: React.FC = () => {
 
   return (
     <XPWindow
-      title="Contact Me"
-      icon={
-        <XPIcon
-          src="/assets/outlook_expresss.png"
-          alt="Contact"
-          className="w-5 h-5"
-        />
-      }
-      id="contact"
-      width={800}
-      height={700}
+      title={title}
+      icon={<XPIcon src={icon} alt="Contact" className="w-5 h-5" />}
+      id={id}
+      width={width}
+      height={height}
     >
-      <XPWindowHeader
-        icon="/assets/outlook_expresss.png"
-        address="Contact Me"
-        loading={configLoading}
-      >
+      <XPWindowHeader icon={icon} address={title} loading={configLoading}>
         <XPWindowHeaderNavItem
           icon="/assets/send.webp"
           label="Send Message"

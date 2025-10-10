@@ -8,9 +8,11 @@ export interface App {
   id: string;
   title: string;
   icon: string;
-  component: React.ComponentType;
+  component: React.ComponentType<any>;
   width?: number;
   height?: number;
+  // Additional props that can be passed to the component
+  [key: string]: any;
 }
 
 // Export an array of app definitions
