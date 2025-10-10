@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { apps, type App } from '../../apps';
+import React from 'react';
+import { apps } from '../../apps';
 import Shortcut from '@/components/desktop/Shortcut';
-import { ModalEvents } from '../core/modal-types';
-import { modals } from '../core/modalController';
+import { useAppContext } from '../../hooks/useAppManager';
 
 const Desktop: React.FC = () => {
-  const [openWindows, setOpenWindows] = useState<App[]>([]);
-
-  const openWindow = (app: App) => {
-    // Check if window is already open
-    if (!openWindows.find(w => w.id === app.id)) {
-      setOpenWindows(prev => [...prev, app]);
-    }
-  };
-
-  useEffect(() => {
-    const handleRemove = ({ id }: { id?: string }) => {
-      if (!id) return;
-      setOpenWindows(prev => prev.filter(w => w.id !== id));
-    };
-
-    modals.on(ModalEvents.RemoveModal, handleRemove);
-    return () => modals.off(ModalEvents.RemoveModal, handleRemove);
-  }, []);
+  const { openWindows, openApp } = useAppContext();
+  
+  // Filter apps to only show shortcuts
+  const shortcutApps = apps.filter(app => app.isShortcut);
 
   return (
     <>
@@ -32,12 +17,12 @@ const Desktop: React.FC = () => {
           backgroundImage: 'url(/assets/bliss_wallpaper.png)',
         }}
       >
-        {apps.map(app => (
+        {shortcutApps.map(app => (
           <Shortcut
             key={app.id}
             icon={app.icon}
             title={app.title}
-            onDoubleClick={() => openWindow(app)}
+            onDoubleClick={() => openApp(app.id)}
           />
         ))}
       </div>

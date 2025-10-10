@@ -11,9 +11,19 @@ export interface App {
   component: React.ComponentType<any>;
   width?: number;
   height?: number;
+  isShortcut?: boolean; // Whether to show as desktop shortcut
+  isDesktopOnly?: boolean; // Whether app requires desktop environment
   // Additional props that can be passed to the component
   [key: string]: any;
 }
+
+// App ID constants for type safety
+export const APP_IDS = {
+  ABOUT_ME: 'about-me',
+  MY_PROJECTS: 'my-projects',
+  CONTACT: 'contact',
+  MY_RESUME: 'my-resume',
+} as const;
 
 // Export an array of app definitions
 export const apps: App[] = [
@@ -24,6 +34,7 @@ export const apps: App[] = [
     component: AboutMeContent,
     width: 500,
     height: 700,
+    isShortcut: true,
   },
   {
     id: 'my-resume',
@@ -31,6 +42,7 @@ export const apps: App[] = [
     icon: '/assets/pdf.svg',
     component: AboutMeContent, // You can create a separate resume component
     width: 500,
+    isShortcut: true,
   },
   {
     id: 'my-projects',
@@ -38,6 +50,7 @@ export const apps: App[] = [
     icon: '/assets/IE.png',
     component: MyProjectsContent,
     width: 600,
+    isShortcut: true,
   },
   {
     id: 'contact',
@@ -45,5 +58,6 @@ export const apps: App[] = [
     icon: '/assets/outlook_expresss.png',
     component: ContactContent,
     width: 800,
+    isShortcut: true,
   },
 ];

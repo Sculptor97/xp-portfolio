@@ -10,6 +10,8 @@ import { useConfirmationDialog } from '../../hooks/useConfirmationDialog';
 import { useLogOffDialog } from '../../hooks/useLogOffDialog';
 import { useAuth } from '../../hooks/useAuth';
 import { useSocialProfiles } from '../../services/portfolioQueries';
+import { useAppContext } from '../../hooks/useAppManager';
+import { APP_IDS } from '../../apps';
 import './StartMenu.css';
 
 export interface StartMenuProps {
@@ -44,6 +46,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const { logout, restart } = useAuth();
   const { data: socialProfiles, isLoading: socialProfilesLoading } =
     useSocialProfiles();
+  const { openApp, showDesktopOnlyAlert, desktopOnlyDialogState, hideDesktopOnlyDialog } = useAppContext();
 
   const handleNavigation = (path: string) => {
     if (onNavigate) {
@@ -61,6 +64,27 @@ const StartMenu: React.FC<StartMenuProps> = ({
       });
     },
     [showLinkConfirmation]
+  );
+
+  const handleAppClick = useCallback(
+    (appId: string) => {
+      console.log('StartMenu: Opening app:', appId);
+      openApp(appId);
+      if (onClose) {
+        console.log('StartMenu: Calling onClose');
+        onClose();
+      } else {
+        console.log('StartMenu: onClose not provided');
+      }
+    },
+    [openApp, onClose]
+  );
+
+  const handleDesktopOnlyAppClick = useCallback(
+    (appId: string) => {
+      showDesktopOnlyAlert(appId);
+    },
+    [showDesktopOnlyAlert]
   );
 
   const handleLogOff = () => {
@@ -108,44 +132,44 @@ const StartMenu: React.FC<StartMenuProps> = ({
       iconAlt: 'My Projects',
       title: 'My Projects',
       subtitle: 'View my work',
-      onClick: () => handleNavigation('/projects'),
+      onClick: () => handleAppClick(APP_IDS.MY_PROJECTS),
     },
     {
       icon: '/assets/outlook_expresss.png',
       iconAlt: 'Contact Me',
       title: 'Contact Me',
       subtitle: 'Send me a message',
-      onClick: () => handleNavigation('/contact'),
+      onClick: () => handleAppClick(APP_IDS.CONTACT),
     },
     {
-      icon: '/assets/profile.gif',
+      icon: '/assets/Tour_XP.png',
       iconAlt: 'About Me',
       title: 'About Me',
-      onClick: () => handleNavigation('/about'),
+      onClick: () => handleAppClick(APP_IDS.ABOUT_ME),
     },
     {
       icon: '/assets/picture_viewer.png',
       iconAlt: 'Image Viewer',
       title: 'Image Viewer',
-      onClick: () => handleNavigation('/gallery'),
+      onClick: () => handleDesktopOnlyAppClick('image-viewer'),
     },
     {
       icon: '/assets/WMP.png',
       iconAlt: 'Media Player',
       title: 'Media Player',
-      onClick: () => handleNavigation('/media'),
+      onClick: () => handleDesktopOnlyAppClick('media-player'),
     },
     {
       icon: '/assets/Paint.png',
       iconAlt: 'Paint',
       title: 'Paint',
-      onClick: () => handleNavigation('/paint'),
+      onClick: () => handleDesktopOnlyAppClick('paint'),
     },
     {
       icon: '/assets/mp3_player.png',
       iconAlt: 'Music Player',
       title: 'Music Player',
-      onClick: () => handleNavigation('/music'),
+      onClick: () => handleDesktopOnlyAppClick('music-player'),
     },
   ];
 
@@ -390,6 +414,16 @@ const StartMenu: React.FC<StartMenuProps> = ({
             ? `Log Off ${user.name} XP`
             : `Shut Down ${user.name} XP`
         }
+      />
+
+      {/* Desktop Only Alert Dialog */}
+      <ConfirmationDialog
+        isOpen={desktopOnlyDialogState.isOpen}
+        onClose={hideDesktopOnlyDialog}
+        title={desktopOnlyDialogState.title}
+        message={desktopOnlyDialogState.message}
+        icon={desktopOnlyDialogState.icon}
+        singleButton={true}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import XPIcon from './XPIcon';
 export interface ConfirmationDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm?: () => void;
   onCancel?: () => void;
   title?: string;
   message: string;
@@ -12,6 +12,7 @@ export interface ConfirmationDialogProps {
   cancelText?: string;
   icon?: string;
   iconAlt?: string;
+  singleButton?: boolean; // For alert-style dialogs with only OK button
 }
 
 const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
@@ -25,11 +26,14 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   cancelText = 'Cancel',
   icon,
   iconAlt,
+  singleButton = false,
 }) => {
   if (!isOpen) return null;
 
   const handleConfirm = () => {
-    onConfirm();
+    if (onConfirm) {
+      onConfirm();
+    }
     onClose();
   };
 
@@ -92,19 +96,21 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
             )}
             <h3 className="text-sm md:text-base md:font-semibold">{title}</h3>
             <p className="mb-6 text-sm leading-relaxed">{message}</p>
-            <div className="flex justify-between">
-              <button
-                onClick={handleCancel}
-                className="px-4 py-1 text-sm h-8 w-30"
-              >
-                {cancelText}
-              </button>
+            <div className={`flex ${singleButton ? 'justify-center' : 'justify-between'}`}>
+              {!singleButton && (
+                <button
+                  onClick={handleCancel}
+                  className="px-4 py-1 text-sm h-8 w-30"
+                >
+                  {cancelText}
+                </button>
+              )}
               <button
                 onClick={handleConfirm}
                 autoFocus
                 className="px-4 py-1 text-2xl h-8 w-30"
               >
-                {confirmText}
+                {singleButton ? 'OK' : confirmText}
               </button>
             </div>
           </div>
