@@ -227,7 +227,7 @@
 
   /* Inactive window title bar - more subdued */
   .xp-window:not(.is-active) .title-bar {
-    background: linear-gradient(to bottom, #a0a0a0, #808080);
+    background: linear-gradient(to bottom, #a0a0a0, #808080) !important;
     border: 1px solid #606060;
     border-bottom: 1px solid #404040;
     color: #333;
@@ -253,7 +253,7 @@
   .xp-window {
     position: absolute;
     top: 50px;
-    left: 50px;
+    left: 100px;
   }
 
   /* Windows XP Desktop Shortcut Styling */
@@ -326,8 +326,8 @@
     @media (max-width: 480px) {
       .xp-window:not(.is-maximized) {
         width: 100% !important;
-        top: 0 !important;
-        left: 0 !important;
+        top: 20 !important;
+        left: 10 !important;
       }
     }
   }

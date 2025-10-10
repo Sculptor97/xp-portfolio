@@ -452,20 +452,18 @@ const XPWindow: React.FC<XPWindowProps> & {
     minimize(id);
     focus('no-id');
   };
+
   const handleMinimize = () => {
     minimize(id);
     focus('no-id'); // Unfocus the window when minimizing
   };
+
   const handleMaximizeToggle = () => setIsMaximized(prev => !prev);
 
   // --- DYNAMIC STYLING ---
   const windowStyles = isMaximized
     ? { width: '100%', height: '100%', top: 0, left: 0 }
     : { width: `${width}px`, height: `${height}px` };
-
-  if (isMinimized) {
-    return null; // Don't render anything if minimized (TaskBar handles it)
-  }
 
   return (
     <div
