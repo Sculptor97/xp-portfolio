@@ -103,13 +103,13 @@
 
 .window-tab {
   flex-shrink: 1; /* Allows tabs to shrink, but not excessively */
-  min-width: 100px;
-  max-width: 160px;
+  min-width: 160px;
+  max-width: 200px;
   height: 30px;
   margin: 0 2px;
   background: linear-gradient(to top, #276dd7, #3a81e3);
   border: 1px solid #1c52a0;
-  border-radius: 2px;
+  border-radius: 4px;
   color: white;
   padding: 0 8px;
   font-size: 12px;
@@ -162,8 +162,8 @@
 .window-tab.is-minimized {
   background: linear-gradient(to top, #1a4a8a, #2d5a9a);
   border: 1px solid #0f3a6a;
-  color: #b8c8e8;
-  opacity: 0.8;
+  color: white;
+  /* opacity: 0.8; */
 }
 
 .window-tab.is-minimized:hover {

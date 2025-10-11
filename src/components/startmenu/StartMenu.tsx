@@ -23,7 +23,6 @@ export interface StartMenuProps {
     avatarAlt?: string;
   };
   onLogOff?: () => void;
-  onNavigate?: (path: string) => void;
 }
 
 const StartMenu: React.FC<StartMenuProps> = ({
@@ -31,7 +30,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
   className,
   user = { name: 'Legha-gha' },
   onLogOff,
-  onNavigate,
 }) => {
   const { dialogState, showLinkConfirmation, hideDialog } =
     useConfirmationDialog();
@@ -52,15 +50,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
     desktopOnlyDialogState,
     hideDesktopOnlyDialog,
   } = useAppContext();
-
-  const handleNavigation = (path: string) => {
-    if (onNavigate) {
-      onNavigate(path);
-    }
-    if (onClose) {
-      onClose();
-    }
-  };
 
   const handleSocialLink = useCallback(
     (url: string, platform: string) => {
@@ -149,28 +138,35 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleAppClick(APP_IDS.ABOUT_ME),
     },
     {
+      icon: '/assets/pdf.svg',
+      iconAlt: 'My Resume',
+      title: 'My Resume',
+      subtitle: 'Download my resume',
+      onClick: () => handleAppClick(APP_IDS.MY_RESUME),
+    },
+    {
       icon: '/assets/picture_viewer.png',
       iconAlt: 'Image Viewer',
       title: 'Image Viewer',
-      onClick: () => handleDesktopOnlyAppClick('image-viewer'),
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.IMAGE_VIEWER),
     },
     {
       icon: '/assets/WMP.png',
       iconAlt: 'Media Player',
       title: 'Media Player',
-      onClick: () => handleDesktopOnlyAppClick('media-player'),
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.MEDIA_PLAYER),
     },
     {
       icon: '/assets/Paint.png',
       iconAlt: 'Paint',
       title: 'Paint',
-      onClick: () => handleDesktopOnlyAppClick('paint'),
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.PAINT),
     },
     {
       icon: '/assets/mp3_player.png',
       iconAlt: 'Music Player',
       title: 'Music Player',
-      onClick: () => handleDesktopOnlyAppClick('music-player'),
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.MUSIC_PLAYER),
     },
   ];
 
@@ -233,99 +229,91 @@ const StartMenu: React.FC<StartMenuProps> = ({
       icon: '/assets/cmd.webp',
       iconAlt: 'Command Prompt',
       title: 'C:\\ Command Prompt',
-      onClick: () => handleNavigation('/terminal'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.CMD),
     },
     {
-      icon: '/assets/pdf.svg',
-      iconAlt: 'My Resume',
-      title: 'My Resume',
-      onClick: () => handleNavigation('/resume'),
-      disabled: true,
+      icon: '/assets/task_manager.png',
+      iconAlt: 'Task Manager',
+      title: 'Task Manager',
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.TASK_MANAGER),
+    },
+    {
+      icon: '/assets/sysInfo.png',
+      iconAlt: 'System Information',
+      title: 'System Information',
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.SYSTEM_INFO),
     },
     {
       icon: '/assets/after-effects.webp',
       iconAlt: 'Adobe After Effects',
       title: 'Ae Adobe After Effects',
-      onClick: () => handleNavigation('/after-effects'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.AFTER_EFFECTS),
     },
     {
       icon: '/assets/illustrator.webp',
       iconAlt: 'Adobe Illustrator',
       title: 'Ai Adobe Illustrator',
-      onClick: () => handleNavigation('/illustrator'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.ILLUSTRATOR),
     },
     {
       icon: '/assets/IE.png',
       iconAlt: 'Adobe InDesign',
       title: 'Id Adobe InDesign',
-      onClick: () => handleNavigation('/indesign'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.INDESIGN),
     },
     {
       icon: '/assets/photoshop.webp',
       iconAlt: 'Adobe Photoshop',
       title: 'Ps Adobe Photoshop',
-      onClick: () => handleNavigation('/photoshop'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.PHOTOSHOP),
     },
     {
       icon: '/assets/premiere.webp',
       iconAlt: 'Adobe Premiere Pro',
       title: 'Pr Adobe Premiere Pro',
-      onClick: () => handleNavigation('/premiere'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.PREMIERE),
     },
     {
       icon: '/assets/blender.webp',
       iconAlt: 'Blender',
       title: 'Blender',
-      onClick: () => handleNavigation('/blender'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.BLENDER),
     },
     {
       icon: '/assets/davinci.webp',
       iconAlt: 'DaVinci Resolve',
       title: 'Davinci Resolve',
-      onClick: () => handleNavigation('/davinci'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.DAVINCI),
     },
     {
       icon: '/assets/figma.webp',
       iconAlt: 'Figma',
       title: 'Figma',
-      onClick: () => handleNavigation('/figma'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.FIGMA),
     },
     {
       icon: '/assets/copilot.webp',
       iconAlt: 'GitHub Copilot',
       title: 'GitHub Copilot',
-      onClick: () => handleNavigation('/copilot'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.GITHUB_COPILOT),
     },
     {
       icon: '/assets/obs.webp',
       iconAlt: 'OBS Studio',
       title: 'OBS Studio',
-      onClick: () => handleNavigation('/obs'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.OBS),
     },
     {
       icon: '/assets/vscode.webp',
       iconAlt: 'VS Code',
       title: 'VS Code',
-      onClick: () => handleNavigation('/vscode'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.VSCODE),
     },
     {
       icon: '/assets/wordpress.webp',
       iconAlt: 'WordPress',
       title: 'Wordpress',
-      onClick: () => handleNavigation('/wordpress'),
-      disabled: true,
+      onClick: () => handleDesktopOnlyAppClick(APP_IDS.WORDPRESS),
     },
   ];
 

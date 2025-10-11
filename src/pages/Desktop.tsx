@@ -8,11 +8,10 @@ import SystemTrayButtons from '../components/SystemTrayButtons';
 import { StartMenu } from '../components/startmenu';
 import { playStartupSoundWithCallback } from '../lib/soundUtils';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function DesktopPage() {
   const location = useLocation();
-  const navigate = useNavigate();
   const [shouldShowWelcome, setShouldShowWelcome] = useState(false);
   const [startupComplete, setStartupComplete] = useState(false);
 
@@ -40,7 +39,7 @@ function DesktopPage() {
   return (
     <div className="h-screen w-screen bg-black relative overflow-hidden">
       {/* Desktop viewport - this is where windows will be rendered */}
-      <div className="desktop-viewport fixed top-[-2px] left-0 right-0 bottom-[28px] md:bottom-[35px] z-[1]">
+      <div className="desktop-viewport fixed top-[-2px] left-0 right-0 bottom-[28px] z-[1]">
         {/* Desktop with shortcuts */}
         <Desktop />
       </div>
@@ -54,7 +53,6 @@ function DesktopPage() {
               avatar: '/assets/profile.gif',
               avatarAlt: 'Legha-gha',
             }}
-            onNavigate={path => navigate(path)}
             onLogOff={() => {
               // Handle log off logic
               console.log('Log off clicked');

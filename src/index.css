@@ -227,8 +227,8 @@
 
   /* Inactive window title bar - more subdued */
   .xp-window:not(.is-active) .title-bar {
-    background: linear-gradient(to bottom, #a0a0a0, #808080) !important;
-    border: 1px solid #606060;
+    background: linear-gradient(to bottom, #4a9eff, #6bb6ff) !important;
+    border: 1px solid #2d7dd1;
     border-bottom: 1px solid #404040;
     color: #333;
     opacity: 0.9;
@@ -246,6 +246,7 @@
   .xp-window.is-active {
     z-index: 5 !important;
   }
+
   .xp-window.is-minimized {
     display: none !important;
   }

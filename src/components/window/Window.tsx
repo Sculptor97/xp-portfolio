@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, type RefObject } from 'react';
 import {
   useModal,
   ModalEvents,
@@ -9,6 +9,7 @@ import { useDraggable } from '@neodrag/react';
 import { nanoid } from 'nanoid';
 import { cn } from '@/lib/utils';
 import XPIcon from '../XPIcon';
+import { useWindowMaximize } from '@/hooks/useWindowMaximize';
 import './Window.css';
 
 // --- TypeScript Interfaces ---
@@ -405,13 +406,17 @@ const XPWindow: React.FC<XPWindowProps> & {
   const [id] = useState<string>(windowId || nanoid());
   const [isActive, setIsActive] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
-  const [isMaximized, setIsMaximized] = useState(false);
 
   // --- HOOKS ---
   // Core logic from react95's useModal hook
   const { add, remove, focus, minimize, subscribe } = useModal();
   // Draggability logic
   const draggableRef = useRef<HTMLDivElement>(null);
+  // Maximize logic with position preservation
+  const { isMaximized, handleMaximizeToggle } = useWindowMaximize(
+    draggableRef as RefObject<HTMLDivElement | null>
+  );
+
   useDraggable(draggableRef as React.RefObject<HTMLElement>, {
     handle: '.draggable', // Only the title bar can be used for dragging
     disabled: isMaximized, // Disable dragging when maximized
@@ -457,8 +462,6 @@ const XPWindow: React.FC<XPWindowProps> & {
     minimize(id);
     focus('no-id'); // Unfocus the window when minimizing
   };
-
-  const handleMaximizeToggle = () => setIsMaximized(prev => !prev);
 
   // --- DYNAMIC STYLING ---
   const windowStyles = isMaximized
