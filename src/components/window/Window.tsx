@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useMemo, type RefObject } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  type RefObject,
+} from 'react';
 import {
   useModal,
   ModalEvents,
@@ -11,7 +17,7 @@ import { cn } from '@/lib/utils';
 import XPIcon from '../XPIcon';
 import { useWindowMaximize } from '@/hooks/useWindowMaximize';
 import './Window.css';
-import { useDesktopOnlyAlert } from '@/hooks/useDesktopOnlyAlert'
+import { useDesktopOnlyAlert } from '@/hooks/useDesktopOnlyAlert';
 
 // --- TypeScript Interfaces ---
 
@@ -409,7 +415,7 @@ const XPWindow: React.FC<XPWindowProps> & {
   const [id] = useState<string>(windowId || nanoid());
   const [isActive, setIsActive] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
-  
+
   // Memoize mobile device check to prevent re-evaluation on every render
   const isMobile = useMemo(() => isMobileDevice(), [isMobileDevice]);
 
@@ -503,15 +509,23 @@ const XPWindow: React.FC<XPWindowProps> & {
             <button
               aria-label="Restore"
               onClick={handleMaximizeToggle}
-                  disabled={isMobile}
-                  style={isMobile ? { opacity: 0.5, cursor: 'not-allowed' } : { opacity: 1, cursor: 'pointer' }}
+              disabled={isMobile}
+              style={
+                isMobile
+                  ? { opacity: 0.5, cursor: 'not-allowed' }
+                  : { opacity: 1, cursor: 'pointer' }
+              }
             ></button>
           ) : (
             <button
               aria-label="Maximize"
               onClick={handleMaximizeToggle}
               disabled={isMobile}
-              style={isMobile ? { opacity: 0.5, cursor: 'not-allowed' } : { opacity: 1, cursor: 'pointer' }}
+              style={
+                isMobile
+                  ? { opacity: 0.5, cursor: 'not-allowed' }
+                  : { opacity: 1, cursor: 'pointer' }
+              }
             ></button>
           )}
           <button aria-label="Close" onClick={handleClose}></button>

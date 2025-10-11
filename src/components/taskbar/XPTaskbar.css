@@ -242,7 +242,7 @@
   }
 
   .window-tab {
-    flex:1;/* Smaller tabs on mobile */
+    flex: 1; /* Smaller tabs on mobile */
     /* max-width: 120px; */
     height: 20px;
     font-size: 11px;
@@ -266,10 +266,10 @@
     margin-right: 0 !important;
   }
 
-    /* Make tabs icon-only when titles are hidden */
-    .window-tabs-section:has(.window-tab:nth-child(5)){
-      justify-content: flex-start !important;
-    }
+  /* Make tabs icon-only when titles are hidden */
+  .window-tabs-section:has(.window-tab:nth-child(5)) {
+    justify-content: flex-start !important;
+  }
   .system-tray-section {
     min-width: 100px; /* Smaller system tray on mobile */
     max-width: 150px;
