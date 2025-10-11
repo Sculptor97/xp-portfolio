@@ -97,13 +97,14 @@
   flex-grow: 1; /* Allows this section to take up available space */
   display: flex;
   align-items: center;
+  justify-content: center;
   min-width: 0; /* CRUCIAL: Allows flex items to shrink below their content size */
   overflow: hidden; /* Hides any tabs that don't fit in the available space */
 }
 
 .window-tab {
   flex-shrink: 1; /* Allows tabs to shrink, but not excessively */
-  min-width: 160px;
+  /* min-width: 160px; */
   max-width: 200px;
   height: 30px;
   margin: 0 2px;
@@ -241,8 +242,8 @@
   }
 
   .window-tab {
-    min-width: 80px; /* Smaller tabs on mobile */
-    max-width: 120px;
+    flex:1;/* Smaller tabs on mobile */
+    /* max-width: 120px; */
     height: 20px;
     font-size: 11px;
   }
@@ -265,6 +266,10 @@
     margin-right: 0 !important;
   }
 
+    /* Make tabs icon-only when titles are hidden */
+    .window-tabs-section:has(.window-tab:nth-child(5)){
+      justify-content: flex-start !important;
+    }
   .system-tray-section {
     min-width: 100px; /* Smaller system tray on mobile */
     max-width: 150px;

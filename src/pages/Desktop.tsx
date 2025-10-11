@@ -45,8 +45,13 @@ function DesktopPage() {
       <div className="desktop-viewport fixed top-[-2px] left-0 right-0 bottom-[28px] z-[1]">
         {/* Desktop with shortcuts */}
         <Desktop />
+        <ConfirmationDialog
+          isOpen={desktopOnlyDialogState.isOpen}
+          onClose={hideDesktopOnlyDialog}
+          title={desktopOnlyDialogState.title}
+          message={desktopOnlyDialogState.message}
+        />
       </div>
-
       {/* Taskbar at the bottom */}
       <XPTaskBar className="fixed bottom-0 left-0 right-0 z-50">
         <XPTaskBarStartMenu>
@@ -70,16 +75,6 @@ function DesktopPage() {
           />
         </XPTaskBarSystemTray>
       </XPTaskBar>
-
-      {/* Desktop Only Alert Dialog - rendered at top level so it's always available */}
-      <ConfirmationDialog
-        isOpen={desktopOnlyDialogState.isOpen}
-        onClose={hideDesktopOnlyDialog}
-        title={desktopOnlyDialogState.title}
-        message={desktopOnlyDialogState.message}
-        icon={desktopOnlyDialogState.icon}
-        singleButton={true}
-      />
     </div>
   );
 }
