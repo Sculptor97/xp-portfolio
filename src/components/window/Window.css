@@ -10,7 +10,8 @@
 .window-body {
   flex: 1;
   overflow: auto;
-  min-height: 0; /* Allows flex child to shrink below content size */
+  min-height: 0;
+  margin: 1px 5px !important; /* Allows flex child to shrink below content size */
 }
 
 /* Window Header Styles */

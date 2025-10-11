@@ -217,12 +217,12 @@ const StartMenu: React.FC<StartMenuProps> = ({
         icon: '/assets/cmd.webp',
         iconAlt: 'CMD',
         title: 'CMD',
-        onClick: () => console.log('CMD'),
+        onClick: () => handleAppClick(APP_IDS.CMD),
       });
     }
 
     return items;
-  }, [socialProfiles, socialProfilesLoading, handleSocialLink]);
+  }, [socialProfiles, socialProfilesLoading, handleSocialLink, handleAppClick]);
 
   const recentlyUsedItems = [
     {

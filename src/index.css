@@ -492,6 +492,83 @@ button.image-gallery-right-nav:hover {
   margin: 0 auto !important;
 }
 
+/* CMD Terminal Styles */
+.terminal-container {
+  font-family: 'Consolas', 'Courier New', 'Monaco', monospace;
+  background-color: #000000;
+  color: #ffffff;
+  line-height: 1.2;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
+
+.terminal-container input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  caret-color: #00ff00;
+}
+
+.terminal-container input:focus {
+  outline: none;
+}
+
+/* CMD-specific colors */
+.cmd-green {
+  color: #00ff00;
+}
+
+.cmd-red {
+  color: #ff0000;
+}
+
+.cmd-yellow {
+  color: #ffff00;
+}
+
+.cmd-cyan {
+  color: #00ffff;
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.cmd-cursor {
+  animation: blink 1s infinite;
+}
+
+/* Terminal scrollbar styling */
+.terminal-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-container::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.terminal-container::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+
+.terminal-container::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
 .image-gallery-swipe {
   height: 100% !important;
   padding: 10px 0 !important;

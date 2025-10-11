@@ -4,6 +4,7 @@ import MyProjectsContent from './pages/projects';
 import ContactContent from './pages/contact';
 import PlaceholderApp from './components/windows/PlaceholderApp';
 import ImageViewerWindow from './components/windows/ImageViewerWindow';
+import CmdWindow from './components/windows/CmdWindow';
 
 // Define the app interface
 export interface App {
@@ -149,16 +150,11 @@ export const apps: App[] = [
     id: APP_IDS.CMD,
     title: 'Command Prompt',
     icon: '/assets/cmd.webp',
-    component: () => (
-      <PlaceholderApp
-        title="Command Prompt"
-        description="Windows command line interface"
-        icon="/assets/cmd.webp"
-      />
-    ),
-    width: 600,
-    height: 400,
+    component: CmdWindow,
+    width: 800,
+    height: 600,
     isDesktopOnly: true,
+    isShortcut: true,
   },
   {
     id: APP_IDS.TASK_MANAGER,

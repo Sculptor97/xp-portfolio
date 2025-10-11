@@ -5,6 +5,7 @@ import {
   XPWindowHeader,
   XPWindowHeaderNavItem,
   XPWindowBody,
+  XPWindowFooter,
 } from '@/components/window';
 import XPIcon from '@/components/XPIcon';
 import ContactForm from '@/components/forms/ContactForm';
@@ -158,6 +159,9 @@ const ContactWindow: React.FC<ContactWindowProps> = ({
           onSubmit={submitForm}
         />
       </XPWindowBody>
+      <XPWindowFooter>
+        <div className="px-2">Contact Legha-gha</div>
+      </XPWindowFooter>
     </XPWindow>
   );
 };
