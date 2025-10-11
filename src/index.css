@@ -508,6 +508,7 @@ button.image-gallery-right-nav:hover {
   .image-gallery-slide .image-gallery-description {
     bottom: 0px !important;
     font-size: 0.8em !important;
+    text-align: left !important;
   }
 }
 
@@ -586,7 +587,8 @@ button.image-gallery-right-nav:hover {
   height: 60px !important;
 }
 
-button.\.active.image-gallery-icon.image-gallery-right-nav,
-button.\.active.image-gallery-icon.image-gallery-left-nav {
+button.active.image-gallery-icon.image-gallery-right-nav,
+button.active.image-gallery-icon.image-gallery-left-nav {
   box-shadow: none !important;
+  outline: none !important;
 }

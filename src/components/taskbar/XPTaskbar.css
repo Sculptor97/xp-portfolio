@@ -243,6 +243,7 @@
   .window-tab {
     min-width: 80px; /* Smaller tabs on mobile */
     max-width: 120px;
+    height: 20px;
     font-size: 11px;
   }
 
@@ -253,9 +254,15 @@
 
   /* Make tabs icon-only when titles are hidden */
   .window-tabs-section:has(.window-tab:nth-child(3)) .window-tab {
-    min-width: 50px;
+    min-width: 30px !important;
     max-width: 60px;
+    padding: 0 4px !important;
     justify-content: center;
+  }
+
+  /* Make tabs icon-only when titles are hidden */
+  .window-tabs-section:has(.window-tab:nth-child(3)) .window-tab .icon {
+    margin-right: 0 !important;
   }
 
   .system-tray-section {

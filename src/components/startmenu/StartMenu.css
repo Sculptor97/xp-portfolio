@@ -34,10 +34,12 @@
     width: 90vw;
     max-width: 400px;
     font-size: 10px;
+    border-radius: 0;
   }
 
   .start-menu__header {
     padding: 4px 6px;
+    border-radius: 0;
   }
 
   .start-menu__content {
@@ -88,6 +90,7 @@
   .start-menu__footer {
     padding: 4px 8px !important;
     gap: 4px !important;
+    border-radius: 0 !important;
   }
 
   .start-menu-footer__button {
