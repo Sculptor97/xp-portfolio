@@ -327,8 +327,8 @@
     @media (max-width: 480px) {
       .xp-window:not(.is-maximized) {
         width: 100% !important;
-        top: 20 !important;
-        left: 10 !important;
+        top: 20;
+        left: 10;
       }
     }
   }
