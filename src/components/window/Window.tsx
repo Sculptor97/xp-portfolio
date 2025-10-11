@@ -257,7 +257,8 @@ const XPWindowHeaderAddressBar: React.FC<{
 }> = ({ icon, address = 'me', loading = false, className }) => {
   const [progress, setProgress] = React.useState(0);
   const progressIntervalRef = React.useRef<number | null>(null);
-  const addressPrefix = `C:\\\\www.leghagaha.com\\\\${address.toLowerCase()}`;
+  const sluggifiedAddress = address.split(' ').join('-');
+  const addressPrefix = `C:\\\\www.leghagaha.com\\\\${sluggifiedAddress.toLowerCase()}`;
 
   // Handle progress animation when loading state changes
   React.useEffect(() => {

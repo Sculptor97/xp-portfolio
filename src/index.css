@@ -396,3 +396,113 @@
   border-right-color: #e0e0e0; /* Matches receiver background */
   border-left: 0;
 }
+
+/* Image Gallery Custom Styles */
+.image-gallery {
+  height: 100% !important;
+}
+
+.image-gallery-content {
+  height: calc(100% - 120px) !important;
+}
+
+.image-gallery-slide-wrapper {
+  height: 100% !important;
+}
+
+.image-gallery-slides {
+  height: 100% !important;
+}
+
+.image-gallery-slide {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.image-gallery-image {
+  max-height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
+
+.image-gallery-thumbnails {
+  height: 100px !important;
+  padding: 10px 0 !important;
+}
+
+.image-gallery-thumbnail {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+}
+
+.image-gallery-thumbnail-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.image-gallery-thumbnail.active {
+  border: 2px solid #0078d4 !important;
+}
+
+.image-gallery-left-nav,
+.image-gallery-right-nav {
+  background: transparent !important;
+  border-radius: 50% !important;
+  width: 20px !important;
+  height: 20px !important;
+  color: white !important;
+  border: none !important;
+  font-size: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.image-gallery-left-nav:hover,
+.image-gallery-right-nav:hover {
+  background: rgba(0, 0, 0, 1) !important;
+  box-shadow: none !important;
+}
+
+button.image-gallery-left-nav:hover,
+button.image-gallery-right-nav:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  padding: 40px 10px !important;
+  border: none !important;
+}
+
+.image-gallery-left-nav:disabled,
+.image-gallery-right-nav:disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+}
+
+.image-gallery-description {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  padding: 10px !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  max-width: 80% !important;
+  margin: 0 auto !important;
+}
+
+.image-gallery-swipe {
+  height: 100% !important;
+  padding: 10px 0 !important;
+}
+
+.image-gallery-left-nav .image-gallery-svg,
+.image-gallery-right-nav .image-gallery-svg {
+  height: 60px !important;
+}
+
+button.\.active.image-gallery-icon.image-gallery-right-nav,
+button.\.active.image-gallery-icon.image-gallery-left-nav {
+  box-shadow: none !important;
+}
