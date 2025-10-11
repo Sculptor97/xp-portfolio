@@ -47,7 +47,7 @@ const StartMenuItem: React.FC<StartMenuItemProps> = ({
         // Check if we're on mobile (viewport width <= 768px)
         const isMobile = window.innerWidth <= 768;
         if (isMobile) {
-          submenu.style.left = '0px';
+          submenu.style.left = '-100%';
           submenu.style.right = 'auto';
         } else {
           // On desktop, position relative to the right column (100% of StartMenu width)

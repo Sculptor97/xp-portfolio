@@ -346,7 +346,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
               title="All Programs"
               hasSubmenu={true}
               submenuItems={allProgramsItems}
-              className="start-menu-item--all-programs"
+              className="start-menu-item--all-programs font-black"
             />
           </div>
         </div>
@@ -364,7 +364,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
             <StartMenuItem
               title="Recently Used"
               hasSubmenu={true}
-              submenuItems={recentlyUsedItems}
+              submenuItems={recentlyUsedItems.map(item => ({ ...item, disabled: true }))}
               className="start-menu-item--recently-used"
             />
           </div>
