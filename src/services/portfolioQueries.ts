@@ -1,5 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { portfolioService } from './portfolioService';
+import type { UnsplashImage } from '@/lib/api/types/unsplash';
 
 // Query keys for consistent cache management
 export const portfolioKeys = {
@@ -13,6 +14,8 @@ export const portfolioKeys = {
   contactConfig: () => [...portfolioKeys.all, 'contactConfig'] as const,
   socialProfiles: () => [...portfolioKeys.all, 'socialProfiles'] as const,
   intro: () => [...portfolioKeys.all, 'intro'] as const,
+  unsplashImages: (count: number) =>
+    [...portfolioKeys.all, 'unsplashImages', count] as const,
 };
 
 /**
@@ -198,6 +201,19 @@ export const useInvalidatePortfolio = () => {
 };
 
 /**
+ * Hook to fetch Unsplash images
+ */
+export const useUnsplashImages = (count: number = 12) => {
+  return useQuery<UnsplashImage[]>({
+    queryKey: portfolioKeys.unsplashImages(count),
+    queryFn: () => portfolioService.getUnsplashImages(count),
+    staleTime: 5 * 60 * 1000, // 5 minutes - images can be refreshed more frequently
+    gcTime: 15 * 60 * 1000, // 15 minutes
+    retry: 2,
+  });
+};
+
+/**
  * Utility hook to prefetch portfolio data
  * Useful for preloading data before navigation
  */
@@ -246,6 +262,12 @@ export const usePrefetchPortfolio = () => {
         queryKey: portfolioKeys.intro(),
         queryFn: portfolioService.getIntro,
         staleTime: 10 * 60 * 1000,
+      }),
+    prefetchUnsplashImages: (count: number = 12) =>
+      queryClient.prefetchQuery({
+        queryKey: portfolioKeys.unsplashImages(count),
+        queryFn: () => portfolioService.getUnsplashImages(count),
+        staleTime: 5 * 60 * 1000,
       }),
   };
 };

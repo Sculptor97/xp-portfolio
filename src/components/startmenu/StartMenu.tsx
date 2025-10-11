@@ -148,7 +148,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       icon: '/assets/picture_viewer.png',
       iconAlt: 'Image Viewer',
       title: 'Image Viewer',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.IMAGE_VIEWER),
+      onClick: () => handleAppClick(APP_IDS.IMAGE_VIEWER),
     },
     {
       icon: '/assets/WMP.png',
@@ -364,7 +364,10 @@ const StartMenu: React.FC<StartMenuProps> = ({
             <StartMenuItem
               title="Recently Used"
               hasSubmenu={true}
-              submenuItems={recentlyUsedItems.map(item => ({ ...item, disabled: true }))}
+              submenuItems={recentlyUsedItems.map(item => ({
+                ...item,
+                disabled: true,
+              }))}
               className="start-menu-item--recently-used"
             />
           </div>

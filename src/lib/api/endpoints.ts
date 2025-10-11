@@ -7,4 +7,5 @@ export const endpoints = {
   contactConfig: '/portfolio/contact',
   socialProfiles: '/portfolio/social',
   intro: '/portfolio/intro',
+  unsplash: 'https://api.unsplash.com/photos/random',
 };

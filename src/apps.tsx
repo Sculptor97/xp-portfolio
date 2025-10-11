@@ -3,6 +3,7 @@ import AboutMeContent from './pages/about';
 import MyProjectsContent from './pages/projects';
 import ContactContent from './pages/contact';
 import PlaceholderApp from './components/windows/PlaceholderApp';
+import ImageViewerWindow from './components/windows/ImageViewerWindow';
 
 // Define the app interface
 export interface App {
@@ -94,15 +95,9 @@ export const apps: App[] = [
     id: APP_IDS.IMAGE_VIEWER,
     title: 'Image Viewer',
     icon: '/assets/picture_viewer.png',
-    component: () => (
-      <PlaceholderApp
-        title="Image Viewer"
-        description="View and manage your images"
-        icon="/assets/picture_viewer.png"
-      />
-    ),
-    width: 600,
-    height: 500,
+    component: ImageViewerWindow,
+    width: 800,
+    height: 600,
     isDesktopOnly: true,
   },
   {

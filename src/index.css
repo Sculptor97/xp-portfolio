@@ -350,3 +350,49 @@
     font-size: 12px;
   }
 }
+
+.message-bubble {
+  background-color: #e0e0e0; /* Default background for receiver */
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  max-width: 70%;
+  position: relative; /* Essential for positioning the pseudo-element */
+  word-wrap: break-word; /* Ensures long words break */
+}
+
+.message-bubble.sender {
+  background-color: #007bff; /* Different background for sender */
+  color: white;
+  margin-left: auto; /* Aligns sender bubbles to the right */
+}
+
+.message-bubble.receiver {
+  margin-right: auto; /* Aligns receiver bubbles to the left */
+}
+
+/* Tail for sender bubble (pointing right) */
+.message-bubble.sender::after {
+  content: '';
+  position: absolute;
+  right: -10px; /* Adjust as needed */
+  bottom: 10px; /* Adjust as needed */
+  width: 0;
+  height: 0;
+  border: 10px solid transparent; /* Creates the triangle shape */
+  border-left-color: #007bff; /* Matches sender background */
+  border-right: 0; /* Ensures only one side of the triangle is visible */
+}
+
+/* Tail for receiver bubble (pointing left) */
+.message-bubble.receiver::after {
+  content: '';
+  position: absolute;
+  left: -10px; /* Adjust as needed */
+  bottom: 10px; /* Adjust as needed */
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: #e0e0e0; /* Matches receiver background */
+  border-left: 0;
+}

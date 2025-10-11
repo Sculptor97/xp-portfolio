@@ -9,6 +9,7 @@ import type {
   SocialProfiles,
   IntroData,
 } from '@/lib/api/types/portfolio';
+import type { UnsplashImage } from '@/lib/api/types/unsplash';
 
 export const portfolioService = {
   getPortfolio: async () => {
@@ -73,5 +74,23 @@ export const portfolioService = {
       method: 'GET',
     });
     return response.data;
+  },
+
+  getUnsplashImages: async (count: number = 12) => {
+    const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
+    if (!accessKey) {
+      throw new Error('Unsplash access key not found');
+    }
+
+    const response = await fetch(
+      `${endpoints.unsplash}?count=${count}&client_id=${accessKey}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Unsplash API error: ${response.status}`);
+    }
+
+    const data: UnsplashImage[] = await response.json();
+    return data;
   },
 };
