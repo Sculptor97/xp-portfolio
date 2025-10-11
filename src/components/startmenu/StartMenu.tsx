@@ -44,12 +44,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const { logout, restart } = useAuth();
   const { data: socialProfiles, isLoading: socialProfilesLoading } =
     useSocialProfiles();
-  const {
-    openApp,
-    showDesktopOnlyAlert,
-    desktopOnlyDialogState,
-    hideDesktopOnlyDialog,
-  } = useAppContext();
+  const { openApp } = useAppContext();
 
   const handleSocialLink = useCallback(
     (url: string, platform: string) => {
@@ -68,13 +63,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
       }
     },
     [openApp, onClose]
-  );
-
-  const handleDesktopOnlyAppClick = useCallback(
-    (appId: string) => {
-      showDesktopOnlyAlert(appId);
-    },
-    [showDesktopOnlyAlert]
   );
 
   const handleLogOff = () => {
@@ -154,19 +142,19 @@ const StartMenu: React.FC<StartMenuProps> = ({
       icon: '/assets/WMP.png',
       iconAlt: 'Media Player',
       title: 'Media Player',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.MEDIA_PLAYER),
+      onClick: () => handleAppClick(APP_IDS.MEDIA_PLAYER),
     },
     {
       icon: '/assets/Paint.png',
       iconAlt: 'Paint',
       title: 'Paint',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.PAINT),
+      onClick: () => handleAppClick(APP_IDS.PAINT),
     },
     {
       icon: '/assets/mp3_player.png',
       iconAlt: 'Music Player',
       title: 'Music Player',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.MUSIC_PLAYER),
+      onClick: () => handleAppClick(APP_IDS.MUSIC_PLAYER),
     },
   ];
 
@@ -229,91 +217,91 @@ const StartMenu: React.FC<StartMenuProps> = ({
       icon: '/assets/cmd.webp',
       iconAlt: 'Command Prompt',
       title: 'C:\\ Command Prompt',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.CMD),
+      onClick: () => handleAppClick(APP_IDS.CMD),
     },
     {
       icon: '/assets/task_manager.png',
       iconAlt: 'Task Manager',
       title: 'Task Manager',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.TASK_MANAGER),
+      onClick: () => handleAppClick(APP_IDS.TASK_MANAGER),
     },
     {
       icon: '/assets/sysInfo.png',
       iconAlt: 'System Information',
       title: 'System Information',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.SYSTEM_INFO),
+      onClick: () => handleAppClick(APP_IDS.SYSTEM_INFO),
     },
     {
       icon: '/assets/after-effects.webp',
       iconAlt: 'Adobe After Effects',
       title: 'Ae Adobe After Effects',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.AFTER_EFFECTS),
+      onClick: () => handleAppClick(APP_IDS.AFTER_EFFECTS),
     },
     {
       icon: '/assets/illustrator.webp',
       iconAlt: 'Adobe Illustrator',
       title: 'Ai Adobe Illustrator',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.ILLUSTRATOR),
+      onClick: () => handleAppClick(APP_IDS.ILLUSTRATOR),
     },
     {
       icon: '/assets/IE.png',
       iconAlt: 'Adobe InDesign',
       title: 'Id Adobe InDesign',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.INDESIGN),
+      onClick: () => handleAppClick(APP_IDS.INDESIGN),
     },
     {
       icon: '/assets/photoshop.webp',
       iconAlt: 'Adobe Photoshop',
       title: 'Ps Adobe Photoshop',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.PHOTOSHOP),
+      onClick: () => handleAppClick(APP_IDS.PHOTOSHOP),
     },
     {
       icon: '/assets/premiere.webp',
       iconAlt: 'Adobe Premiere Pro',
       title: 'Pr Adobe Premiere Pro',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.PREMIERE),
+      onClick: () => handleAppClick(APP_IDS.PREMIERE),
     },
     {
       icon: '/assets/blender.webp',
       iconAlt: 'Blender',
       title: 'Blender',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.BLENDER),
+      onClick: () => handleAppClick(APP_IDS.BLENDER),
     },
     {
       icon: '/assets/davinci.webp',
       iconAlt: 'DaVinci Resolve',
       title: 'Davinci Resolve',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.DAVINCI),
+      onClick: () => handleAppClick(APP_IDS.DAVINCI),
     },
     {
       icon: '/assets/figma.webp',
       iconAlt: 'Figma',
       title: 'Figma',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.FIGMA),
+      onClick: () => handleAppClick(APP_IDS.FIGMA),
     },
     {
       icon: '/assets/copilot.webp',
       iconAlt: 'GitHub Copilot',
       title: 'GitHub Copilot',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.GITHUB_COPILOT),
+      onClick: () => handleAppClick(APP_IDS.GITHUB_COPILOT),
     },
     {
       icon: '/assets/obs.webp',
       iconAlt: 'OBS Studio',
       title: 'OBS Studio',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.OBS),
+      onClick: () => handleAppClick(APP_IDS.OBS),
     },
     {
       icon: '/assets/vscode.webp',
       iconAlt: 'VS Code',
       title: 'VS Code',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.VSCODE),
+      onClick: () => handleAppClick(APP_IDS.VSCODE),
     },
     {
       icon: '/assets/wordpress.webp',
       iconAlt: 'WordPress',
       title: 'Wordpress',
-      onClick: () => handleDesktopOnlyAppClick(APP_IDS.WORDPRESS),
+      onClick: () => handleAppClick(APP_IDS.WORDPRESS),
     },
   ];
 
@@ -406,16 +394,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
             ? `Log Off ${user.name} XP`
             : `Shut Down ${user.name} XP`
         }
-      />
-
-      {/* Desktop Only Alert Dialog */}
-      <ConfirmationDialog
-        isOpen={desktopOnlyDialogState.isOpen}
-        onClose={hideDesktopOnlyDialog}
-        title={desktopOnlyDialogState.title}
-        message={desktopOnlyDialogState.message}
-        icon={desktopOnlyDialogState.icon}
-        singleButton={true}
       />
     </div>
   );

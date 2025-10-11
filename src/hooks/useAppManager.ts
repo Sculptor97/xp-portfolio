@@ -35,6 +35,7 @@ const useAppManager = (): UseAppManagerReturn => {
     dialogState: desktopOnlyDialogState,
     showDesktopOnlyAlert,
     hideDialog: hideDesktopOnlyDialog,
+    isMobileDevice,
   } = useDesktopOnlyAlert();
 
   // Handle window removal events
@@ -52,6 +53,12 @@ const useAppManager = (): UseAppManagerReturn => {
     const app = apps.find(a => a.id === id);
     if (!app) {
       console.warn(`App with id "${id}" not found`);
+      return;
+    }
+
+    // Check if app is desktop-only and we're on mobile
+    if (app.isDesktopOnly && isMobileDevice()) {
+      showDesktopOnlyAlert(id);
       return;
     }
 

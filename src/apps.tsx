@@ -99,7 +99,6 @@ export const apps: App[] = [
     component: ImageViewerWindow,
     width: 800,
     height: 600,
-    isDesktopOnly: true,
   },
   {
     id: APP_IDS.MEDIA_PLAYER,

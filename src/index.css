@@ -504,6 +504,13 @@ button.image-gallery-right-nav:hover {
   -ms-user-select: text;
 }
 
+@media (max-width: 768px) {
+  .image-gallery-slide .image-gallery-description {
+    bottom: 0px !important;
+    font-size: 0.8em !important;
+  }
+}
+
 .terminal-container input {
   font-family: inherit;
   font-size: inherit;

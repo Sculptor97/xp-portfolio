@@ -6,14 +6,17 @@ import {
 } from '../components/taskbar/XPTaskbar';
 import SystemTrayButtons from '../components/SystemTrayButtons';
 import { StartMenu } from '../components/startmenu';
+import ConfirmationDialog from '../components/ConfirmationDialog';
 import { playStartupSoundWithCallback } from '../lib/soundUtils';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useAppContext } from '../hooks/useAppManager';
 
 function DesktopPage() {
   const location = useLocation();
   const [shouldShowWelcome, setShouldShowWelcome] = useState(false);
   const [startupComplete, setStartupComplete] = useState(false);
+  const { desktopOnlyDialogState, hideDesktopOnlyDialog } = useAppContext();
 
   // Handle startup sequence
   useEffect(() => {
@@ -67,6 +70,16 @@ function DesktopPage() {
           />
         </XPTaskBarSystemTray>
       </XPTaskBar>
+
+      {/* Desktop Only Alert Dialog - rendered at top level so it's always available */}
+      <ConfirmationDialog
+        isOpen={desktopOnlyDialogState.isOpen}
+        onClose={hideDesktopOnlyDialog}
+        title={desktopOnlyDialogState.title}
+        message={desktopOnlyDialogState.message}
+        icon={desktopOnlyDialogState.icon}
+        singleButton={true}
+      />
     </div>
   );
 }

@@ -84,7 +84,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
           </div>
         </div>
         <div className="window-body">
-          <div className="text-center">
+          <div className="text-center my-2">
             {icon && (
               <div className="md:mb-2">
                 <XPIcon
