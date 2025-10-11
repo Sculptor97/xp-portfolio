@@ -5,6 +5,7 @@ import ContactContent from './pages/contact';
 import PlaceholderApp from './components/windows/PlaceholderApp';
 import ImageViewerWindow from './components/windows/ImageViewerWindow';
 import CmdWindow from './components/windows/CmdWindow';
+import PaintWindow from './components/windows/PaintWindow';
 
 // Define the app interface
 export interface App {
@@ -119,15 +120,9 @@ export const apps: App[] = [
     id: APP_IDS.PAINT,
     title: 'Paint',
     icon: '/assets/Paint.png',
-    component: () => (
-      <PlaceholderApp
-        title="Paint"
-        description="Create and edit images"
-        icon="/assets/Paint.png"
-      />
-    ),
-    width: 800,
-    height: 600,
+    component: PaintWindow,
+    width: 900,
+    height: 700,
     isDesktopOnly: true,
   },
   {
