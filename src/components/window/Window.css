@@ -281,3 +281,20 @@
   z-index: 9999;
   pointer-events: none;
 }
+
+/* SVG morphing animation styles */
+.window-clone svg {
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  transition: filter 0.1s ease;
+}
+
+.window-clone svg path {
+  transition: fill 0.2s ease;
+}
+
+/* Paper plane specific styles */
+.window-clone svg[data-morphed='true'] path {
+  fill: #f7f7f0 !important; /* Classic XP cream white paper plane */
+  stroke: #c0c0c0;
+  stroke-width: 1;
+}

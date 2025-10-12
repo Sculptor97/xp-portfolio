@@ -1,10 +1,11 @@
 import { type RefObject } from 'react';
 import { getButtonRef } from './taskbarButtonRegistry';
 import { gsap } from 'gsap';
+import { createRectanglePath, createSimplePaperPlanePath } from './svgShapes';
 
 // Global clone and tween storage
-const windowClones = new Map<string, HTMLElement>();
-const windowTweens = new Map<string, gsap.core.Tween>();
+const windowClones = new Map<string, SVGSVGElement>();
+const windowTweens = new Map<string, gsap.core.Timeline>();
 
 // Mobile detection utility
 const isMobileDevice = (): boolean => {
@@ -17,93 +18,111 @@ const isMobileDevice = (): boolean => {
 };
 
 /**
- * Create a window clone for animation
+ * Create an SVG window clone for morphing animation
  * @param windowEl - The window element to clone
  * @param title - Window title
  * @param icon - Window icon (React element)
- * @returns The clone element
+ * @returns The SVG clone element
  */
-export const createWindowClone = (
-  windowEl: HTMLElement,
-  title: string,
-  icon?: React.ReactElement
-): HTMLElement => {
-  const clone = document.createElement('div');
-  clone.className = 'window';
-
+export const createWindowClone = (windowEl: HTMLElement): SVGSVGElement => {
   // Get window dimensions
   const rect = windowEl.getBoundingClientRect();
 
-  // Create title bar (exact match to Window.tsx)
-  const titleBar = document.createElement('div');
-  titleBar.className = 'title-bar draggable';
+  // Create SVG container
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', rect.width.toString());
+  svg.setAttribute('height', rect.height.toString());
+  svg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
+  svg.setAttribute('class', 'window-clone');
+  svg.style.position = 'fixed';
+  svg.style.left = `${rect.left}px`;
+  svg.style.top = `${rect.top}px`;
+  svg.style.zIndex = '9999';
+  svg.style.pointerEvents = 'none';
 
-  // Create title bar text container
-  const titleBarText = document.createElement('div');
-  titleBarText.className = 'title-bar-text';
+  // Create the morphing path with grid pattern
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', createRectanglePath(rect.width, rect.height));
+  path.setAttribute('fill', 'url(#paperGrid)');
+  path.setAttribute('stroke', '#c0c0c0');
+  path.setAttribute('stroke-width', '1');
 
-  // Add icon if provided
-  if (
-    icon &&
-    icon.props &&
-    typeof icon.props === 'object' &&
-    'src' in icon.props
-  ) {
-    const iconEl = document.createElement('span');
-    const iconProps = icon.props as { src?: string; alt?: string };
-    iconEl.innerHTML = `<XPIcon src="${iconProps.src}" alt="${iconProps.alt || ''}" />`;
-    titleBarText.appendChild(iconEl);
-  }
+  // Create pattern definition for paper grid
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 
-  // Add title
-  const titleText = document.createElement('span');
-  titleText.textContent = title;
-  titleBarText.appendChild(titleText);
+  // Create pattern for grid lines with cream background
+  const pattern = document.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'pattern'
+  );
+  pattern.setAttribute('id', 'paperGrid');
+  pattern.setAttribute('width', '20');
+  pattern.setAttribute('height', '20');
+  pattern.setAttribute('patternUnits', 'userSpaceOnUse');
 
-  // Create title bar controls (minimize, maximize/restore, close buttons)
-  const titleBarControls = document.createElement('div');
-  titleBarControls.className = 'title-bar-controls';
+  // Add cream background rectangle
+  const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  bgRect.setAttribute('width', '20');
+  bgRect.setAttribute('height', '20');
+  bgRect.setAttribute('fill', '#f7f7f0'); // Cream white background
 
-  // Minimize button
-  const minimizeBtn = document.createElement('button');
-  minimizeBtn.setAttribute('aria-label', 'Minimize');
+  // Create grid lines
+  const gridLine1 = document.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'line'
+  );
+  gridLine1.setAttribute('x1', '0');
+  gridLine1.setAttribute('y1', '0');
+  gridLine1.setAttribute('x2', '20');
+  gridLine1.setAttribute('y2', '0');
+  gridLine1.setAttribute('stroke', '#d0d0d0');
+  gridLine1.setAttribute('stroke-width', '0.5');
 
-  // Maximize/Restore button
-  const maximizeBtn = document.createElement('button');
-  maximizeBtn.setAttribute('aria-label', 'Maximize');
+  const gridLine2 = document.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'line'
+  );
+  gridLine2.setAttribute('x1', '0');
+  gridLine2.setAttribute('y1', '0');
+  gridLine2.setAttribute('x2', '0');
+  gridLine2.setAttribute('y2', '20');
+  gridLine2.setAttribute('stroke', '#d0d0d0');
+  gridLine2.setAttribute('stroke-width', '0.5');
 
-  // Close button
-  const closeBtn = document.createElement('button');
-  closeBtn.setAttribute('aria-label', 'Close');
+  pattern.appendChild(bgRect);
+  pattern.appendChild(gridLine1);
+  pattern.appendChild(gridLine2);
+  defs.appendChild(pattern);
 
-  titleBarControls.appendChild(minimizeBtn);
-  titleBarControls.appendChild(maximizeBtn);
-  titleBarControls.appendChild(closeBtn);
+  // Create cream white gradient
+  const gradient = document.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'linearGradient'
+  );
+  gradient.setAttribute('id', 'windowGradient');
+  gradient.setAttribute('x1', '0%');
+  gradient.setAttribute('y1', '0%');
+  gradient.setAttribute('x2', '0%');
+  gradient.setAttribute('y2', '100%');
 
-  // Assemble title bar
-  titleBar.appendChild(titleBarText);
-  titleBar.appendChild(titleBarControls);
+  const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  stop1.setAttribute('offset', '0%');
+  stop1.setAttribute('stop-color', '#f7f7f0'); // Classic XP cream white
+  const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  stop2.setAttribute('offset', '100%');
+  stop2.setAttribute('stop-color', '#f0f0e8'); // Slightly darker cream
 
-  // Create window body using existing XP styling
-  const body = document.createElement('div');
-  body.className = 'window-body';
+  gradient.appendChild(stop1);
+  gradient.appendChild(stop2);
+  defs.appendChild(gradient);
 
-  clone.appendChild(titleBar);
-  clone.appendChild(body);
-
-  // Position the clone with exact dimensions
-  clone.style.position = 'fixed';
-  clone.style.left = `${rect.left}px`;
-  clone.style.top = `${rect.top}px`;
-  clone.style.width = `${rect.width}px`;
-  clone.style.height = `${rect.height}px`;
-  clone.style.zIndex = '9999';
-  clone.style.pointerEvents = 'none';
+  svg.appendChild(defs);
+  svg.appendChild(path);
 
   // Add to document
-  document.body.appendChild(clone);
+  document.body.appendChild(svg);
 
-  return clone;
+  return svg;
 };
 
 /**
@@ -115,10 +134,8 @@ export const createWindowClone = (
  */
 const createWindowTween = (
   windowRef: RefObject<HTMLElement | null>,
-  windowId: string,
-  title: string,
-  icon?: React.ReactElement
-): gsap.core.Tween | undefined => {
+  windowId: string
+): gsap.core.Timeline | undefined => {
   const windowEl = windowRef.current;
   const buttonRef = getButtonRef(windowId);
 
@@ -126,25 +143,48 @@ const createWindowTween = (
     return undefined;
   }
 
+  // Get window dimensions
+  const windowRect = windowEl.getBoundingClientRect();
+
   // Get or create clone
   let clone = windowClones.get(windowId);
   if (!clone) {
-    clone = createWindowClone(windowEl, title, icon);
+    clone = createWindowClone(windowEl);
     windowClones.set(windowId, clone);
   }
 
-  // Create GSAP tween with dynamic position calculation
-  const tween = gsap.fromTo(
+  // Get the path element for morphing
+  const path = clone.querySelector('path');
+  if (!path) {
+    return undefined;
+  }
+
+  // Create timeline for complex morphing animation
+  const tl = gsap.timeline({ paused: true });
+
+  // Phase 1: Morph rectangle to paper plane (0-50% of animation)
+  const paperPlanePath = createSimplePaperPlanePath(
+    windowRect.width,
+    windowRect.height
+  );
+
+  tl.to(
+    path,
+    {
+      attr: {
+        d: paperPlanePath,
+      },
+      duration: 0.3,
+      ease: 'power2.inOut',
+    },
+    0
+  );
+
+  // Phase 2: Continue flying as paper plane (50-100% of animation)
+  tl.to(
     clone,
     {
-      // From: window position, normal size
-      x: 0,
-      y: 0,
-      scale: 1,
-      opacity: 1,
-    },
-    {
-      // To: dynamically calculated button position, small size
+      // To: dynamically calculated button position with advanced effects
       x: () => {
         const buttonRef = getButtonRef(windowId);
         const clone = windowClones.get(windowId);
@@ -171,15 +211,20 @@ const createWindowTween = (
           (cloneRect.top + cloneRect.height / 2)
         );
       },
+      // Advanced effects for dynamic animation
       scale: 0.1,
       opacity: 0,
+      //rotation: () => Math.random() * 180 - 90, // Random rotation between -90 and 90 degrees
+      //skewX: () => Math.random() * 10 - 5, // Random skew between -5 and 5 degrees
+      // skewY: () => Math.random() * 10 - 5, // Random skew between -5 and 5 degrees
+      transformOrigin: 'center center',
       duration: 0.3,
-      ease: 'power2.inOut',
-      paused: true,
-    }
-  );
+      ease: 'back.inOut(1.7)', // Bouncy ease for more dynamic feel
+    },
+    0.2
+  ); // Start at 0.2s (50% through timeline)
 
-  return tween;
+  return tl;
 };
 
 /**
@@ -188,8 +233,6 @@ const createWindowTween = (
 export const animateMinimize = (
   windowRef: RefObject<HTMLElement | null>,
   windowId: string,
-  title: string,
-  icon?: React.ReactElement,
   onComplete?: () => void
 ): void => {
   if (isMobileDevice()) {
@@ -197,17 +240,17 @@ export const animateMinimize = (
     return;
   }
 
-  let tween = windowTweens.get(windowId);
-  if (!tween) {
-    tween = createWindowTween(windowRef, windowId, title, icon);
-    if (!tween) {
+  let timeline = windowTweens.get(windowId);
+  if (!timeline) {
+    timeline = createWindowTween(windowRef, windowId);
+    if (!timeline) {
       onComplete?.();
       return;
     }
-    windowTweens.set(windowId, tween);
+    windowTweens.set(windowId, timeline);
   }
 
-  tween.play();
+  timeline.play();
   onComplete?.();
 };
 
@@ -226,16 +269,16 @@ export const animateRestore = (
     return;
   }
 
-  const tween = windowTweens.get(windowId);
-  if (!tween) {
+  const timeline = windowTweens.get(windowId);
+  if (!timeline) {
     onComplete?.();
     return;
   }
 
-  tween.reverse();
+  timeline.reverse();
 
   // Clean up after restore
-  tween.eventCallback('onReverseComplete', () => {
+  timeline.eventCallback('onReverseComplete', () => {
     const clone = windowClones.get(windowId);
     if (clone) {
       clone.remove();
