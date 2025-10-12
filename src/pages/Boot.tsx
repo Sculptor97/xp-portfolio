@@ -21,7 +21,7 @@ const Boot: React.FC = () => {
     const imagesToPreload = [
       '/assets/logo.svg',
       '/assets/boot-wordmark.webp',
-      '/assets/profile.gif',
+      '/assets/profile.webp',
       '/assets/pdf.webp',
       '/assets/IE.webp',
       '/assets/outlook_expresss.webp',

@@ -4,7 +4,7 @@ import { useIntroData, useLogoText } from '@/services';
 import { useAuth } from '@/hooks/useAuth';
 import logo from '@/assets/logo.svg';
 import restartIcon from '@/assets/restart.svg';
-import profileGif from '@/assets/profile.gif';
+import profileGif from '@/assets/profile.webp';
 import XPIcon from '@/components/XPIcon';
 
 const Login: React.FC = () => {
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
               onClick={handleUserClick}
             >
               {/* User avatar with profile gif */}
-              <div className="h-24 w-24 md:w-32 md:h-32 rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center border-2 border-white shadow-lg p-1 sm:p-2">
+              <div className="h-32 w-32 md:w-40 md:h-40 rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center  p-1 sm:p-2">
                 <XPIcon
                   src={profileGif}
                   alt="User Avatar"
@@ -89,10 +89,10 @@ const Login: React.FC = () => {
 
               {/* User info from API data */}
               <div className="text-center md:text-left">
-                <h4 className="text-sm sm:text-base md:text-2xl text-white m-0 mb-1 md:mb-2 drop-shadow-lg capitalize">
+                <div className="text-2xl sm:text-base md:text-4xl text-white m-0 mb-1 md:mb-2 drop-shadow-lg capitalize">
                   {logoText || 'Loading...'}
-                </h4>
-                <p className="text-base sm:text-sm md:text-xl text-brand-primary m-0 drop-shadow-sm capitalize">
+                </div>
+                <p className="text-xl sm:text-sm md:text-2xl text-brand-primary m-0 drop-shadow-sm capitalize">
                   {introData?.title || 'Loading...'}
                 </p>
               </div>

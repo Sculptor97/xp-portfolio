@@ -62,7 +62,7 @@ function DesktopPage() {
           <StartMenu
             user={{
               name: 'Legha-gha',
-              avatar: '/assets/profile.gif',
+              avatar: '/assets/profile.webp',
               avatarAlt: 'Legha-gha',
             }}
             onLogOff={() => {
