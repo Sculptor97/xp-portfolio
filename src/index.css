@@ -133,10 +133,10 @@
     height: 100%;
   }
 
-  /* button:not([disabled]),
+  button:not([disabled]),
   [role='button']:not([disabled]) {
     cursor: pointer;
-  } */
+  }
 
   /* ---- Global XP Grid Overlay ---- */
   #xp-grid-overlay {
@@ -515,6 +515,11 @@ button.image-gallery-right-nav:hover {
     bottom: 0px !important;
     font-size: 0.8em !important;
     text-align: left !important;
+  }
+
+  .image-gallery-left-nav,
+  .image-gallery-right-nav {
+    display: none !important;
   }
 }
 
