@@ -4,6 +4,10 @@ import cn from 'classnames';
 import { type ModalWindow, ModalEvents, useModal } from '../core/events';
 import './XPTaskbar.css';
 import XPIcon from '../XPIcon';
+import {
+  registerButton,
+  unregisterButton,
+} from '../core/taskbarButtonRegistry';
 
 // --- Internal Presentational Components ---
 
@@ -48,24 +52,42 @@ const WindowTab = ({
   active,
   minimized,
   onClick,
+  windowId,
 }: {
   icon: React.ReactNode;
   title: string;
   active: boolean;
   minimized?: boolean;
   onClick: () => void;
-}) => (
-  <button
-    className={cn('window-tab', {
-      'is-active': active,
-      'is-minimized': minimized && !active,
-    })}
-    onClick={onClick}
-  >
-    {icon && <span className="icon">{icon}</span>}
-    <span className="title">{title}</span>
-  </button>
-);
+  windowId: string;
+}) => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // Register button ref for animations
+  useEffect(() => {
+    if (buttonRef.current) {
+      registerButton(windowId, buttonRef);
+    }
+
+    return () => {
+      unregisterButton(windowId);
+    };
+  }, [windowId]);
+
+  return (
+    <button
+      ref={buttonRef}
+      className={cn('window-tab', {
+        'is-active': active,
+        'is-minimized': minimized && !active,
+      })}
+      onClick={onClick}
+    >
+      {icon && <span className="icon">{icon}</span>}
+      <span className="title">{title}</span>
+    </button>
+  );
+};
 
 // Internal component that manages window tabs
 const WindowTabs = () => {
@@ -140,6 +162,7 @@ const WindowTabs = () => {
               minimized={
                 id !== activeWindowId && modalWindows.some(w => w.id === id)
               }
+              windowId={id}
               onClick={() => {
                 if (id === activeWindowId) {
                   minimize(id);

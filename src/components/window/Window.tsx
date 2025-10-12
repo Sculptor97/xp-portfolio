@@ -18,6 +18,8 @@ import XPIcon from '../XPIcon';
 import { useWindowMaximize } from '@/hooks/useWindowMaximize';
 import './Window.css';
 import { useDesktopOnlyAlert } from '@/hooks/useDesktopOnlyAlert';
+import { getNextWindowPosition } from '../core/windowCascading';
+import { animateMinimize, animateRestore } from '../core/windowAnimations';
 
 // --- TypeScript Interfaces ---
 
@@ -416,6 +418,9 @@ const XPWindow: React.FC<XPWindowProps> & {
   const [isActive, setIsActive] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
 
+  // Get cascaded position for new windows
+  const cascadedPosition = getNextWindowPosition();
+
   // Memoize mobile device check to prevent re-evaluation on every render
   const isMobile = useMemo(() => isMobileDevice(), [isMobileDevice]);
 
@@ -432,6 +437,7 @@ const XPWindow: React.FC<XPWindowProps> & {
   useDraggable(draggableRef as React.RefObject<HTMLElement>, {
     handle: '.draggable', // Only the title bar can be used for dragging
     disabled: isMaximized || isMobile, // Disable dragging when maximized or on mobile
+    defaultPosition: cascadedPosition, // Apply cascaded position
     ...dragOptions, // Allow custom drag options
   });
 
@@ -459,14 +465,39 @@ const XPWindow: React.FC<XPWindowProps> & {
   useSafeEventSubscription<Partial<ModalWindow>>(
     cb => subscribe(ModalEvents.MinimizeModal, cb),
     data => {
-      if (data.id === id) setIsMinimized(true);
+      if (data.id === id) {
+        // Set minimized state immediately (window hides)
+        setIsMinimized(true);
+        // Trigger minimize animation
+        animateMinimize(
+          draggableRef as RefObject<HTMLElement | null>,
+          id,
+          title,
+          icon,
+          () => {
+            // Animation completed, no additional action needed
+          }
+        );
+      }
     }
   );
 
   useSafeEventSubscription<Partial<ModalWindow>>(
     cb => subscribe(ModalEvents.RestoreModal, cb),
     data => {
-      if (data.id === id) setIsMinimized(false);
+      if (data.id === id) {
+        // Start restore animation while window is still hidden
+        animateRestore(
+          draggableRef as RefObject<HTMLElement | null>,
+          id,
+          title,
+          icon,
+          () => {
+            // Show window after animation completes
+            setIsMinimized(false);
+          }
+        );
+      }
     }
   );
 

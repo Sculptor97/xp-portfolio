@@ -253,8 +253,8 @@
 
   .xp-window {
     position: absolute;
-    top: 50px;
-    left: 100px;
+    /* top: 50px;
+    left: 100px; */
   }
 
   /* Windows XP Desktop Shortcut Styling */

@@ -232,7 +232,7 @@
   .window-tab {
     flex: 1 !important;
     min-width: 0 !important;
-    max-width: 120px;
+    /* max-width: 120px; */
     height: 20px;
     font-size: 11px;
   }

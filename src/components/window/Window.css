@@ -274,3 +274,10 @@
     gap: 2px;
   }
 }
+
+/* Window Clone Animation Styles */
+.window-clone {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+}
