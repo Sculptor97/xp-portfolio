@@ -20,8 +20,6 @@ const isMobileDevice = (): boolean => {
 /**
  * Create an SVG window clone for morphing animation
  * @param windowEl - The window element to clone
- * @param title - Window title
- * @param icon - Window icon (React element)
  * @returns The SVG clone element
  */
 export const createWindowClone = (windowEl: HTMLElement): SVGSVGElement => {
@@ -129,8 +127,6 @@ export const createWindowClone = (windowEl: HTMLElement): SVGSVGElement => {
  * Create or get window animation tween
  * @param windowRef - Reference to the window element
  * @param windowId - Window ID to find button
- * @param title - Window title
- * @param icon - Window icon
  */
 const createWindowTween = (
   windowRef: RefObject<HTMLElement | null>,
@@ -214,9 +210,6 @@ const createWindowTween = (
       // Advanced effects for dynamic animation
       scale: 0.1,
       opacity: 0,
-      //rotation: () => Math.random() * 180 - 90, // Random rotation between -90 and 90 degrees
-      //skewX: () => Math.random() * 10 - 5, // Random skew between -5 and 5 degrees
-      // skewY: () => Math.random() * 10 - 5, // Random skew between -5 and 5 degrees
       transformOrigin: 'center center',
       duration: 0.3,
       ease: 'back.inOut(1.7)', // Bouncy ease for more dynamic feel
@@ -277,11 +270,7 @@ export const animateRestore = (
 
   // Clean up after restore
   timeline.eventCallback('onReverseComplete', () => {
-    const clone = windowClones.get(windowId);
-    if (clone) {
-      clone.remove();
-      windowClones.delete(windowId);
-    }
+    cleanupWindowClone(windowId);
     windowTweens.delete(windowId);
     onComplete?.();
   });
