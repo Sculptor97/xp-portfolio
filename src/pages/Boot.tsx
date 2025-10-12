@@ -131,7 +131,7 @@ const Boot: React.FC = () => {
 
   // ---- Boot screen (unchanged visuals, cleaned layout) ----
   return (
-    <div className="flex flex-col justify-between items-center bg-black text-white font-sans z-[9999] min-h-screen overflow-y-auto">
+    <div className="flex flex-col justify-between items-center bg-black text-white font-sans z-[9999] h-full overflow-y-auto">
       {/* Top section */}
       <div className="flex flex-col justify-center items-center flex-grow text-center pt-16 md:pt-32 px-4">
         <img

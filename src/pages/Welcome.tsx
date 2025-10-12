@@ -21,7 +21,7 @@ const Welcome: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900 font-sans overflow-hidden">
+    <div className="flex flex-col h-full bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900 font-sans overflow-hidden">
       {/* Top dark blue bar */}
       <div className="h-12 sm:h-16 md:h-28 bg-brand-primary border-b flex-shrink-0" />
 

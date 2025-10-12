@@ -32,7 +32,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen font-sans overflow-hidden bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900">
+    <div className="flex flex-col h-full font-sans overflow-hidden bg-gradient-to-b from-blue-900 via-blue-500 to-blue-900">
       {/* Top dark blue bar — gradient line sits on the bottom edge */}
       <div className="h-12 sm:h-16 md:h-28 bg-brand-primary flex-shrink-0 relative">
         {/* White gradient line at bottom of top bar */}
