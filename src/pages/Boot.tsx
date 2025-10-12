@@ -63,7 +63,9 @@ const Boot: React.FC = () => {
   // ---- Navigate when everything is ready ----
   useEffect(() => {
     if (apiProgress === 100 && imagesLoaded && portfolio) {
-      navigate('/login', { replace: true });
+      setTimeout(() => {
+        navigate('/login', { replace: true });
+      }, 1000);
     }
   }, [apiProgress, imagesLoaded, portfolio, navigate]);
 
