@@ -70,7 +70,7 @@ export const apps: App[] = [
   {
     id: APP_IDS.MY_PROJECTS,
     title: 'My Projects',
-    icon: '/assets/IE.png',
+    icon: '/assets/IE.webp',
     component: MyProjectsContent,
     width: 600,
     isShortcut: true,
@@ -78,7 +78,7 @@ export const apps: App[] = [
   {
     id: APP_IDS.CONTACT,
     title: 'Contact Me',
-    icon: '/assets/outlook_expresss.png',
+    icon: '/assets/outlook_expresss.webp',
     component: ContactContent,
     width: 800,
     isShortcut: true,
@@ -96,7 +96,7 @@ export const apps: App[] = [
   {
     id: APP_IDS.IMAGE_VIEWER,
     title: 'Image Viewer',
-    icon: '/assets/picture_viewer.png',
+    icon: '/assets/picture_viewer.webp',
     component: ImageViewerWindow,
     width: 800,
     height: 600,
@@ -119,7 +119,7 @@ export const apps: App[] = [
   {
     id: APP_IDS.PAINT,
     title: 'Paint',
-    icon: '/assets/Paint.png',
+    icon: '/assets/Paint.webp',
     component: PaintWindow,
     width: 900,
     height: 700,
@@ -128,12 +128,12 @@ export const apps: App[] = [
   {
     id: APP_IDS.MUSIC_PLAYER,
     title: 'Music Player',
-    icon: '/assets/mp3_player.png',
+    icon: '/assets/mp3_player.webp',
     component: () => (
       <PlaceholderApp
         title="Music Player"
         description="Play your music collection"
-        icon="/assets/mp3_player.png"
+        icon="/assets/mp3_player.webp"
       />
     ),
     width: 400,

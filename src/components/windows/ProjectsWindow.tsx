@@ -13,7 +13,7 @@ interface ProjectsWindowProps {
 const ProjectsWindow: React.FC<ProjectsWindowProps> = ({
   id = 'my-projects',
   title = 'My Projects',
-  icon = '/assets/IE.png',
+  icon = '/assets/IE.webp',
   width = 600,
   height = 500,
 }) => {

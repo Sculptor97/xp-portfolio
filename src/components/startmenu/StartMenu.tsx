@@ -106,14 +106,14 @@ const StartMenu: React.FC<StartMenuProps> = ({
   // Define menu items based on the images
   const leftColumnItems = [
     {
-      icon: '/assets/IE.png',
+      icon: '/assets/IE.webp',
       iconAlt: 'My Projects',
       title: 'My Projects',
       subtitle: 'View my work',
       onClick: () => handleAppClick(APP_IDS.MY_PROJECTS),
     },
     {
-      icon: '/assets/outlook_expresss.png',
+      icon: '/assets/outlook_expresss.webp',
       iconAlt: 'Contact Me',
       title: 'Contact Me',
       subtitle: 'Send me a message',
@@ -133,7 +133,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleAppClick(APP_IDS.MY_RESUME),
     },
     {
-      icon: '/assets/picture_viewer.png',
+      icon: '/assets/picture_viewer.webp',
       iconAlt: 'Image Viewer',
       title: 'Image Viewer',
       onClick: () => handleAppClick(APP_IDS.IMAGE_VIEWER),
@@ -145,13 +145,13 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleAppClick(APP_IDS.MEDIA_PLAYER),
     },
     {
-      icon: '/assets/Paint.png',
+      icon: '/assets/Paint.webp',
       iconAlt: 'Paint',
       title: 'Paint',
       onClick: () => handleAppClick(APP_IDS.PAINT),
     },
     {
-      icon: '/assets/mp3_player.png',
+      icon: '/assets/mp3_player.webp',
       iconAlt: 'Music Player',
       title: 'Music Player',
       onClick: () => handleAppClick(APP_IDS.MUSIC_PLAYER),
@@ -244,7 +244,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleAppClick(APP_IDS.ILLUSTRATOR),
     },
     {
-      icon: '/assets/IE.png',
+      icon: '/assets/IE.webp',
       iconAlt: 'Adobe InDesign',
       title: 'Id Adobe InDesign',
       onClick: () => handleAppClick(APP_IDS.INDESIGN),

@@ -194,20 +194,20 @@ const XPWindowHeaderNavigation: React.FC<{
 }> = ({ children, className }) => {
   const defaultNavItems = [
     {
-      icon: '/assets/back.svg',
+      icon: '/assets/back.webp',
       label: 'Back',
       variant: 'primary' as const,
       showDropdown: true,
       priority: 'high' as const,
     },
     {
-      icon: '/assets/forward.svg',
+      icon: '/assets/forward.webp',
       label: 'Forward',
       disabled: true,
       priority: 'high' as const,
     },
     {
-      icon: '/assets/up.svg',
+      icon: '/assets/up.webp',
       label: 'Up',
       variant: 'secondary' as const,
       priority: 'high' as const,

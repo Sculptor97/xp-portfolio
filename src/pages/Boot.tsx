@@ -23,8 +23,8 @@ const Boot: React.FC = () => {
       '/assets/boot-wordmark.webp',
       '/assets/profile.gif',
       '/assets/pdf.svg',
-      '/assets/IE.png',
-      '/assets/outlook_expresss.png',
+      '/assets/IE.webp',
+      '/assets/outlook_expresss.webp',
       '/assets/Tour_XP.png',
       '/assets/bliss_wallpaper.png',
     ];

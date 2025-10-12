@@ -47,7 +47,7 @@ const WelcomeNotification: React.FC<WelcomeNotificationProps> = ({
           <div className="bg-blue-500 text-white px-3 py-2 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center gap-2">
               <XPIcon
-                src="/assets/Information.png"
+                src="/assets/Information.webp"
                 alt="Information"
                 className="h-2 w-2"
               />

@@ -55,7 +55,7 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
       <CustomTooltip content="Information">
         <div onClick={showInfo} className="system-tray-button">
           <XPIcon
-            src="/assets/Information.png"
+            src="/assets/Information.webp"
             alt="Information"
             className="h-5 w-5"
           />
@@ -71,9 +71,9 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
           className={`system-tray-button ${isGridVisible ? 'active' : ''}`}
         >
           {isGridVisible ? (
-            <XPIcon src="/assets/s_ok.png" alt="Grid" className="h-5 w-5" />
+            <XPIcon src="/assets/s_ok.webp" alt="Grid" className="h-5 w-5" />
           ) : (
-            <XPIcon src="/assets/s_err.png" alt="Grid" className="h-5 w-5" />
+            <XPIcon src="/assets/s_err.webp" alt="Grid" className="h-5 w-5" />
           )}
           {/* <XPIcon src="/src/assets/grid.png" alt="Grid" className="h-2 w-2" /> */}
         </div>

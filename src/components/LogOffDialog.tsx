@@ -116,8 +116,8 @@ const LogOffDialog: React.FC<LogOffDialogProps> = ({
                   <XPIcon
                     src={
                       type === 'logoff'
-                        ? '/assets/Logout.png'
-                        : '/assets/Power.png'
+                        ? '/assets/Logout.webp'
+                        : '/assets/Power.webp'
                     }
                     alt={type === 'logoff' ? 'Log Off' : 'Shutdown'}
                     className="w-10 h-10 md:w-12 md:h-12 mb-2"

@@ -18,7 +18,7 @@ interface PaintWindowProps {
 const PaintWindow: React.FC<PaintWindowProps> = ({
   id = 'paint',
   title = 'Paint',
-  icon = '/assets/Paint.png',
+  icon = '/assets/Paint.webp',
   width = 900,
   height = 600,
 }) => {

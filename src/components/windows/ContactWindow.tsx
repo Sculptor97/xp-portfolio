@@ -35,7 +35,7 @@ interface ContactWindowProps {
 const ContactWindow: React.FC<ContactWindowProps> = ({
   id = 'contact',
   title = 'Contact Me',
-  icon = '/assets/outlook_expresss.png',
+  icon = '/assets/outlook_expresss.webp',
   width = 800,
   height = 600,
 }) => {

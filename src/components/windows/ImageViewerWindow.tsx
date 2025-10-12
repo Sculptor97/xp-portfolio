@@ -20,7 +20,7 @@ interface ImageViewerWindowProps {
 const ImageViewerWindow: React.FC<ImageViewerWindowProps> = ({
   id = 'image-viewer',
   title = 'Image Viewer',
-  icon = '/assets/picture_viewer.png',
+  icon = '/assets/picture_viewer.webp',
   width = 900,
   height = 700,
 }) => {
