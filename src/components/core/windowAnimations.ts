@@ -54,15 +54,15 @@ export const createWindowClone = (windowEl: HTMLElement): SVGSVGElement => {
     'pattern'
   );
   pattern.setAttribute('id', 'paperGrid');
-  pattern.setAttribute('width', '20');
-  pattern.setAttribute('height', '20');
+  pattern.setAttribute('width', '10');
+  pattern.setAttribute('height', '10');
   pattern.setAttribute('patternUnits', 'userSpaceOnUse');
 
   // Add cream background rectangle
   const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-  bgRect.setAttribute('width', '20');
-  bgRect.setAttribute('height', '20');
-  bgRect.setAttribute('fill', '#f7f7f0'); // Cream white background
+  bgRect.setAttribute('width', '10');
+  bgRect.setAttribute('height', '10');
+  bgRect.setAttribute('fill', '#ECE9D8'); // Cream white background
 
   // Create grid lines
   const gridLine1 = document.createElementNS(
@@ -71,7 +71,7 @@ export const createWindowClone = (windowEl: HTMLElement): SVGSVGElement => {
   );
   gridLine1.setAttribute('x1', '0');
   gridLine1.setAttribute('y1', '0');
-  gridLine1.setAttribute('x2', '20');
+  gridLine1.setAttribute('x2', '10');
   gridLine1.setAttribute('y2', '0');
   gridLine1.setAttribute('stroke', '#d0d0d0');
   gridLine1.setAttribute('stroke-width', '0.5');
@@ -83,7 +83,7 @@ export const createWindowClone = (windowEl: HTMLElement): SVGSVGElement => {
   gridLine2.setAttribute('x1', '0');
   gridLine2.setAttribute('y1', '0');
   gridLine2.setAttribute('x2', '0');
-  gridLine2.setAttribute('y2', '20');
+  gridLine2.setAttribute('y2', '10');
   gridLine2.setAttribute('stroke', '#d0d0d0');
   gridLine2.setAttribute('stroke-width', '0.5');
 

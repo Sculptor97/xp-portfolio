@@ -33,12 +33,7 @@ export const getNextWindowPosition = (): Position => {
   return adjustPositionForViewport(position);
 };
 
-/**
- * Reset the cascade counter
- */
-export const resetCascadeCounter = (): void => {
-  cascadeCounter = 0;
-};
+ 
 
 /**
  * Adjust position to ensure it stays within viewport bounds
@@ -66,10 +61,4 @@ const adjustPositionForViewport = (position: Position): Position => {
   return position;
 };
 
-/**
- * Get the current cascade counter (for debugging)
- * @returns Current cascade counter value
- */
-export const getCascadeCounter = (): number => {
-  return cascadeCounter;
-};
+ 
