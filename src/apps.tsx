@@ -86,7 +86,7 @@ export const apps: App[] = [
   {
     id: APP_IDS.MY_RESUME,
     title: 'My Resume',
-    icon: '/assets/pdf.svg',
+    icon: '/assets/pdf.webp',
     component: PlaceholderApp,
     width: 500,
     isShortcut: true,

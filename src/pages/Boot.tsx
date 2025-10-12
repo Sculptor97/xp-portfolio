@@ -19,10 +19,8 @@ const Boot: React.FC = () => {
   // ---- Image preloading ----
   useEffect(() => {
     const imagesToPreload = [
-      '/assets/logo.svg',
-      '/assets/boot-wordmark.webp',
       '/assets/profile.gif',
-      '/assets/pdf.svg',
+      '/assets/pdf.webp',
       '/assets/IE.webp',
       '/assets/outlook_expresss.webp',
       '/assets/Tour_XP.png',

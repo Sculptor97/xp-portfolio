@@ -126,7 +126,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleAppClick(APP_IDS.ABOUT_ME),
     },
     {
-      icon: '/assets/pdf.svg',
+      icon: '/assets/pdf.webp',
       iconAlt: 'My Resume',
       title: 'My Resume',
       subtitle: 'Download my resume',
