@@ -107,10 +107,10 @@ const Boot: React.FC = () => {
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, []);
 
-  // ---- Error state (unchanged) ----
+  // ---- Error state (unchanged visuals, cleaned layout) ----
   if (portfolioError) {
     return (
-      <div className="fixed inset-0 w-screen h-full bg-black flex flex-col justify-center items-center text-white font-sans z-[9999] min-h-screen p-4">
+      <div className="flex flex-col justify-center items-center bg-black text-white font-sans z-[9999] min-h-screen p-4">
         <div className="text-center max-w-md w-full">
           <h1 className="text-red-500 mb-3 sm:mb-4 md:mb-5 text-lg sm:text-xl md:text-2xl font-bold">
             Error Loading Portfolio
@@ -129,22 +129,26 @@ const Boot: React.FC = () => {
     );
   }
 
-  // ---- Boot screen (unchanged visuals) ----
+  // ---- Boot screen (unchanged visuals, cleaned layout) ----
   return (
-    <div className="fixed inset-0 flex flex-col justify-between items-center bg-black text-white font-sans z-[9999] min-h-screen overflow-y-auto">
+    <div className="flex flex-col justify-between items-center bg-black text-white font-sans z-[9999] min-h-screen overflow-y-auto">
       {/* Top section */}
-      <div className="flex flex-col justify-center items-center flex-shrink-0 flex-grow text-center pt-16 md:pt-32 px-4">
+      <div className="flex flex-col justify-center items-center flex-grow text-center pt-16 md:pt-32 px-4">
         <img
           src={logo}
           alt="Portfolio Logo"
           className="h-32 md:h-48 w-auto mb-6 md:mb-8 object-contain"
         />
 
-        <div className="w-48 h-4 sm:w-64 sm:h-5 md:w-80 md:h-6 border-2 border-white rounded-full mx-auto mb-4 bg-white/10 overflow-hidden relative">
+        {/* Progress bar container */}
+        <div className="relative w-48 h-4 sm:w-64 sm:h-5 md:w-80 md:h-6 border-2 border-white rounded-full mx-auto mb-4 bg-white/10 overflow-hidden">
+          {/* Fill bar */}
           <div
             className="h-full bg-blue-600 transition-all duration-300 ease-in-out rounded-full"
             style={{ width: `${loadingProgress}%` }}
           />
+
+          {/* Percentage overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-white text-xs sm:text-xs md:text-sm font-bold drop-shadow-lg">
               {Math.round(loadingProgress)}%
@@ -153,6 +157,7 @@ const Boot: React.FC = () => {
         </div>
       </div>
 
+      {/* Bottom section */}
       <div className="w-full px-4 py-4 sm:py-6 md:py-8 flex justify-between items-end min-h-[80px] sm:min-h-[100px]">
         <div className="hidden md:block text-white text-lg">
           <p className="m-0 mb-2 font-semibold">For the best experience</p>

@@ -33,8 +33,6 @@ export const getNextWindowPosition = (): Position => {
   return adjustPositionForViewport(position);
 };
 
- 
-
 /**
  * Adjust position to ensure it stays within viewport bounds
  * @param position - The position to adjust
@@ -60,5 +58,3 @@ const adjustPositionForViewport = (position: Position): Position => {
 
   return position;
 };
-
- 
