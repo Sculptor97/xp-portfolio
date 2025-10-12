@@ -25,15 +25,7 @@ const Boot: React.FC = () => {
       '/assets/pdf.svg',
       '/assets/IE.png',
       '/assets/outlook_expresss.png',
-      '/assets/picture_viewer.png',
-      '/assets/WMP.png',
-      '/assets/Paint.png',
-      '/assets/mp3_player.png',
       '/assets/Tour_XP.png',
-      '/assets/s_ok.png',
-      '/assets/s_err.png',
-      '/assets/sysInfo.png',
-      '/assets/Information.png',
       '/assets/bliss_wallpaper.png',
     ];
 
