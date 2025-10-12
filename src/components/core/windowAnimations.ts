@@ -260,8 +260,6 @@ export const animateMinimize = (
 export const animateRestore = (
   _windowRef: RefObject<HTMLElement | null>,
   windowId: string,
-  _title: string,
-  _icon?: React.ReactElement,
   onComplete?: () => void
 ): void => {
   if (isMobileDevice()) {

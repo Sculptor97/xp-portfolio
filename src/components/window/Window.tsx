@@ -472,8 +472,6 @@ const XPWindow: React.FC<XPWindowProps> & {
         animateMinimize(
           draggableRef as RefObject<HTMLElement | null>,
           id,
-          title,
-          icon,
           () => {
             // Animation completed, no additional action needed
           }
@@ -490,8 +488,6 @@ const XPWindow: React.FC<XPWindowProps> & {
         animateRestore(
           draggableRef as RefObject<HTMLElement | null>,
           id,
-          title,
-          icon,
           () => {
             // Show window after animation completes
             setIsMinimized(false);
