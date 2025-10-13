@@ -61,7 +61,7 @@ export const apps: App[] = [
   {
     id: APP_IDS.ABOUT_ME,
     title: 'About Me',
-    icon: '/assets/Tour_XP.png',
+    icon: '/assets/Tour_XP.webp',
     component: AboutMeContent,
     width: 500,
     height: 600,
@@ -104,12 +104,12 @@ export const apps: App[] = [
   {
     id: APP_IDS.MEDIA_PLAYER,
     title: 'Media Player',
-    icon: '/assets/WMP.png',
+    icon: '/assets/WMP.webp',
     component: () => (
       <PlaceholderApp
         title="Media Player"
         description="Play your favorite videos and music"
-        icon="/assets/WMP.png"
+        icon="/assets/WMP.webp"
       />
     ),
     width: 800,
@@ -153,12 +153,12 @@ export const apps: App[] = [
   {
     id: APP_IDS.TASK_MANAGER,
     title: 'Task Manager',
-    icon: '/assets/task_manager.png',
+    icon: '/assets/task_manager.webp',
     component: () => (
       <PlaceholderApp
         title="Task Manager"
         description="Monitor system performance and processes"
-        icon="/assets/task_manager.png"
+        icon="/assets/task_manager.webp"
       />
     ),
     width: 700,
@@ -168,12 +168,12 @@ export const apps: App[] = [
   {
     id: APP_IDS.SYSTEM_INFO,
     title: 'System Information',
-    icon: '/assets/sysInfo.png',
+    icon: '/assets/sysInfo.webp',
     component: () => (
       <PlaceholderApp
         title="System Information"
         description="View detailed system information"
-        icon="/assets/sysInfo.png"
+        icon="/assets/sysInfo.webp"
       />
     ),
     width: 600,

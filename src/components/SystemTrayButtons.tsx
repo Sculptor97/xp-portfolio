@@ -88,7 +88,7 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
           className={`system-tray-button mobile ${isFullscreen ? 'active' : ''}`}
         >
           <XPIcon
-            src="/assets/sysInfo.png"
+            src="/assets/sysInfo.webp"
             alt="Fullscreen"
             className="h-5 w-5"
           />

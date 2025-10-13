@@ -120,7 +120,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleAppClick(APP_IDS.CONTACT),
     },
     {
-      icon: '/assets/Tour_XP.png',
+      icon: '/assets/Tour_XP.webp',
       iconAlt: 'About Me',
       title: 'About Me',
       onClick: () => handleAppClick(APP_IDS.ABOUT_ME),
@@ -139,7 +139,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleAppClick(APP_IDS.IMAGE_VIEWER),
     },
     {
-      icon: '/assets/WMP.png',
+      icon: '/assets/WMP.webp',
       iconAlt: 'Media Player',
       title: 'Media Player',
       onClick: () => handleAppClick(APP_IDS.MEDIA_PLAYER),
@@ -220,13 +220,13 @@ const StartMenu: React.FC<StartMenuProps> = ({
       onClick: () => handleAppClick(APP_IDS.CMD),
     },
     {
-      icon: '/assets/task_manager.png',
+      icon: '/assets/task_manager.webp',
       iconAlt: 'Task Manager',
       title: 'Task Manager',
       onClick: () => handleAppClick(APP_IDS.TASK_MANAGER),
     },
     {
-      icon: '/assets/sysInfo.png',
+      icon: '/assets/sysInfo.webp',
       iconAlt: 'System Information',
       title: 'System Information',
       onClick: () => handleAppClick(APP_IDS.SYSTEM_INFO),

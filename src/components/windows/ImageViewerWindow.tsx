@@ -40,7 +40,7 @@ const ImageViewerWindow: React.FC<ImageViewerWindowProps> = ({
     >
       <XPWindowHeader icon={icon} address={title} loading={isLoading}>
         <XPWindowHeaderNavItem
-          icon="/assets/restart.svg"
+          icon="/assets/restart.webp"
           label="Refresh"
           onClick={handleRefresh}
           variant="primary"
