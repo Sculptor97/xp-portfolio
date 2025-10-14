@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import XPIcon from './XPIcon';
 
 export interface LogOffDialogProps {
@@ -20,7 +20,18 @@ const LogOffDialog: React.FC<LogOffDialogProps> = ({
   type,
   title = 'Log Off Legha-gha XP',
 }) => {
-  if (!isOpen) return null;
+  const [overlayMounted, setOverlayMounted] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => setOverlayMounted(true), 400);
+      return () => clearTimeout(timer);
+    } else {
+      setOverlayMounted(false);
+    }
+  }, [isOpen]);
+
+  if (!isOpen && !overlayMounted) return null;
 
   const handleRestart = () => {
     onRestart();
@@ -51,7 +62,13 @@ const LogOffDialog: React.FC<LogOffDialogProps> = ({
     <>
       {/* Grey overlay */}
       <div
-        className="fixed inset-0 bg-black opacity-50 z-[9999] transition-opacity duration-300"
+        className={`fixed inset-0 z-[9999] transition-all duration-500`}
+        style={{
+          backgroundColor: 'rgba(0,0,0,0.2)',
+          backdropFilter: overlayMounted
+            ? 'grayscale(100%) brightness(0.6)'
+            : 'grayscale(0%) brightness(1)',
+        }}
         onClick={onClose}
       />
 
@@ -61,7 +78,7 @@ const LogOffDialog: React.FC<LogOffDialogProps> = ({
         onClick={onClose}
       >
         <div
-          className="window"
+          className=" rounded-lg shadow-xl overflow-hidden"
           style={{
             width: '400px',
             maxWidth: '90vw',
@@ -70,20 +87,31 @@ const LogOffDialog: React.FC<LogOffDialogProps> = ({
           onKeyDown={handleKeyDown}
           tabIndex={-1}
         >
-          {/* Blue Header */}
-          <div className="h-10 md:h-12 text-white p-4 flex items-center justify-between bg-gradient-to-b from-[#0353be] to-[#2d7dd1]">
-            <div className="flex items-center">
-              <span className="text-sm md:text-lg font-bold">{title}</span>
-            </div>
+          {/* XP Gradient Header */}
+          <div
+            className="h-10 md:h-12 text-white px-4 flex items-center justify-between select-none"
+            style={{
+              background: `
+                linear-gradient(to bottom, 
+                  #4B8BF5 0%, 
+                  #2A6CD6 40%, 
+                  #1D59C1 70%, 
+                  #2452A4 100%)`,
+              boxShadow: 'inset 0 1px rgba(255,255,255,0.3)',
+            }}
+          >
+            <span className="text-sm md:text-lg font-bold drop-shadow-sm">
+              {title}
+            </span>
             <XPIcon
               src="/assets/favicon.svg"
               alt="Windows XP Logo"
-              className="w-8 h-8"
+              className="w-6 h-6 md:w-8 md:h-8"
             />
           </div>
 
-          {/*   Body */}
-          <div className=" p-6">
+          {/* Body */}
+          <div className="p-6 bg-white">
             <div className="text-center">
               {/* Button container */}
               <div className="flex justify-center gap-8">
@@ -130,11 +158,22 @@ const LogOffDialog: React.FC<LogOffDialogProps> = ({
             </div>
           </div>
 
-          {/* Blue Footer */}
-          <div className="h-10 md:h-12 flex items-center justify-end pr-4 bg-gradient-to-b from-[#0353be] to-[#2d7dd1]">
+          {/* XP Gradient Footer */}
+          <div
+            className="h-10 md:h-12 flex items-center justify-end pr-4"
+            style={{
+              background: `
+                linear-gradient(to bottom, 
+                  #4B8BF5 0%, 
+                  #2A6CD6 40%, 
+                  #1D59C1 70%, 
+                  #2452A4 100%)`,
+              boxShadow: 'inset 0 1px rgba(255,255,255,0.3)',
+            }}
+          >
             <button
               onClick={onClose}
-              className="px-6 py-2 h-8 w-30 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 rounded text-sm font-medium transition-colors"
+              className="px-6 py-2 h-8 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 rounded text-sm font-medium transition-colors"
             >
               Cancel
             </button>

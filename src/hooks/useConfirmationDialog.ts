@@ -61,11 +61,14 @@ export const useConfirmationDialog = () => {
 // Helper function to get platform icons
 const getPlatformIcon = (platform: string): string => {
   const platformIcons: Record<string, string> = {
-    LinkedIn: '/assets/linkedin.webp',
-    Instagram: '/assets/instagram.webp',
-    Github: '/assets/github.webp',
-    GitHub: '/assets/github.webp',
+    facebook: '/assets/facebook.svg',
+    x: '/assets/x_logo.svg',
+    twitter: '/assets/x_logo.svg',
+    github: '/assets/github.webp',
+    linkedin: '/assets/linkedin.webp',
+    instagram: '/assets/instagram.webp',
+    youtube: '/assets/youtube.webp',
   };
 
-  return platformIcons[platform] || '/assets/IE.png';
+  return platformIcons[platform.toLowerCase()] || '/assets/IE.webp';
 };
