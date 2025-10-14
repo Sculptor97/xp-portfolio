@@ -129,7 +129,7 @@ const Login: React.FC = () => {
           <p className="m-0 hidden md:block">
             Every detail has been designed with a purpose.
           </p>
-          <p className="m-0 md:hidden text-center text-xl">
+          <p className="m-0 md:hidden text-center text-base">
             Tap the user icon to begin
           </p>
         </div>
