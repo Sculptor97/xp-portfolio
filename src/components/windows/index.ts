@@ -4,3 +4,4 @@ export { default as CmdWindow } from './CmdWindow';
 export { default as ImageViewerWindow } from './ImageViewerWindow';
 export { default as ProjectsWindow } from './ProjectsWindow';
 export { default as PaintWindow } from './PaintWindow';
+export { default as ResumeWindow } from './ResumeWindow';

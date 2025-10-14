@@ -6,6 +6,7 @@ import PlaceholderApp from './components/windows/PlaceholderApp';
 import ImageViewerWindow from './components/windows/ImageViewerWindow';
 import CmdWindow from './components/windows/CmdWindow';
 import PaintWindow from './components/windows/PaintWindow';
+import ResumeWindow from './components/windows/ResumeWindow';
 
 // Define the app interface
 export interface App {
@@ -87,8 +88,9 @@ export const apps: App[] = [
     id: APP_IDS.MY_RESUME,
     title: 'My Resume',
     icon: '/assets/pdf.webp',
-    component: PlaceholderApp,
-    width: 500,
+    component: ResumeWindow,
+    width: 600,
+    height: 700,
     isShortcut: true,
   },
 
