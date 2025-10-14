@@ -92,7 +92,7 @@ const ResumeWindow: React.FC<ResumeWindowProps> = ({
       </XPWindowHeader>
 
       <XPWindowBody>
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full overflow-hidden">
           <TransformWrapper
             initialScale={1}
             maxScale={3}
@@ -110,7 +110,7 @@ const ResumeWindow: React.FC<ResumeWindowProps> = ({
               <img
                 src="/assets/Legha-gha_Resume.webp"
                 alt="Resume"
-                className="max-w-full max-h-full object-contain"
+                className="max-h-full max-w-full md:max-w-1/2 md:max-h-1/2 object-contain"
                 style={{ width: 'auto', height: 'auto' }}
               />
             </TransformComponent>

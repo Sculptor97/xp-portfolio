@@ -35,21 +35,21 @@ const WelcomeNotification: React.FC<WelcomeNotificationProps> = ({
 
   return (
     <div
-      className={`fixed bottom-16 right-20 md:right-25 z-[9999] transition-all duration-300 ${
+      className={`fixed bottom-14 right-16 md:right-25 z-[9999] transition-all duration-300 ${
         isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
       {/* Speech bubble container */}
       <div className="relative">
         {/* Main notification box */}
-        <div className="bg-yellow-100 border border-yellow-300 rounded-lg shadow-lg max-w-sm">
+        <div className="bg-[#FEF9C2] rounded-lg max-w-sm">
           {/* Title bar */}
           <div className="bg-blue-500 text-white px-3 py-2 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center gap-2">
               <XPIcon
                 src="/assets/Information.webp"
                 alt="Information"
-                className="h-2 w-2"
+                className="h-4 w-4"
               />
               <span className="font-semibold text-sm">
                 Welcome to Legha-gha XP
@@ -91,8 +91,8 @@ const WelcomeNotification: React.FC<WelcomeNotificationProps> = ({
         </div>
 
         {/* Speech bubble pointer */}
-        <div className="absolute bottom-0 right-6 transform translate-y-full">
-          <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-yellow-300"></div>
+        <div className="absolute bottom-0.5 right-5 transform translate-y-full">
+          <div className="w-0 h-0 border-l-8 border-r-8 border-t-20 border-l-transparent border-r-transparent border-t-[#FEF9C2]"></div>
         </div>
       </div>
     </div>
