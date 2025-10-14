@@ -79,7 +79,7 @@ const Login: React.FC = () => {
               onClick={handleUserClick}
             >
               {/* User avatar with profile icon */}
-              <div className="h-32 w-32 md:w-40 md:h-40 rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center  p-1 sm:p-2">
+              <div className="h-28 w-28 md:w-40 md:h-40 border-2 border-white md:border-none rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center  p-2 sm:p-2">
                 <XPIcon
                   src={profileGif}
                   alt="User Avatar"
