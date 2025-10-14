@@ -52,7 +52,7 @@ const Login: React.FC = () => {
                   className="h-48 w-48 md:w-52 md:h-52 drop-shadow-lg"
                 />
               </div>
-              <p className="text-xs sm:text-sm hidden md:block md:-mt-5 text-white drop-shadow-sm m-0">
+              <p className="text-xl hidden md:block md:-mt-5 text-white drop-shadow-sm m-0">
                 To begin, click on {logoText || 'Legha-gha'} to log in
               </p>
             </div>
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
               }}
               onClick={handleUserClick}
             >
-              {/* User avatar with profile gif */}
+              {/* User avatar with profile icon */}
               <div className="h-32 w-32 md:w-40 md:h-40 rounded-lg mb-2 md:mb-0 md:mr-5 flex items-center justify-center  p-1 sm:p-2">
                 <XPIcon
                   src={profileGif}
@@ -129,7 +129,7 @@ const Login: React.FC = () => {
           <p className="m-0 hidden md:block">
             Every detail has been designed with a purpose.
           </p>
-          <p className="m-0 md:hidden text-center text-xs sm:text-sm">
+          <p className="m-0 md:hidden text-center text-xl">
             Tap the user icon to begin
           </p>
         </div>
