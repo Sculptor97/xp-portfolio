@@ -35,7 +35,7 @@ const WelcomeNotification: React.FC<WelcomeNotificationProps> = ({
 
   return (
     <div
-      className={`fixed bottom-14 right-16 md:right-25 z-[9999] transition-all duration-300 ${
+      className={`fixed bottom-14 right-14 md:right-25 z-[9999] transition-all duration-300 ${
         isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
