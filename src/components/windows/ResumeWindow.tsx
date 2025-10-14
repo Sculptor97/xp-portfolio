@@ -67,7 +67,7 @@ const ResumeWindow: React.FC<ResumeWindowProps> = ({
 }) => {
   const handleDownloadPDF = () => {
     const link = document.createElement('a');
-    link.href = 'src/assets/Legha-gha_Resume.pdf';
+    link.href = '/assets/Legha-gha_Resume.pdf';
     link.download = 'Legha-gha_Resume.pdf';
     document.body.appendChild(link);
     link.click();
@@ -108,7 +108,7 @@ const ResumeWindow: React.FC<ResumeWindowProps> = ({
               contentClass="w-full h-full flex items-center justify-center"
             >
               <img
-                src="src/assets/Legha-gha_Resume.webp"
+                src="/assets/Legha-gha_Resume.webp"
                 alt="Resume"
                 className="max-w-full max-h-full object-contain"
                 style={{ width: 'auto', height: 'auto' }}
