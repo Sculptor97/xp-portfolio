@@ -559,3 +559,9 @@ button.active.image-gallery-icon.image-gallery-left-nav {
   box-shadow: none !important;
   outline: none !important;
 }
+
+.react-transform-wrapper, .react-transform-component{
+  width: 100% !important;
+  height: 100% !important;
+  padding: 5px 0px !important;
+}
