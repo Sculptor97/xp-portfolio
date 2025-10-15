@@ -564,3 +564,94 @@ button.active.image-gallery-icon.image-gallery-left-nav {
   height: 100% !important;
   padding: 5px 0px !important;
 }
+
+/* Override xp.css button styles for shadcn CollapsibleTrigger */
+[data-radix-collapsible-trigger] {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-radix-collapsible-trigger]:hover {
+  background: inherit !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+[data-radix-collapsible-trigger]:active {
+  background: inherit !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+[data-radix-collapsible-trigger]:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure our custom classes take precedence */
+.collapsible-trigger-custom {
+  background: linear-gradient(to bottom, #dbeafe, #bfdbfe) !important;
+  border: none !important;
+  padding: 0.75rem !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  color: #1f2937 !important;
+}
+
+.collapsible-trigger-custom:hover {
+  background: linear-gradient(to bottom, #bfdbfe, #93c5fd) !important;
+  border-color: #9ca3af !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.collapsible-trigger-custom:active {
+  background: linear-gradient(to bottom, #93c5fd, #60a5fa) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.collapsible-trigger-custom:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Social Links specific trigger */
+.social-links-trigger {
+  background: linear-gradient(to bottom, #dbeafe, #bfdbfe) !important;
+}
+
+.social-links-trigger:hover {
+  background: linear-gradient(to bottom, #bfdbfe, #93c5fd) !important;
+}
+
+/* Skills specific trigger */
+.skills-trigger {
+  background: linear-gradient(to right, white, #b3c6dd) !important;
+}
+
+.skills-trigger:hover {
+  background: linear-gradient(to right, white, #b3c6dd) !important;
+}

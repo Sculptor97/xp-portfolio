@@ -1,10 +1,14 @@
 import React from 'react';
-import { apps } from '../../apps';
+import { apps, APP_IDS } from '../../apps';
 import Shortcut from '@/components/desktop/Shortcut';
 import { useAppContext } from '../../hooks/useAppManager';
+import { useConfirmationDialog } from '../../hooks/useConfirmationDialog';
+import ConfirmationDialog from '../ConfirmationDialog';
 
 const Desktop: React.FC = () => {
   const { openWindows, openApp } = useAppContext();
+  const { dialogState, hideDialog, showLinkConfirmation } =
+    useConfirmationDialog();
 
   // Filter apps to only show shortcuts
   const shortcutApps = apps.filter(app => app.isShortcut);
@@ -30,8 +34,27 @@ const Desktop: React.FC = () => {
       {/* Render open windows */}
       {openWindows.map(app => {
         const AppComponent = app.component;
-        return <AppComponent key={app.id} {...app} />;
+        // Pass showLinkConfirmation to About Me app
+        const appProps =
+          app.id === APP_IDS.ABOUT_ME
+            ? { ...app, onSocialLinkClick: showLinkConfirmation }
+            : app;
+        return <AppComponent key={app.id} {...appProps} />;
       })}
+
+      {/* Social Link Confirmation Dialog - rendered at top level so it's always available */}
+      <ConfirmationDialog
+        isOpen={dialogState.isOpen}
+        onClose={hideDialog}
+        onConfirm={dialogState.onConfirm || (() => {})}
+        onCancel={dialogState.onCancel}
+        title={dialogState.title}
+        message={dialogState.message}
+        confirmText={dialogState.confirmText}
+        cancelText={dialogState.cancelText}
+        icon={dialogState.icon}
+        iconAlt={dialogState.iconAlt}
+      />
     </>
   );
 };

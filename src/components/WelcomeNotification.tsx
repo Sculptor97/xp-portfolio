@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import XPIcon from './XPIcon';
+import { useAppContext } from '@/hooks/useAppManager';
+import { APP_IDS } from '@/apps';
 
 interface WelcomeNotificationProps {
   isVisible: boolean;
@@ -12,6 +14,17 @@ const WelcomeNotification: React.FC<WelcomeNotificationProps> = ({
   onClose,
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
+  const { openApp } = useAppContext();
+
+  const handleOpenAboutMe = () => {
+    openApp(APP_IDS.ABOUT_ME);
+    handleClose();
+  };
+
+  const handleOpenProjects = () => {
+    openApp(APP_IDS.MY_PROJECTS);
+    handleClose();
+  };
 
   useEffect(() => {
     if (isVisible) {
@@ -82,19 +95,21 @@ const WelcomeNotification: React.FC<WelcomeNotificationProps> = ({
             <div>
               <span className="text-gray-600">Get Started:</span>
               <div className="mt-1 flex flex-wrap gap-x-2 gap-y-1">
-                <a
-                  href="#about"
-                  className="text-blue-600 hover:text-blue-800 hover:underline"
+                <div
+                  onClick={handleOpenAboutMe}
+                  role="button"
+                  className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer bg-transparent border-none p-0 text-left"
                 >
                   About Me
-                </a>
+                </div>
                 <span className="text-gray-400 hidden sm:inline">|</span>
-                <a
-                  href="#projects"
-                  className="text-blue-600 hover:text-blue-800 hover:underline"
+                <div
+                  onClick={handleOpenProjects}
+                  role="button"
+                  className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer bg-transparent border-none p-0 text-left"
                 >
                   My Projects
-                </a>
+                </div>
               </div>
             </div>
           </div>

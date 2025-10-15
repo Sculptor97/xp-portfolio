@@ -64,9 +64,10 @@ export const apps: App[] = [
     title: 'About Me',
     icon: '/assets/Tour_XP.webp',
     component: AboutMeContent,
-    width: 500,
+    width: 800,
     height: 600,
     isShortcut: true,
+    onSocialLinkClick: undefined, // Will be set dynamically
   },
   {
     id: APP_IDS.MY_PROJECTS,
@@ -90,7 +91,7 @@ export const apps: App[] = [
     icon: '/assets/pdf.webp',
     component: ResumeWindow,
     width: 600,
-    height: 700,
+    height: 600,
     isShortcut: true,
   },
 
