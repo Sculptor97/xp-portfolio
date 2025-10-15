@@ -46,7 +46,6 @@ const Terminal: React.FC<TerminalProps> = ({ onExit }) => {
     }
   }, [state.isAnimating, isWaitingForData]);
 
-
   // Welcome message on first load
   useEffect(() => {
     if (state.outputHistory.length === 0 && !welcomeShownRef.current) {
@@ -132,7 +131,6 @@ Use the arrow keys to navigate through the command history.
           ></span>
         </div>
       )}
-
     </div>
   );
 };

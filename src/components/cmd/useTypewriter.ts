@@ -12,7 +12,7 @@ export const useTypewriter = (
   const [isComplete, setIsComplete] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const onCompleteRef = useRef(onComplete);
-  
+
   // Update the ref when onComplete changes, but don't restart animation
   useEffect(() => {
     onCompleteRef.current = onComplete;

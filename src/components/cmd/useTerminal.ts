@@ -23,24 +23,33 @@ export const useTerminal = (onExit?: () => void) => {
     isAnimating: false,
   });
   const [isWaitingForData, setIsWaitingForData] = useState(false);
-  const [pendingCommand, setPendingCommand] = useState<{command: string, args: string[], cmd: any} | null>(null);
+  const [pendingCommand, setPendingCommand] = useState<{
+    command: string;
+    args: string[];
+    cmd: any;
+  } | null>(null);
 
   // Fetch all portfolio data
   const { data: portfolio, isLoading: portfolioLoading } = usePortfolio();
   const { data: projects, isLoading: projectsLoading } = useProjects();
   const { data: skills, isLoading: skillsLoading } = useSkills();
   const { data: services, isLoading: servicesLoading } = useServices();
-  const { data: contactConfig, isLoading: contactConfigLoading } = useContactConfig();
-  const { data: socialProfiles, isLoading: socialProfilesLoading } = useSocialProfiles();
+  const { data: contactConfig, isLoading: contactConfigLoading } =
+    useContactConfig();
+  const { data: socialProfiles, isLoading: socialProfilesLoading } =
+    useSocialProfiles();
 
-  const portfolioData = useMemo(() => ({
-    portfolio,
-    projects,
-    skills,
-    services,
-    contactConfig,
-    socialProfiles,
-  }), [portfolio, projects, skills, services, contactConfig, socialProfiles]);
+  const portfolioData = useMemo(
+    () => ({
+      portfolio,
+      projects,
+      skills,
+      services,
+      contactConfig,
+      socialProfiles,
+    }),
+    [portfolio, projects, skills, services, contactConfig, socialProfiles]
+  );
 
   const animatingOutputs = useRef<Set<string>>(new Set());
 
@@ -73,39 +82,51 @@ export const useTerminal = (onExit?: () => void) => {
     }
   }, []);
 
-  const createAnimationCompleteCallback = useCallback((outputId: string) => {
-    return () => handleAnimationComplete(outputId);
-  }, [handleAnimationComplete]);
+  const createAnimationCompleteCallback = useCallback(
+    (outputId: string) => {
+      return () => handleAnimationComplete(outputId);
+    },
+    [handleAnimationComplete]
+  );
 
-  const isDataAvailableForCommand = useCallback((command: string) => {
-    switch (command) {
-      case 'about':
-        return !portfolioLoading && portfolio;
-      case 'projects':
-        return !projectsLoading && projects;
-      case 'project':
-        return !projectsLoading && projects;
-      case 'skills':
-        return !skillsLoading && skills;
-      case 'services':
-        return !servicesLoading && services;
-      case 'contact':
-        return !contactConfigLoading && contactConfig;
-      case 'social':
-        return !socialProfilesLoading && socialProfiles;
-      case 'resume':
-        return !contactConfigLoading && contactConfig;
-      default:
-        return true; // Commands that don't need data
-    }
-  }, [
-    portfolioLoading, portfolio,
-    projectsLoading, projects,
-    skillsLoading, skills,
-    servicesLoading, services,
-    contactConfigLoading, contactConfig,
-    socialProfilesLoading, socialProfiles
-  ]);
+  const isDataAvailableForCommand = useCallback(
+    (command: string) => {
+      switch (command) {
+        case 'about':
+          return !portfolioLoading && portfolio;
+        case 'projects':
+          return !projectsLoading && projects;
+        case 'project':
+          return !projectsLoading && projects;
+        case 'skills':
+          return !skillsLoading && skills;
+        case 'services':
+          return !servicesLoading && services;
+        case 'contact':
+          return !contactConfigLoading && contactConfig;
+        case 'social':
+          return !socialProfilesLoading && socialProfiles;
+        case 'resume':
+          return !contactConfigLoading && contactConfig;
+        default:
+          return true; // Commands that don't need data
+      }
+    },
+    [
+      portfolioLoading,
+      portfolio,
+      projectsLoading,
+      projects,
+      skillsLoading,
+      skills,
+      servicesLoading,
+      services,
+      contactConfigLoading,
+      contactConfig,
+      socialProfilesLoading,
+      socialProfiles,
+    ]
+  );
 
   const getLoadingMessage = useCallback((command: string) => {
     switch (command) {
@@ -186,7 +207,7 @@ export const useTerminal = (onExit?: () => void) => {
         if (!isDataAvailableForCommand(command)) {
           setIsWaitingForData(true);
           setPendingCommand({ command, args, cmd });
-          
+
           // Add loading output first
           const loadingOutputId = (Date.now() + 1).toString();
           addOutput({
@@ -196,7 +217,7 @@ export const useTerminal = (onExit?: () => void) => {
             timestamp: new Date(),
             skipAnimation: true, // Don't animate loading messages
           });
-          
+
           // Add cancel instruction
           addOutput({
             id: (Date.now() + 2).toString(),
@@ -205,7 +226,7 @@ export const useTerminal = (onExit?: () => void) => {
             timestamp: new Date(),
             skipAnimation: true,
           });
-          
+
           return; // Exit early, useEffect will handle execution when data is available
         }
 
@@ -260,7 +281,13 @@ export const useTerminal = (onExit?: () => void) => {
         });
       }
     },
-    [addOutput, onExit, portfolioData, isDataAvailableForCommand, getLoadingMessage]
+    [
+      addOutput,
+      onExit,
+      portfolioData,
+      isDataAvailableForCommand,
+      getLoadingMessage,
+    ]
   );
 
   const handleKeyDown = useCallback(
@@ -328,61 +355,78 @@ export const useTerminal = (onExit?: () => void) => {
       const { args, cmd } = pendingCommand;
       setPendingCommand(null);
       setIsWaitingForData(false);
-      
+
       // Execute the command now that data is available
-      cmd.execute(args, portfolioData).then((result: any) => {
-        // Handle the result the same way as in executeCommand
-        if (result === 'MATRIX_ANIMATION') {
+      cmd
+        .execute(args, portfolioData)
+        .then((result: any) => {
+          // Handle the result the same way as in executeCommand
+          if (result === 'MATRIX_ANIMATION') {
+            addOutput({
+              id: (Date.now() + 1).toString(),
+              command: '',
+              output: 'Oops caught up with other projects... (Coming soon!)',
+              timestamp: new Date(),
+            });
+          } else {
+            const output =
+              typeof result === 'object' && 'output' in result
+                ? result.output
+                : result;
+            const skipAnimation =
+              typeof result === 'object' && 'skipAnimation' in result
+                ? result.skipAnimation
+                : false;
+
+            const outputId = (Date.now() + 1).toString();
+            addOutput({
+              id: outputId,
+              command: '',
+              output,
+              timestamp: new Date(),
+              skipAnimation,
+            });
+
+            // Track animation if not skipping
+            if (!skipAnimation && typeof output === 'string') {
+              animatingOutputs.current.add(outputId);
+              setState(prev => ({
+                ...prev,
+                isAnimating: true,
+              }));
+            }
+          }
+        })
+        .catch((error: any) => {
           addOutput({
             id: (Date.now() + 1).toString(),
             command: '',
-            output: 'Oops caught up with other projects... (Coming soon!)',
+            output: `Error: ${error instanceof Error ? error.message : 'Unknown error occurred'}`,
             timestamp: new Date(),
+            isError: true,
           });
-        } else {
-          const output =
-            typeof result === 'object' && 'output' in result
-              ? result.output
-              : result;
-          const skipAnimation =
-            typeof result === 'object' && 'skipAnimation' in result
-              ? result.skipAnimation
-              : false;
-
-          const outputId = (Date.now() + 1).toString();
-          addOutput({
-            id: outputId,
-            command: '',
-            output,
-            timestamp: new Date(),
-            skipAnimation,
-          });
-
-          // Track animation if not skipping
-          if (!skipAnimation && typeof output === 'string') {
-            animatingOutputs.current.add(outputId);
-            setState(prev => ({
-              ...prev,
-              isAnimating: true,
-            }));
-          }
-        }
-      }).catch((error: any) => {
-        addOutput({
-          id: (Date.now() + 1).toString(),
-          command: '',
-          output: `Error: ${error instanceof Error ? error.message : 'Unknown error occurred'}`,
-          timestamp: new Date(),
-          isError: true,
         });
-      });
     }
-  }, [pendingCommand, portfolio, projects, skills, services, contactConfig, socialProfiles, portfolioData, isDataAvailableForCommand, addOutput]);
+  }, [
+    pendingCommand,
+    portfolio,
+    projects,
+    skills,
+    services,
+    contactConfig,
+    socialProfiles,
+    portfolioData,
+    isDataAvailableForCommand,
+    addOutput,
+  ]);
 
   // Handle global keyboard events for cancellation
   useEffect(() => {
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
-      if (isWaitingForData && (event.key === 'Escape' || event.key === 'q' || event.key === 'Q')) {
+      if (
+        isWaitingForData &&
+        (event.key === 'Escape' || event.key === 'q' || event.key === 'Q')
+      ) {
         event.preventDefault();
         cancelLoading();
       }
