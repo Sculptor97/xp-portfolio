@@ -86,7 +86,9 @@ const XPWindowHeaderNavItem: React.FC<XPWindowHeaderNavItemProps> = ({
         }
       }}
     >
-      {icon && <XPIcon src={icon} alt={label} className="w-5 h-5 md:w-7 md:h-7" />}
+      {icon && (
+        <XPIcon src={icon} alt={label} className="w-5 h-5 md:w-7 md:h-7" />
+      )}
       <span className="text-xs md:text-sm font-medium">{label}</span>
       {showDropdown && (
         <div className="w-0 h-0 border-l-2 border-l-transparent border-r-2 border-r-transparent border-t-2 border-t-black ml-1" />

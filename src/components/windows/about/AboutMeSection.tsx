@@ -25,9 +25,11 @@ const AboutMeSection: React.FC<AboutMeSectionProps> = ({
 
   return (
     <section className="mb-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">About Me</h2>
+      <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+        {dataAbout.title}
+      </h2>
       <div className="prose prose-sm max-w-none">
-        <p className="text-black text-xl leading-relaxed whitespace-pre-line">
+        <p className="text-black text-sm md:text-base lg:text-lg xl:text-xl leading-relaxed whitespace-pre-line">
           {dataAbout.aboutme}
         </p>
       </div>

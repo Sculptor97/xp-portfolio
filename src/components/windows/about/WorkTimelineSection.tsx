@@ -36,7 +36,9 @@ const WorkTimelineSection: React.FC<WorkTimelineSectionProps> = ({
 
   return (
     <section className="mb-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Work Timeline</h2>
+      <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-6">
+        Work Timeline
+      </h2>
       <div className="relative">
         {/* Timeline line */}
         <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-blue-300"></div>
@@ -49,12 +51,16 @@ const WorkTimelineSection: React.FC<WorkTimelineSectionProps> = ({
 
               {/* Content */}
               <div className="flex-1 pb-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                <div className="bg-white rounded-lg border border-gray-200 p-3 md:p-4 shadow-sm">
+                  <h3 className="text-base md:text-lg lg:text-xl font-semibold text-gray-800 mb-1">
                     {item.jobtitle}
                   </h3>
-                  <p className="text-blue-600 font-medium mb-2">{item.where}</p>
-                  <p className="text-sm text-gray-600">{item.date}</p>
+                  <p className="text-blue-600 font-medium mb-2 text-sm md:text-base lg:text-lg">
+                    {item.where}
+                  </p>
+                  <p className="text-xs md:text-sm text-gray-600">
+                    {item.date}
+                  </p>
                 </div>
               </div>
             </div>
