@@ -86,8 +86,8 @@ const XPWindowHeaderNavItem: React.FC<XPWindowHeaderNavItemProps> = ({
         }
       }}
     >
-      {icon && <XPIcon src={icon} alt={label} className="w-5 h-5" />}
-      <span className="text-xs font-medium">{label}</span>
+      {icon && <XPIcon src={icon} alt={label} className="w-5 h-5 md:w-7 md:h-7" />}
+      <span className="text-xs md:text-sm font-medium">{label}</span>
       {showDropdown && (
         <div className="w-0 h-0 border-l-2 border-l-transparent border-r-2 border-r-transparent border-t-2 border-t-black ml-1" />
       )}
@@ -224,11 +224,11 @@ const XPWindowHeaderNavigation: React.FC<{
       disabled: true,
       priority: 'low' as const,
     },
-    {
-      icon: '/assets/cut.webp',
-      label: 'Cut',
-      priority: 'medium' as const,
-    },
+    // {
+    //   icon: '/assets/cut.webp',
+    //   label: 'Cut',
+    //   priority: 'medium' as const,
+    // },
   ];
 
   return (

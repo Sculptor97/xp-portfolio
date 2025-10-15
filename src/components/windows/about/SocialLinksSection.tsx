@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronsDown, ChevronsUp } from 'lucide-react';
 import {
   Collapsible,
   CollapsibleContent,
@@ -80,9 +80,9 @@ const SocialLinksSection: React.FC<SocialLinksSectionProps> = ({
               Social Links
             </span>
             {isOpen ? (
-              <ChevronUp className="w-4 h-4 text-gray-600" />
+              <ChevronsUp className="w-4 h-4 text-gray-600" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-gray-600" />
+              <ChevronsDown className="w-4 h-4 text-gray-600" />
             )}
           </CollapsibleTrigger>
           <CollapsibleContent>

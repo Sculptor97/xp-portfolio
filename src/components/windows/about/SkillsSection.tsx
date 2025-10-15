@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronsDown, ChevronsUp } from 'lucide-react';
 import {
   Collapsible,
   CollapsibleContent,
@@ -49,9 +49,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
           <CollapsibleTrigger className="collapsible-trigger-custom skills-trigger border-b border-gray-200">
             <span className="font-medium text-sm text-gray-800">Skills</span>
             {isOpen ? (
-              <ChevronUp className="w-4 h-4 text-gray-600" />
+              <ChevronsUp className="w-4 h-4 text-gray-600" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-gray-600" />
+              <ChevronsDown className="w-4 h-4 text-gray-600" />
             )}
           </CollapsibleTrigger>
           <CollapsibleContent>
