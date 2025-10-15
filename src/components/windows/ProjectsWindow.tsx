@@ -1,5 +1,10 @@
 import React from 'react';
-import { XPWindow, XPWindowHeader, XPWindowBody } from '@/components/window';
+import {
+  XPWindow,
+  XPWindowHeader,
+  XPWindowBody,
+  XPWindowFooter,
+} from '@/components/window';
 import XPIcon from '@/components/XPIcon';
 
 interface ProjectsWindowProps {
@@ -52,6 +57,11 @@ const ProjectsWindow: React.FC<ProjectsWindowProps> = ({
           </div>
         </div>
       </XPWindowBody>
+      <XPWindowFooter>
+        <div className="text-xs md:text-sm font-medium px-4">
+          Select a project to view more details
+        </div>
+      </XPWindowFooter>
     </XPWindow>
   );
 };

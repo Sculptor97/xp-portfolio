@@ -4,6 +4,7 @@ import {
   XPWindowHeader,
   XPWindowHeaderNavItem,
   XPWindowBody,
+  XPWindowFooter,
 } from '@/components/window';
 import XPIcon from '@/components/XPIcon';
 import {
@@ -117,6 +118,11 @@ const ResumeWindow: React.FC<ResumeWindowProps> = ({
           </TransformWrapper>
         </div>
       </XPWindowBody>
+      <XPWindowFooter>
+        <div className="text-xs md:text-sm font-medium px-4">
+          Download the resume as a PDF
+        </div>
+      </XPWindowFooter>
     </XPWindow>
   );
 };

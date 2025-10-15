@@ -4,6 +4,7 @@ import {
   XPWindowHeader,
   XPWindowHeaderNavItem,
   XPWindowBody,
+  XPWindowFooter,
 } from '@/components/window';
 import XPIcon from '@/components/XPIcon';
 
@@ -71,6 +72,11 @@ const PaintWindow: React.FC<PaintWindowProps> = ({
           />
         </div>
       </XPWindowBody>
+      <XPWindowFooter>
+        <div className="text-xs md:text-sm font-medium px-4">
+          Use the Paint application to create and edit images
+        </div>
+      </XPWindowFooter>
     </XPWindow>
   );
 };

@@ -4,6 +4,7 @@ import {
   XPWindowHeader,
   XPWindowHeaderNavItem,
   XPWindowBody,
+  XPWindowFooter,
 } from '@/components/window';
 import XPIcon from '@/components/XPIcon';
 import { usePortfolio } from '@/services/portfolioQueries';
@@ -113,6 +114,11 @@ const AboutWindow: React.FC<AboutWindowProps> = ({
           </div>
         )}
       </XPWindowBody>
+      <XPWindowFooter>
+        <div className="text-xs md:text-sm font-medium px-4">
+          Learn more about Legha-gha
+        </div>
+      </XPWindowFooter>
     </XPWindow>
   );
 };

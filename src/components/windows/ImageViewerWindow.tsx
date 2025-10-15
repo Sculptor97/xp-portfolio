@@ -4,6 +4,7 @@ import {
   XPWindowHeader,
   XPWindowHeaderNavItem,
   XPWindowBody,
+  XPWindowFooter,
 } from '@/components/window';
 import XPIcon from '@/components/XPIcon';
 import ImageGallery from '@/components/ImageGallery';
@@ -62,6 +63,11 @@ const ImageViewerWindow: React.FC<ImageViewerWindowProps> = ({
           error={error}
         />
       </XPWindowBody>
+      <XPWindowFooter>
+        <div className="text-xs md:text-sm font-medium px-4">
+          View more images on Unsplash
+        </div>
+      </XPWindowFooter>
     </XPWindow>
   );
 };
