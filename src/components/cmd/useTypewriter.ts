@@ -1,6 +1,6 @@
 // Custom hook for typewriter animation effect
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { TypewriterOptions } from './types';
 
 export const useTypewriter = (
@@ -11,13 +11,19 @@ export const useTypewriter = (
   const [displayedText, setDisplayedText] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  
+  // Update the ref when onComplete changes, but don't restart animation
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   const startAnimation = useCallback(() => {
     if (skipAnimation) {
       setDisplayedText(text);
       setIsComplete(true);
       setIsAnimating(false);
-      onComplete?.();
+      onCompleteRef.current?.();
       return;
     }
 
@@ -34,19 +40,19 @@ export const useTypewriter = (
         clearInterval(interval);
         setIsComplete(true);
         setIsAnimating(false);
-        onComplete?.();
+        onCompleteRef.current?.();
       }
     }, speed);
 
     return () => clearInterval(interval);
-  }, [text, speed, skipAnimation, onComplete]);
+  }, [text, speed, skipAnimation]);
 
   const skip = useCallback(() => {
     setDisplayedText(text);
     setIsComplete(true);
     setIsAnimating(false);
-    onComplete?.();
-  }, [text, onComplete]);
+    onCompleteRef.current?.();
+  }, [text]);
 
   useEffect(() => {
     if (text) {

@@ -31,7 +31,7 @@ export interface TerminalState {
   currentInput: string;
   historyIndex: number;
   currentDirectory: string;
-  isExecuting: boolean;
+  isAnimating: boolean;
 }
 
 export interface TypewriterOptions {

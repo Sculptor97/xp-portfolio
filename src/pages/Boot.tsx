@@ -19,14 +19,12 @@ const Boot: React.FC = () => {
   // ---- Image preloading ----
   useEffect(() => {
     const imagesToPreload = [
-      '/assets/logo.svg',
-      '/assets/boot-wordmark.webp',
       '/assets/profile.webp',
       '/assets/pdf.webp',
       '/assets/IE.webp',
       '/assets/outlook_expresss.webp',
       '/assets/Tour_XP.png',
-      '/assets/bliss_wallpaper.png',
+      '/assets/bliss_wallpaper.jpg',
     ];
 
     let loadedCount = 0;
