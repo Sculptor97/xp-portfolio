@@ -19,7 +19,7 @@ export const useTerminal = (onExit?: () => void) => {
     outputHistory: [],
     currentInput: '',
     historyIndex: -1,
-    currentDirectory: 'C:\\Legha-gha',
+    currentDirectory: 'C:\\Users\\Legha-gha',
     isAnimating: false,
   });
   const [isWaitingForData, setIsWaitingForData] = useState(false);

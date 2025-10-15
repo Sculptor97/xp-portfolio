@@ -57,7 +57,7 @@ const Terminal: React.FC<TerminalProps> = ({ onExit }) => {
 Legha-gha XP [Version 5.1.2600]
 (C) Copyright ${new Date().getFullYear()} Legha-gha.
 
-C:\\Legha-gha> Welcome to the Legha-gha XP Terminal!
+C:\\Users\\Legha-gha> Welcome to the Legha-gha XP Terminal!
 
 Type 'help' to see all available commands.
 Type 'about' to learn more about the developer.
@@ -82,7 +82,7 @@ Use the arrow keys to navigate through the command history.
         <div key={output.id} className="mb-1">
           {output.command && (
             <div className="text-green-400">
-              C:\\Legha-gha&gt; {output.command}
+              C:\Users\Legha-gha&gt; {output.command}
             </div>
           )}
           {output.output && (
@@ -115,7 +115,7 @@ Use the arrow keys to navigate through the command history.
       {/* Current Input Line */}
       {!state.isAnimating && !isWaitingForData && (
         <div className="flex items-center">
-          <span className="text-green-400">C:\\Legha-gha&gt;</span>
+          <span className="text-green-400">C:\Users\Legha-gha&gt;</span>
           <input
             ref={inputRef}
             type="text"
