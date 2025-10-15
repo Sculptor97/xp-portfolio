@@ -1,5 +1,10 @@
 import React from 'react';
-import { XPWindow, XPWindowHeader, XPWindowHeaderNavItem, XPWindowBody } from '@/components/window';
+import {
+  XPWindow,
+  XPWindowHeader,
+  XPWindowHeaderNavItem,
+  XPWindowBody,
+} from '@/components/window';
 import XPIcon from '@/components/XPIcon';
 import { usePortfolio } from '@/services/portfolioQueries';
 import { useAppContext } from '@/hooks/useAppManager';
