@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CustomTooltip from './CustomTooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import XPIcon from './XPIcon';
 import WelcomeNotification from './WelcomeNotification';
 import { playBalloonSound } from '../lib/soundUtils';
@@ -52,48 +52,59 @@ const SystemTrayButtons: React.FC<SystemTrayButtonsProps> = ({
   return (
     <div className="flex items-center gap-1">
       {/* Information Button */}
-      <CustomTooltip content="Information">
-        <div onClick={showInfo} className="system-tray-button">
-          <XPIcon
-            src="/assets/Information.webp"
-            alt="Information"
-            className="h-5 w-5"
-          />
-        </div>
-      </CustomTooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div onClick={showInfo} className="system-tray-button">
+            <XPIcon
+              src="/assets/Information.webp"
+              alt="Information"
+              className="h-5 w-5"
+            />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className="bg-[#ECE9D8] text-black" sideOffset={10}>
+          <p>Information</p>
+        </TooltipContent>
+      </Tooltip>
 
       {/* CRT Grid Toggle Button */}
-      <CustomTooltip
-        content={isGridVisible ? 'CRT Effects: ON' : 'CRT Effects: OFF'}
-      >
-        <div
-          onClick={toggleGrid}
-          className={`system-tray-button ${isGridVisible ? 'active' : ''}`}
-        >
-          {isGridVisible ? (
-            <XPIcon src="/assets/s_ok.webp" alt="Grid" className="h-5 w-5" />
-          ) : (
-            <XPIcon src="/assets/s_err.webp" alt="Grid" className="h-5 w-5" />
-          )}
-          {/* <XPIcon src="/src/assets/grid.png" alt="Grid" className="h-2 w-2" /> */}
-        </div>
-      </CustomTooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div
+            onClick={toggleGrid}
+            className={`system-tray-button ${isGridVisible ? 'active' : ''}`}
+          >
+            {isGridVisible ? (
+              <XPIcon src="/assets/s_ok.webp" alt="Grid" className="h-5 w-5" />
+            ) : (
+              <XPIcon src="/assets/s_err.webp" alt="Grid" className="h-5 w-5" />
+            )}
+            {/* <XPIcon src="/src/assets/grid.png" alt="Grid" className="h-2 w-2" /> */}
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className="bg-[#ECE9D8] text-black" sideOffset={10}>
+          <p>{isGridVisible ? 'CRT Effects: ON' : 'CRT Effects: OFF'}</p>
+        </TooltipContent>
+      </Tooltip>
 
       {/* Fullscreen Toggle Button */}
-      <CustomTooltip
-        content={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-      >
-        <div
-          onClick={toggleFullscreen}
-          className={`system-tray-button mobile ${isFullscreen ? 'active' : ''}`}
-        >
-          <XPIcon
-            src="/assets/sysInfo.webp"
-            alt="Fullscreen"
-            className="h-5 w-5"
-          />
-        </div>
-      </CustomTooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div
+            onClick={toggleFullscreen}
+            className={`system-tray-button mobile ${isFullscreen ? 'active' : ''}`}
+          >
+            <XPIcon
+              src="/assets/sysInfo.webp"
+              alt="Fullscreen"
+              className="h-5 w-5"
+            />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className="bg-[#ECE9D8] text-black" sideOffset={10}>
+          <p>{isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}</p>
+        </TooltipContent>
+      </Tooltip>
 
       {/* Welcome Notification */}
       <WelcomeNotification
