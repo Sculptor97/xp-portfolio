@@ -86,7 +86,7 @@
 
   --crt-scanline-opacity: 0.15;
   --crt-scanline-width: 1px;
-  --crt-scanline-gap: 2px;
+  --crt-scanline-gap: 1px;
 }
 
 .dark {
