@@ -74,7 +74,7 @@ export const apps: App[] = [
     title: 'My Projects',
     icon: '/assets/IE.webp',
     component: MyProjectsContent,
-    width: 800,
+    width: 900,
     height: 700,
     isShortcut: true,
     onSocialLinkClick: undefined, // Will be set dynamically
