@@ -664,3 +664,32 @@ button.active.image-gallery-icon.image-gallery-left-nav {
 .skills-trigger:hover {
   background: linear-gradient(to right, white, #b3c6dd) !important;
 }
+
+/* Modern Button - Disables XP.css specific effects */
+.modern-button {
+  /* Disable XP.css box shadows and outlines */
+  box-shadow: none !important;
+  text-shadow: none !important;
+  outline: none !important;
+}
+
+.modern-button:hover {
+  /* Disable XP.css hover effects */
+  box-shadow: none !important;
+  text-shadow: none !important;
+  outline: none !important;
+}
+
+.modern-button:focus {
+  /* Disable XP.css focus effects */
+  box-shadow: none !important;
+  text-shadow: none !important;
+  outline: none !important;
+}
+
+.modern-button:active {
+  /* Disable XP.css active effects */
+  box-shadow: none !important;
+  text-shadow: none !important;
+  outline: none !important;
+}

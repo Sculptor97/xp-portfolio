@@ -62,7 +62,6 @@
 }
 
 .xp-window-nav-item:focus {
-  outline: 2px solid #4a9eff;
   outline-offset: 1px;
 }
 

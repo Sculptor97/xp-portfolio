@@ -36,7 +36,7 @@ const StartButton = ({
   onClick: () => void;
 }) => (
   <button
-    className={cn('start-button', { 'is-active': active })}
+    className={cn('start-button modern-button', { 'is-active': active })}
     style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
     onClick={onClick}
   >
