@@ -42,6 +42,13 @@ export interface XPWindowHeaderProps {
   // Navigation items specific to the component
   children?: React.ReactNode;
 
+  // Navigation callbacks
+  onBackClick?: () => void;
+  onForwardClick?: () => void;
+  onUpClick?: () => void;
+  canGoBack?: boolean;
+  canGoForward?: boolean;
+
   // Styling
   className?: string;
 }
@@ -193,7 +200,20 @@ const XPWindowHeaderMenuBar: React.FC<{
 const XPWindowHeaderNavigation: React.FC<{
   children?: React.ReactNode;
   className?: string;
-}> = ({ children, className }) => {
+  onBackClick?: () => void;
+  onForwardClick?: () => void;
+  onUpClick?: () => void;
+  canGoBack?: boolean;
+  canGoForward?: boolean;
+}> = ({
+  children,
+  className,
+  onBackClick,
+  onForwardClick,
+  onUpClick,
+  canGoBack,
+  canGoForward,
+}) => {
   const defaultNavItems = [
     {
       icon: '/assets/back.webp',
@@ -201,18 +221,22 @@ const XPWindowHeaderNavigation: React.FC<{
       variant: 'primary' as const,
       showDropdown: true,
       priority: 'high' as const,
+      onClick: onBackClick,
+      disabled: !canGoBack,
     },
     {
       icon: '/assets/forward.webp',
       label: 'Forward',
-      disabled: true,
       priority: 'high' as const,
+      onClick: onForwardClick,
+      disabled: !canGoForward,
     },
     {
       icon: '/assets/up.webp',
       label: 'Up',
       variant: 'secondary' as const,
       priority: 'high' as const,
+      onClick: onUpClick,
     },
     {
       icon: '/assets/copy.webp',
@@ -362,7 +386,18 @@ const XPWindowHeader: React.FC<XPWindowHeaderProps> & {
   Navigation: typeof XPWindowHeaderNavigation;
   AddressBar: typeof XPWindowHeaderAddressBar;
   NavItem: typeof XPWindowHeaderNavItem;
-} = ({ icon, loading = false, address, children, className }) => {
+} = ({
+  icon,
+  loading = false,
+  address,
+  children,
+  className,
+  onBackClick,
+  onForwardClick,
+  onUpClick,
+  canGoBack,
+  canGoForward,
+}) => {
   return (
     <div
       className={cn(
@@ -371,7 +406,15 @@ const XPWindowHeader: React.FC<XPWindowHeaderProps> & {
       )}
     >
       <XPWindowHeaderMenuBar />
-      <XPWindowHeaderNavigation>{children}</XPWindowHeaderNavigation>
+      <XPWindowHeaderNavigation
+        onBackClick={onBackClick}
+        onForwardClick={onForwardClick}
+        onUpClick={onUpClick}
+        canGoBack={canGoBack}
+        canGoForward={canGoForward}
+      >
+        {children}
+      </XPWindowHeaderNavigation>
       <XPWindowHeaderAddressBar
         icon={icon}
         address={address}

@@ -83,6 +83,10 @@
   /*brand colors*/
   --brand-primary: #002490;
   --brand-accent: #0f61cb;
+
+  --crt-scanline-opacity: 0.15;
+  --crt-scanline-width: 1px;
+  --crt-scanline-gap: 2px;
 }
 
 .dark {
@@ -139,41 +143,47 @@
   }
 
   /* ---- Global XP Grid Overlay ---- */
+  /* file: styles/xp-grid-overlay.css */
   #xp-grid-overlay {
     position: fixed;
     inset: 0;
     z-index: 9999;
     pointer-events: none;
-    backdrop-filter: blur(3px);
-    mix-blend-mode: normal;
-    opacity: 0.3 !important;
+    /* backdrop-filter: blur(3px); */
+    mix-blend-mode: multiply;
+    opacity: 0.7 !important;
+
+    /* both CRT scanline directions merged into one background stack */
     background:
+    /* horizontal scanlines */
       repeating-linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.3) 0px,
-        rgba(0, 0, 0, 0.3) 1px,
-        transparent 2px,
-        transparent 3px
+        0deg,
+        rgba(0, 0, 0, var(--crt-scanline-opacity)) 0,
+        rgba(0, 0, 0, var(--crt-scanline-opacity)) var(--crt-scanline-width),
+        transparent var(--crt-scanline-width),
+        transparent calc(var(--crt-scanline-width) + var(--crt-scanline-gap))
       ),
-      repeating-linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.3) 0px,
-        rgba(0, 0, 0, 0.3) 1px,
-        transparent 2px,
-        transparent 3px
-      );
-    background-size: 8px 8px;
+      /* vertical scanlines */
+        repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, calc(var(--crt-scanline-opacity) * 0.7)) 0,
+          rgba(0, 0, 0, calc(var(--crt-scanline-opacity) * 0.7))
+            var(--crt-scanline-width),
+          transparent var(--crt-scanline-width),
+          transparent calc(var(--crt-scanline-width) + var(--crt-scanline-gap))
+        );
+
     transition: background-position 0.2s ease-out;
     will-change: background-position;
+    animation: glowPulse 8s ease-in-out infinite;
   }
 
-  /* Scanning line */
+  /* moving scanline overlay */
   #xp-grid-overlay::after {
     content: '';
     position: absolute;
-    top: -10%;
-    left: 0;
-    right: 0;
+    inset: 0;
+    top: -15%;
     height: 1%;
     background: linear-gradient(
       to bottom,
@@ -182,19 +192,11 @@
       rgba(255, 255, 255, 0) 100%
     );
     filter: blur(4px);
+    mix-blend-mode: screen;
     animation: crt-scan 8s linear infinite;
   }
 
-  /* Scanline animation */
-  @keyframes crt-scan {
-    0% {
-      top: -15%;
-    }
-    100% {
-      top: 100%;
-    }
-  }
-
+  /* subtle breathing glow */
   @keyframes glowPulse {
     0%,
     100% {
@@ -204,8 +206,15 @@
       opacity: 0.35;
     }
   }
-  #xp-grid-overlay {
-    animation: glowPulse 8s ease-in-out infinite;
+
+  /* vertical scanning movement */
+  @keyframes crt-scan {
+    0% {
+      top: -15%;
+    }
+    100% {
+      top: 100%;
+    }
   }
 
   .xp-window .title-bar {
