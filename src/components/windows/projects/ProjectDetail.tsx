@@ -1,106 +1,19 @@
 import React, { useEffect } from 'react';
 import { useProject } from '@/services/portfolioQueries';
-import ImageGalleryComponent from '@/components/ImageGallery';
-import { CheckCircle2 } from 'lucide-react';
+import ImageGallery from 'react-image-gallery';
+import {
+  CheckCircle2,
+  AlertTriangle,
+  ExternalLink,
+  Github,
+} from 'lucide-react';
 import type { ProjectDetailProps } from './types';
-import type { UnsplashImage } from '@/lib/api/types/unsplash';
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({
   projectId,
   onLoadingChange,
 }) => {
   const { data: project, isLoading, error } = useProject(projectId);
-
-  // Transform project gallery images to UnsplashImage format
-  const transformProjectImages = (
-    images: string[],
-    projectTitle: string
-  ): UnsplashImage[] => {
-    return images.map((image, index) => ({
-      id: `project-${projectId}-${index}`,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      width: 1920,
-      height: 1080,
-      color: '#000000',
-      blur_hash: 'L00000fQfQfQfQfQfQfQfQfQfQfQ',
-      description: `${projectTitle} - Screenshot ${index + 1}`,
-      alt_description: `${projectTitle} screenshot ${index + 1}`,
-      urls: {
-        raw: image,
-        full: image,
-        regular: image,
-        small: image,
-        thumb: image,
-        small_s3: image,
-      },
-      links: {
-        self: '#',
-        html: '#',
-        download: image,
-        download_location: '#',
-      },
-      user: {
-        id: 'project-gallery',
-        updated_at: new Date().toISOString(),
-        username: 'project-gallery',
-        name: 'Project Gallery',
-        first_name: 'Project',
-        last_name: 'Gallery',
-        twitter_username: null,
-        portfolio_url: null,
-        bio: null,
-        location: null,
-        links: {
-          self: '#',
-          html: '#',
-          photos: '#',
-          likes: '#',
-          portfolio: '#',
-          following: '#',
-          followers: '#',
-        },
-        profile_image: {
-          small: image,
-          medium: image,
-          large: image,
-        },
-        instagram_username: null,
-        total_collections: 0,
-        total_likes: 0,
-        total_photos: images.length,
-        accepted_tos: true,
-        for_hire: false,
-        social: {
-          instagram_username: null,
-          portfolio_url: null,
-          twitter_username: null,
-          paypal_email: null,
-        },
-      },
-      exif: {
-        make: null,
-        model: null,
-        name: null,
-        exposure_time: null,
-        aperture: null,
-        focal_length: null,
-        iso: null,
-      },
-      location: {
-        name: null,
-        city: null,
-        country: null,
-        position: {
-          latitude: null,
-          longitude: null,
-        },
-      },
-      views: 0,
-      downloads: 0,
-      likes: 0,
-    }));
-  };
 
   // Notify parent about loading state changes
   useEffect(() => {
@@ -147,19 +60,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
       <div className="h-full overflow-y-auto">
         <div className="p-6 text-center">
           <div className="text-red-600 dark:text-red-400 mb-4">
-            <svg
-              className="w-12 h-12 mx-auto mb-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-              />
-            </svg>
+            <AlertTriangle className="w-12 h-12 mx-auto mb-2" />
             <p className="text-lg font-semibold">Failed to load project</p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Please try again later
@@ -210,19 +111,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
               >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
+                <ExternalLink className="w-4 h-4" />
                 View Live Demo
               </a>
             )}
@@ -234,17 +123,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg transition-colors"
               >
-                <svg
-                  className="w-4 h-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <Github className="w-4 h-4" />
                 View Source Code
               </a>
             )}
@@ -259,17 +138,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
               )}
               {project.isPublicRepo && (
                 <span className="flex items-center gap-1">
-                  <svg
-                    className="w-4 h-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <Github className="w-4 h-4" />
                   Public Repository
                 </span>
               )}
@@ -359,14 +228,24 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                 Gallery
               </h2>
-              <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
-                <ImageGalleryComponent
-                  images={transformProjectImages(
-                    project.gallery,
-                    project.title
-                  )}
-                  isLoading={false}
-                  error={null}
+              <div className="md:h-[500px] h-auto bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                <ImageGallery
+                  items={project.gallery.map((image, index) => ({
+                    original: image,
+                    thumbnail: image,
+                    originalAlt: `${project.title} - Screenshot ${index + 1}`,
+                    thumbnailAlt: `${project.title} - Screenshot ${index + 1}`,
+                  }))}
+                  showThumbnails={true}
+                  showFullscreenButton={false}
+                  showPlayButton={false}
+                  showBullets={false}
+                  showNav={true}
+                  autoPlay={false}
+                  slideInterval={3000}
+                  slideDuration={450}
+                  thumbnailPosition="bottom"
+                  useBrowserFullscreen={false}
                 />
               </div>
             </section>

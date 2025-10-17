@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projects</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/react-image-gallery@1.3.0/styles/css/image-gallery.css"
+    />
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -145,6 +149,45 @@
 
       .dark ::-webkit-scrollbar-thumb:hover {
         background: #9ca3af;
+      }
+
+      /* Image Gallery Custom Styles */
+      .image-gallery {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      .image-gallery-content {
+        flex: 1 !important;
+        margin-bottom: 8px !important; /* Add space between image and thumbnails */
+      }
+
+      .image-gallery-thumbnails-wrapper {
+        height: 80px !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .image-gallery-thumbnails {
+        height: 80px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .image-gallery-thumbnail {
+        height: 80px !important;
+        width: auto !important;
+        border-radius: 4px !important;
+        margin-right: 8px !important;
+      }
+
+      .image-gallery-thumbnail img {
+        height: 80px !important;
+        width: auto !important;
+        object-fit: cover !important;
       }
     </style>
   </head>

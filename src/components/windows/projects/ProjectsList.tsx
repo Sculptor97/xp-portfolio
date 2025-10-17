@@ -7,7 +7,16 @@ import {
   type ProjectSortOptions,
 } from '@/services/portfolioQueryUtils';
 import { Input } from '@/components/ui/input';
-import { Linkedin, Facebook, Twitter, Github, FolderOpen } from 'lucide-react';
+import {
+  Linkedin,
+  Facebook,
+  Twitter,
+  Github,
+  FolderOpen,
+  Search,
+  AlertTriangle,
+  Archive,
+} from 'lucide-react';
 import type { ProjectsListProps } from './types';
 import ProjectCard from './ProjectCard';
 
@@ -133,19 +142,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({
     return (
       <div className="p-6 text-center">
         <div className="text-red-600 dark:text-red-400 mb-4">
-          <svg
-            className="w-12 h-12 mx-auto mb-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-            />
-          </svg>
+          <AlertTriangle className="w-12 h-12 mx-auto mb-2" />
           <p className="text-lg font-semibold">Failed to load projects</p>
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Please try again later
@@ -232,7 +229,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* STICKY HEADER - does not scroll */}
         <div className="flex-shrink-0 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-          <div className="p-6 pb-4">
+          <div className="p-4 md:p-6">
             {/* Title + Social Icons */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
@@ -265,33 +262,21 @@ const ProjectsList: React.FC<ProjectsListProps> = ({
             </div>
 
             {/* Search Bar */}
-            <div className="mb-4">
+            <div className="mb-4 hidden md:block">
               <div className="relative">
                 <Input
                   type="text"
                   placeholder="Search projects..."
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 text-gray-900 dark:text-white"
                 />
-                <svg
-                  className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
+                <Search className="absolute left-3 top-2.5 w-5 h-5 text-gray-400" />
               </div>
             </div>
 
             {/* Tech Pills - horizontal scroll */}
-            <div className="flex gap-2 overflow-x-auto pb-2">
+            <div className="hidden md:flex gap-2 overflow-x-auto pb-2">
               {uniqueTechnologies.slice(0, 8).map(tech => (
                 <div
                   key={tech}
@@ -315,7 +300,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({
         </div>
 
         {/* SCROLLABLE PROJECT GRID */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto pt-0 px-4 pb-4 md:p-6">
           {/* Project count */}
           <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
             {isLoading
@@ -341,19 +326,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({
             </div>
           ) : filteredProjects.length === 0 ? (
             <div className="text-center py-12">
-              <svg
-                className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                />
-              </svg>
+              <Archive className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                 No projects found
               </h3>
