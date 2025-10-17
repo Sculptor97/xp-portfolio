@@ -57,7 +57,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 
   if (error) {
     return (
-      <div className="h-full overflow-y-auto">
+      <div className="h-full overflow-y-auto flex items-center justify-center">
         <div className="p-6 text-center">
           <div className="text-red-600 dark:text-red-400 mb-4">
             <AlertTriangle className="w-12 h-12 mx-auto mb-2" />
@@ -73,7 +73,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 
   if (!project) {
     return (
-      <div className="h-full overflow-y-auto">
+      <div className="h-full overflow-y-auto flex items-center justify-center">
         <div className="p-6 text-center">
           <p className="text-gray-600 dark:text-gray-400">Project not found</p>
         </div>

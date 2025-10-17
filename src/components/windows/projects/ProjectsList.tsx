@@ -140,7 +140,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({
 
   if (error) {
     return (
-      <div className="p-6 text-center">
+      <div className="p-6 text-center h-full flex items-center justify-center">
         <div className="text-red-600 dark:text-red-400 mb-4">
           <AlertTriangle className="w-12 h-12 mx-auto mb-2" />
           <p className="text-lg font-semibold">Failed to load projects</p>
