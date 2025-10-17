@@ -28,8 +28,8 @@
 .start-section {
   min-width: 110px;
   max-width: 80px;
+  margin-right: -2px;
   justify-content: center;
-  border-right: 2px solid #1c52a0;
 }
 
 /* Window Tabs Section */
@@ -60,7 +60,7 @@
 .start-button {
   background: linear-gradient(to top, #249e15, #57c04a);
   border: 1px solid #1a8a0e;
-  border-radius: 4px;
+  border-radius: 2px;
   color: white;
   font-family: 'Tahoma', sans-serif;
   font-weight: bold;
